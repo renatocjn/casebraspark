@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listagem de Locais</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descrição</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @placements.each do |placement| %>
+      <tr>
+        <td><%= placement.description %></td>
+        <td><%= link_to 'Detalhes', placement %></td>
+        <td><%= link_to 'Editar', edit_placement_path(placement) %></td>
+        <td><%= link_to 'Excluir', placement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Cadastrar novo local', new_placement_path %>

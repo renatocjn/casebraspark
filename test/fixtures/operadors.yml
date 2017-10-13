@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  login: MyString
+  email: MyString
+  password_digest: MyString
+  podeComprar: false
+  podeAlocar: false
+
+two:
+  nome: MyString
+  login: MyString
+  email: MyString
+  password_digest: MyString
+  podeComprar: false
+  podeAlocar: false

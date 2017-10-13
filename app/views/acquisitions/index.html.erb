@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listagem de Aquisições</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Motivo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @acquisitions.each do |acquisition| %>
+      <tr>
+        <td><%= acquisition.reason %></td>
+        <td><%= link_to 'Detalhes', acquisition %></td>
+        <td><%= link_to 'Editar', edit_acquisition_path(acquisition) %></td>
+        <td><%= link_to 'Excluir', acquisition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Criar Nova Aquisição', new_acquisition_path %>

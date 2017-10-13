@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @operator.name %>
+</p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @operator.login %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @operator.email %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @operator.password_digest %>
+</p>
+
+<p>
+  <strong>Canalocate:</strong>
+  <%= @operator.canAlocate %>
+</p>
+
+<p>
+  <strong>Canbuy:</strong>
+  <%= @operator.canBuy %>
+</p>
+
+<%= link_to 'Edit', edit_operator_path(@operator) %> |
+<%= link_to 'Back', operators_path %>

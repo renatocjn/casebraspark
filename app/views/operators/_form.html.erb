@@ -1,0 +1,45 @@
+<%= form_for(@operator) do |f| %>
+  <% if @operator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@operator.errors.count, "error") %> prohibited this operator from being saved:</h2>
+
+      <ul>
+      <% @operator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Nome completo do operador:" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label "Login:" %><br>
+    <%= f.text_field :login %>
+  </div>
+  <div class="field">
+    <%= f.label "Endereço de e-mail:" %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label "Senha:" %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label "Confirmação da senha:" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label "Este usuário pode alocar?" %><br>
+    <%= f.check_box :canAlocate %>
+  </div>
+  <div class="field">
+    <%= f.label "Este usuário pode fazer aquisições?" %><br>
+    <%= f.check_box :canBuy %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @acquisition.reason %>
+</p>
+
+<%= link_to 'Editar', edit_acquisition_path(@acquisition) %> |
+<%= link_to 'Voltar', acquisitions_path %>

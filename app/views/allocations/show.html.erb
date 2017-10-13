@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @allocation.reason %>
+</p>
+
+<%= link_to 'Editar', edit_allocation_path(@allocation) %> |
+<%= link_to 'Voltar', allocations_path %>

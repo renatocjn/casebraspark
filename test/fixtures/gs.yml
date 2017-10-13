@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  acquisition: MyString
+  reason: MyText
+
+two:
+  acquisition: MyString
+  reason: MyText
