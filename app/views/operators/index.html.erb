@@ -6,9 +6,7 @@
   <thead>
     <tr>
       <th>Nome</th>
-      <th>Login</th>
       <th>E-mail</th>
-      <th>Password digest</th>
       <th>Pode Alocar?</th>
       <th>Pode Comprar?</th>
       <th colspan="3"></th>
@@ -19,9 +17,7 @@
     <% @operators.each do |operator| %>
       <tr>
         <td><%= operator.name %></td>
-        <td><%= operator.login %></td>
         <td><%= operator.email %></td>
-        <td><%= operator.password_digest %></td>
         <td><%= operator.canAlocate %></td>
         <td><%= operator.canBuy %></td>
         <td><%= link_to 'Detalhes', operator %></td>

@@ -1,29 +1,11 @@
-<%= form_for(@item) do |f| %>
-  <% if @item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<%= simple_form_for(@item) do |f| %>
 
-      <ul>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.error_notification %>
 
-  <div class="field">
-    <%= f.label :shortDescription %><br>
-    <%= f.text_field :shortDescription %>
-  </div>
-  <div class="field">
-    <%= f.label :longDescription %><br>
-    <%= f.text_area :longDescription %>
-  </div>
-  <div class="field">
-    <%= f.label :value %><br>
-    <%= f.text_field :value %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :shortDescription, label: "Descrição curta:" %>
+  <%= f.input :longDescription, label: "Descrição longa:" %>
+  <%= f.input :value, label: "Valor do item:"%>
+
+  <%= f.submit "Salvar" %>
+
 <% end %>

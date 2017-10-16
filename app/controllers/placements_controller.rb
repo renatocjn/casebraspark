@@ -57,7 +57,7 @@ class PlacementsController < ApplicationController
   def destroy
     @placement.destroy
     respond_to do |format|
-      format.html { redirect_to placements_url, notice: 'Placement was successfully destroyed.' }
+      format.html { redirect_to placements_url, notice: 'O registro do local foi excluido com sucesso.' }
       format.json { head :no_content }
     end
   end

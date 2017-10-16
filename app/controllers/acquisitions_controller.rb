@@ -28,7 +28,7 @@ class AcquisitionsController < ApplicationController
 
     respond_to do |format|
       if @acquisition.save
-        format.html { redirect_to @acquisition, notice: 'Acquisition was successfully created.' }
+        format.html { redirect_to @acquisition, notice: 'Aquisição registrada com sucesso.' }
         format.json { render :show, status: :created, location: @acquisition }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class AcquisitionsController < ApplicationController
   def update
     respond_to do |format|
       if @acquisition.update(acquisition_params)
-        format.html { redirect_to @acquisition, notice: 'Acquisition was successfully updated.' }
+        format.html { redirect_to @acquisition, notice: 'Informações atualizadas.' }
         format.json { render :show, status: :ok, location: @acquisition }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class AcquisitionsController < ApplicationController
   def destroy
     @acquisition.destroy
     respond_to do |format|
-      format.html { redirect_to acquisitions_url, notice: 'Acquisition was successfully destroyed.' }
+      format.html { redirect_to acquisitions_url, notice: 'O registro da aquisição foi excluído.' }
       format.json { head :no_content }
     end
   end

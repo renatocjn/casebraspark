@@ -1,21 +1,7 @@
-<%= form_for(@placement) do |f| %>
-  <% if @placement.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@placement.errors.count, "error") %> prohibited this placement from being saved:</h2>
+<%= simple_form_for(@placement) do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @placement.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.input :description, label: "favor descreva este local:", error: "É necessário apresentar uma descrição do local."%>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit "Salvar" %>
 <% end %>

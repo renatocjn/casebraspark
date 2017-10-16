@@ -10,13 +10,14 @@
 
 <div id="opInfo">
   <% if (session[:user_id]) then %>
-    Usuário logado: <%= current_user.name %>
+    <div> Usuário logado: <%= current_user.name %> </div>
+    <div> <%= link_to "Voltar para a tela inicial", :root %> </div>
+    <div> <%= link_to "Log off", logout_path() %> </div>
   <% end %>
+
 </div>
 
 <%= yield %>
 
-<%= link_to "Voltar", controller: "welcome" %>
-<%= link_to "Log off", logout_path() %>
 </body>
 </html>

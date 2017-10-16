@@ -1,9 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Reason:</strong>
+  <strong>Motivo:</strong>
   <%= @allocation.reason %>
 </p>
+
+<p>
+  <strong>Local de Alocação:</strong>
+  <%= @allocation.placement.description %>
+</p>
+
+
+<% @allocation.items.each do |item| %>
+  <div class="nested-items">
+    <p>
+      <strong>descrição curta:</strong>
+      <%= item.shortDescription %>
+    </p>
+    <p>
+      <strong>descrição longa:</strong>
+      <%= item.longDescription %>
+    </p>
+    <p>
+      <strong>valor:</strong>
+      <%= item.value %>
+    </p>
+  </div>
+<% end %>
 
 <%= link_to 'Editar', edit_allocation_path(@allocation) %> |
 <%= link_to 'Voltar', allocations_path %>

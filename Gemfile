@@ -48,3 +48,15 @@ end
 
 # Added at 2017-10-13 12:45:13 +0000 by ubuntu:
 gem "bcrypt", "~> 3.1"
+
+# Added at 2017-10-13 20:02:25 +0000 by ubuntu:
+gem "simple_form", "~> 3.5"
+
+# Added at 2017-10-13 20:02:50 +0000 by ubuntu:
+gem "twitter-bootstrap-rails", "~> 3.2"
+
+# Added at 2017-10-13 20:03:10 +0000 by ubuntu:
+gem "cocoon", "~> 1.2"
+
+# Added at 2017-10-16 19:39:00 +0000 by ubuntu:
+gem "bootstrap", "~> 4.0.beta"

@@ -1,7 +1,7 @@
 class AllocationsController < ApplicationController
   before_action :set_allocation, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
-  
+
   # GET /allocations
   # GET /allocations.json
   def index
@@ -16,6 +16,7 @@ class AllocationsController < ApplicationController
   # GET /allocations/new
   def new
     @allocation = Allocation.new
+    @allocation.operator = current_user
   end
 
   # GET /allocations/1/edit
@@ -43,7 +44,7 @@ class AllocationsController < ApplicationController
   def update
     respond_to do |format|
       if @allocation.update(allocation_params)
-        format.html { redirect_to @allocation, notice: 'Allocation was successfully updated.' }
+        format.html { redirect_to @allocation, notice: 'Registro de alocação registrado com sucesso.' }
         format.json { render :show, status: :ok, location: @allocation }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class AllocationsController < ApplicationController
   def destroy
     @allocation.destroy
     respond_to do |format|
-      format.html { redirect_to allocations_url, notice: 'Allocation was successfully destroyed.' }
+      format.html { redirect_to allocations_url, notice: 'Alocação excluída.' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +71,7 @@ class AllocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allocation_params
-      params.require(:allocation).permit(:reason)
+      params.require(:allocation).permit(:reason, :operator, :placement_id,
+      :items_attributes => [:id, :shortDescription, :longDescription, :value, :_destroy])
     end
 end

@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th>Motivo</th>
+      <th>Local alocado</th>
+      <th>Numero de itens</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +16,8 @@
     <% @allocations.each do |allocation| %>
       <tr>
         <td><%= allocation.reason %></td>
+        <td><%= allocation.placement.description %></td>
+        <td><%= allocation.items.count %></td>
         <td><%= link_to 'Detalhes', allocation %></td>
         <td><%= link_to 'Editar', edit_allocation_path(allocation) %></td>
         <td><%= link_to 'Excluir', allocation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
