@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Descrição</th>
+      <th>Numero de items</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,9 +15,10 @@
     <% @placements.each do |placement| %>
       <tr>
         <td><%= placement.description %></td>
+        <td><%= placement.items.count %></td>
         <td><%= link_to 'Detalhes', placement %></td>
         <td><%= link_to 'Editar', edit_placement_path(placement) %></td>
-        <td><%= link_to 'Excluir', placement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Excluir', placement, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
       </tr>
     <% end %>
   </tbody>

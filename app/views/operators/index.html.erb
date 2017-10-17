@@ -9,6 +9,7 @@
       <th>E-mail</th>
       <th>Pode Alocar?</th>
       <th>Pode Comprar?</th>
+      <th>Administrador?</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,9 +21,10 @@
         <td><%= operator.email %></td>
         <td><%= operator.canAlocate %></td>
         <td><%= operator.canBuy %></td>
+        <td><%= operator.isAdmin %></td>
         <td><%= link_to 'Detalhes', operator %></td>
         <td><%= link_to 'Editar', edit_operator_path(operator) %></td>
-        <td><%= link_to 'Excluir', operator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Excluir', operator, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
       </tr>
     <% end %>
   </tbody>

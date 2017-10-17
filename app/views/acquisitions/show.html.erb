@@ -1,9 +1,45 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Reason:</strong>
+  <strong>Motivo da compra:</strong>
   <%= @acquisition.reason %>
 </p>
+
+<p>
+  <strong>Fornecedor:</strong>
+  <%= @acquisition.supplier %>
+</p>
+
+<p>
+  <strong>Valor Total:</strong>
+  <%= @acquisition.totalValue %>
+</p>
+
+<p>
+  <strong>Local de alocação:</strong>
+  <%= @acquisition.allocation ? @acquisition.allocation.placement.description : "Alocação não encontrada" %>
+</p>
+
+<p>
+  <strong>Operador responsável:</strong>
+  <%= @acquisition.operator.name %>
+</p>
+
+<% if @acquisition.items.any? %>
+<p>
+  <strong>Items:</strong>
+  <% @acquisition.items.each do |item| %>
+    <p>
+    <strong>Descrição rápida:</strong>
+    <%= item.shortDescription %>
+    <strong>Descrição longa:</strong>
+    <%= item.longDescription %>
+    <strong>Valor:</strong>
+    <%= item.value %>
+    </p>
+  <% end %>
+</p>
+<% end %>
 
 <%= link_to 'Editar', edit_acquisition_path(@acquisition) %> |
 <%= link_to 'Voltar', acquisitions_path %>

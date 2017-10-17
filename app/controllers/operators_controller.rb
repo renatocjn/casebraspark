@@ -1,7 +1,7 @@
 class OperatorsController < ApplicationController
   before_action :set_operator, only: [:show, :edit, :update, :destroy]
   before_filter :authorize, :except => [:new, :create]
-  
+
   # GET /operators
   # GET /operators.json
   def index
@@ -29,7 +29,7 @@ class OperatorsController < ApplicationController
       if @operator.save
         session[:user_id] = @operator.id
       end
-      
+
     respond_to do |format|
       if @operator.save
         format.html { redirect_to @operator, notice: 'Operador criado com sucesso.' }
@@ -40,8 +40,8 @@ class OperatorsController < ApplicationController
       end
     end
   end
-  
- 
+
+
 
   # PATCH/PUT /operators/1
   # PATCH/PUT /operators/1.json
@@ -75,6 +75,6 @@ class OperatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def operator_params
-      params.require(:operator).permit(:name, :login, :email, :password, :password_confirmation, :canAlocate, :canBuy)
+      params.require(:operator).permit(:name, :login, :email, :password, :password_confirmation, :canAlocate, :canBuy, :isAdmin)
     end
 end

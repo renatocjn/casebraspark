@@ -1,21 +1,25 @@
-<%= form_for(@acquisition) do |f| %>
-  <% if @acquisition.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@acquisition.errors.count, "error") %> prohibited this acquisition from being saved:</h2>
+<%= simple_form_for @acquisition do |af| %>
 
-      <ul>
-      <% @acquisition.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= af.error_notification %>
+
+  <%= af.input :reason, label: "Motivo desta compra:" %>
+
+  <%= af.input :supplier, label: "Fornecedor:" %>
+
+  <div id='allocation'>
+  <%= af.simple_fields_for :allocation do |f| %>
+    <%# f.input :reason, label: "Motivo da alocação:" %>
+    <%= f.association :placement, label_method: :description, value_method: :id, label: "Local de alocação:" %>
+
+    <div class="items">
+    <%= f.simple_fields_for :items do |i| %>
+      <%= render "allocations/item_fields", :f => i %>
+      <%= link_to_add_association 'Adicionar item', f, :items, partial: "allocations/item_fields" %>
+    <% end %>
     </div>
-  <% end %>
+  </div>
 
-  <div class="field">
-    <%= f.label :reason %><br>
-    <%= f.text_area :reason %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% end %>
+  <%= af.submit "Salvar" %>
+
 <% end %>

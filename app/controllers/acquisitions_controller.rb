@@ -15,6 +15,7 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions/new
   def new
     @acquisition = Acquisition.new
+    @acquisition.build_allocation.items.build
   end
 
   # GET /acquisitions/1/edit
@@ -25,6 +26,9 @@ class AcquisitionsController < ApplicationController
   # POST /acquisitions.json
   def create
     @acquisition = Acquisition.new(acquisition_params)
+    @acquisition.operator = current_user
+    @acquisition.allocation.operator = current_user
+    @acquisition.allocation.reason = @acquisition.reason
 
     respond_to do |format|
       if @acquisition.save
@@ -69,6 +73,8 @@ class AcquisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
-      params.require(:acquisition).permit(:reason)
+      params.require(:acquisition).permit(:reason, :supplier,
+      :allocation_attributes => [ :reason, :operator, :placement_id,
+      :items_attributes => [:id, :shortDescription, :longDescription, :value, :_destroy]])
     end
 end

@@ -11,18 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014115258) do
+ActiveRecord::Schema.define(version: 20171017135346) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.text     "reason"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "supplier"
-    t.integer  "allocation_id"
     t.integer  "operator_id"
   end
 
-  add_index "acquisitions", ["allocation_id"], name: "index_acquisitions_on_allocation_id"
   add_index "acquisitions", ["operator_id"], name: "index_acquisitions_on_operator_id"
 
   create_table "allocations", force: :cascade do |t|
@@ -54,15 +52,8 @@ ActiveRecord::Schema.define(version: 20171014115258) do
     t.datetime "updated_at",       null: false
   end
 
-  create_table "operators", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.boolean  "canAlocate"
-    t.boolean  "canBuy"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
+# Could not dump table "operators" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "placements", force: :cascade do |t|
     t.text     "description"

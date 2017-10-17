@@ -4,4 +4,5 @@ class Placement < ActiveRecord::Base
     validates :description, presence: :true
 
     has_many :allocations
+    has_many :items, through: :allocations
 end

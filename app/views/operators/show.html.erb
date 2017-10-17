@@ -1,34 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Nome do operador:</strong>
   <%= @operator.name %>
 </p>
 
 <p>
-  <strong>Login:</strong>
-  <%= @operator.login %>
-</p>
-
-<p>
-  <strong>Email:</strong>
+  <strong>E-mail:</strong>
   <%= @operator.email %>
 </p>
 
 <p>
-  <strong>Password digest:</strong>
-  <%= @operator.password_digest %>
-</p>
-
-<p>
-  <strong>Canalocate:</strong>
+  <strong>Pode Alocar?</strong>
   <%= @operator.canAlocate %>
 </p>
 
 <p>
-  <strong>Canbuy:</strong>
+  <strong>Pode Comprar?</strong>
   <%= @operator.canBuy %>
 </p>
+<p>
+  <strong>Administrador?</strong>
+  <%= @operator.isAdmin %>
+</p>
 
-<%= link_to 'Edit', edit_operator_path(@operator) %> |
-<%= link_to 'Back', operators_path %>
+<%= link_to 'Editar', edit_operator_path(@operator) %> |
+<%= link_to 'Voltar', operators_path %>

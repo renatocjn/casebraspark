@@ -1,9 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Descrição:</strong>
   <%= @placement.description %>
 </p>
+
+<% if @placement.items.any? %>
+<h3>Items alocados neste local</h3>
+<table>
+  <tr>
+    <th>Descrição curta</th>
+    <th>Descrição Longa</th>
+    <th>Valor(R$)</th>
+  </tr>
+<% @placement.items.each do |item| %>
+  <tr>
+    <td> <%= item.shortDescription %> </td>
+    <td> <%= item.longDescription %> </td>
+    <td> <%= item.value %> </td>
+  </tr>
+<% end %>
+</table>
+<% end %>
 
 <%= link_to 'Editar', edit_placement_path(@placement) %> |
 <%= link_to 'Voltar', placements_path %>
