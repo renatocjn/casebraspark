@@ -17,26 +17,36 @@
 
 <p>
   <strong>Local de alocação:</strong>
-  <%= @acquisition.allocation ? @acquisition.allocation.placement.description : "Alocação não encontrada" %>
+  <%= link_to @acquisition.allocation.placement.to_s, placement_path(@acquisition.allocation.placement) %>
 </p>
 
 <p>
   <strong>Operador responsável:</strong>
-  <%= @acquisition.operator.name %>
+  <%= link_to @acquisition.operator.name, operator_path(@acquisition.operator) %>
 </p>
 
 <% if @acquisition.items.any? %>
 <p>
   <strong>Items:</strong>
   <% @acquisition.items.each do |item| %>
-    <p>
-    <strong>Descrição rápida:</strong>
-    <%= item.shortDescription %>
-    <strong>Descrição longa:</strong>
-    <%= item.longDescription %>
-    <strong>Valor:</strong>
-    <%= item.value %>
-    </p>
+    <table>
+      <tr>
+        <th>Plaqueta</th>
+        <th>Tipo</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Número de serie</th>
+        <th>Valor</th>
+      </tr>
+      <tr>
+        <td><%= link_to item.plate, item_path(item) %></td>
+        <td><%= item.item_type.name %></td>
+        <td><%= item.brand %></td>
+        <td><%= item.model %></td>
+        <td><%= item.serial %></td>
+        <td><%= item.value %></td>
+      </tr>
+    </table>
   <% end %>
 </p>
 <% end %>

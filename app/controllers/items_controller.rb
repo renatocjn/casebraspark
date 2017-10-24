@@ -1,11 +1,13 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
+  before_filter :apenasAdmin, only: [:index, :destroy]
+  before_filter :admin_or_mine, except: [:index, :destroy]
 
   # GET /items
   # GET /items.json
   def index
-    @items = Item.include(:allocations)
+    @items = Item.all
   end
 
   # GET /items/1
@@ -66,10 +68,20 @@ class ItemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @item = Item.where("plate = ?", params[:id]).first
+      logger.debug "Busca por placa: #{@item.inspect}"
+      raise ActiveRecord::RecordNotFound unless @item
+    end
+
+    def admin_or_mine
+      unless current_user.isAdmin or @item.allocations.order('created_at DESC').first.operator == current_user
+        redirect_to :root, notice: "Voce não tem permissão para acessar esta página!"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:shortDescription, :longDescription, :value)
+      params.require(:item).permit(:plate, :item_type_id, :brand, :model, :serial, :value, :isDischarged, :dischargeDescription)
     end
 end

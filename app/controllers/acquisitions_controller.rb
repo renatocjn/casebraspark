@@ -1,10 +1,18 @@
 class AcquisitionsController < ApplicationController
   before_action :set_acquisition, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize
+  before_filter :podeComprar
+  before_filter :admin_or_mine, except: [:index, :new, :create]
+
 
   # GET /acquisitions
   # GET /acquisitions.json
   def index
-    @acquisitions = Acquisition.all
+    if current_user.isAdmin
+      @acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*')
+    else
+      @acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*').where('allocations.operator_id = ?', current_user)
+    end
   end
 
   # GET /acquisitions/1
@@ -74,7 +82,11 @@ class AcquisitionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
       params.require(:acquisition).permit(:reason, :supplier,
-      :allocation_attributes => [ :reason, :operator, :placement_id,
-      :items_attributes => [:id, :shortDescription, :longDescription, :value, :_destroy]])
+        :allocation_attributes => [ :reason, :operator, :placement_id,
+          :items_attributes => [:plate, :item_type_id, :brand, :model, :serial, :value, :_destroy]])
+    end
+
+    def admin_or_mine
+      redirect_to :root unless current_user.isAdmin or @acquisition.operator == current_user
     end
 end

@@ -7,24 +7,34 @@
 
 <p>
   <strong>Local de Alocação:</strong>
-  <%= @allocation.placement.description %>
+  <%= link_to @allocation.placement, placement_path(@allocation.placement) %>
 </p>
 
+<p>
+  <strong>Operador responsavel:</strong>
+  <%= link_to @allocation.operator.name, operator_path(@allocation.operator) %>
+</p>
 
 <% @allocation.items.each do |item| %>
   <div class="nested-items">
-    <p>
-      <strong>descrição curta:</strong>
-      <%= item.shortDescription %>
-    </p>
-    <p>
-      <strong>descrição longa:</strong>
-      <%= item.longDescription %>
-    </p>
-    <p>
-      <strong>valor:</strong>
-      <%= item.value %>
-    </p>
+    <table>
+      <tr>
+        <th>Plaqueta</th>
+        <th>Tipo</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Número de serie</th>
+        <th>Valor</th>
+      </tr>
+      <tr>
+        <td><%= link_to item.plate, item_path(item) %></td>
+        <td><%= item.item_type.name %></td>
+        <td><%= item.brand %></td>
+        <td><%= item.model %></td>
+        <td><%= item.serial %></td>
+        <td><%= item.value %></td>
+      </tr>
+    </table>
   </div>
 <% end %>
 

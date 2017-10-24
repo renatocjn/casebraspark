@@ -2,9 +2,15 @@
 
   <%= f.error_notification %>
 
-  <%= f.input :shortDescription, label: "Descrição curta:" %>
-  <%= f.input :longDescription, label: "Descrição longa:" %>
-  <%= f.input :value, label: "Valor do item:"%>
+  <%= f.input :plate, label: "Plaqueta:" %>
+  <%= f.association :item_type, label_method: :name, value_method: :id, label: "Tipo:" %>
+  <%= f.input :brand, label: "Marca:" %>
+  <%= f.input :model, label: "Modelo:" %>
+  <%= f.input :serial, label: "Número de série:" %>
+  <%= f.input :value, label: "Valor (R$):" %>
+  <%= f.input :longDescription, label: "Descrição:" %>
+  <%= f.input :isDischarged, label: "Descartado" %>
+  <%= f.input :dischargeDescription, label: "Motivo do descarte" %>
 
   <%= f.submit "Salvar" %>
 

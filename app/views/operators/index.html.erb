@@ -2,7 +2,7 @@
 
 <h1>Listagem de Operadores</h1>
 
-<table>
+<table class='table table-striped table-hover'>
   <thead>
     <tr>
       <th>Nome</th>
@@ -18,13 +18,13 @@
     <% @operators.each do |operator| %>
       <tr>
         <td><%= operator.name %></td>
-        <td><%= operator.email %></td>
+        <td><%= mail_to operator.email %></td>
         <td><%= operator.canAlocate %></td>
         <td><%= operator.canBuy %></td>
         <td><%= operator.isAdmin %></td>
-        <td><%= link_to 'Detalhes', operator %></td>
-        <td><%= link_to 'Editar', edit_operator_path(operator) %></td>
-        <td><%= link_to 'Excluir', operator, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
+        <td><%= link_to 'Detalhes', operator, class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to 'Editar', edit_operator_path(operator), class: "btn btn-secondary btn-sm" %></td>
+        <td><%#= link_to 'Excluir', operator, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Operator', new_operator_path %>
+<%= link_to 'New Operator', new_operator_path, class: "btn btn-success" %>

@@ -7,9 +7,11 @@
   <%= f.input :password, label: "Senha:" %>
   <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
 
-  <%= f.input :canAlocate, label: "Este usuário pode alocar?" %>
-  <%= f.input :canBuy, label: "Este usuário pode fazer aquisições?" %>
-  <%= f.input :isAdmin, label: "Este usuário é admin?" %>
+  <%= f.input :canAlocate, label: "Pode alocar?" %>
+  <%= f.input :canBuy, label: "Pode fazer aquisições?" %>
+  <%= f.input :isAdmin, label: "Administrador" %>
+
+  <%= f.input :isBlocked, label: "Bloqueado" unless @operator.new_record? %>
 
   <%= f.submit "Salvar" %>
 

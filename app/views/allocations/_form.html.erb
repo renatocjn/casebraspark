@@ -4,13 +4,13 @@
 
   <%= f.input :reason, label: "Motivo da alocação:" %>
 
-  <%= f.association :placement, label_method: :description, value_method: :id, label: "Local de alocação:" %>
+  <%= f.association :placement, value_method: :id, label: "Local de alocação:" %>
 
-  <div id="items">
+  <div class="items">
     <%= f.simple_fields_for :items do |i| %>
       <%= render "item_fields", :f => i %>
+      <%= link_to_add_association 'Adicionar item', f, :items %>
     <% end %>
-    <%= link_to_add_association 'Adicionar item', f, :items %>
   </div>
 
   <%= f.submit "Salvar" %>

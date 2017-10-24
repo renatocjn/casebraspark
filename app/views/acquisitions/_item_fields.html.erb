@@ -1,0 +1,12 @@
+
+<div class="nested-fields">
+    <%= f.input :plate, label: "Plaqueta:" %>
+    <%= f.association :item_type, label_method: :name, value_method: :id, label: "Tipo:" %>
+    <%= f.input :brand, label: "Marca:" %>
+    <%= f.input :model, label: "Modelo:" %>
+    <%= f.input :serial, label: "Número de série:" %>
+    <%= f.input :value, label: "Valor (R$):" %>
+    <%#= f.input :longDescription, label: "Descrição:" %>
+
+    <%= link_to_remove_association "Excluir Item", f %>
+</div>

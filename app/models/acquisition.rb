@@ -8,6 +8,8 @@ class Acquisition < ActiveRecord::Base
     has_one :allocation
     #validates_associated :allocation
 
+    has_one :placement, through: :allocation
+
     has_many :items, through: :allocation
     #validates_associated :items
 

@@ -5,8 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>Descrição Curta</th>
-      <th>Descrição Longa</th>
+      <th>Plaqueta</th>
+      <th>Tipo</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Número Serial</th>
       <th>Valor</th>
       <th>Localização Atual</th>
       <th colspan="3"></th>
@@ -16,11 +19,14 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= item.shortDescription %></td>
-        <td><%= item.longDescription %></td>
+        <td><%= link_to item.plate, item_path(item) %></td>
+        <td><%= item.item_type.name %></td>
+        <td><%= item.brand %></td>
+        <td><%= item.model %></td>
+        <td><%= item.serial %></td>
         <td><%= item.value %></td>
-        <td><%= item.placements.any? ? item.placements.order(created_at: :desc).first.description : "Alocação não encontrada" %></td>
-        <td><%= link_to 'Detalhes', item %></td>
+        <td><%= item.placements.order("created_at DESC").first %></td>
+        <td><%#= link_to 'Detalhes', item %></td>
         <td><%= link_to 'Editar', edit_item_path(item) %></td>
         <td><%= link_to 'Excluir', item, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
@@ -30,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Item', new_item_path %>
+<%#= link_to 'New Item', new_item_path %>

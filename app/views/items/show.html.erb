@@ -1,18 +1,56 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Shortdescription:</strong>
-  <%= @item.shortDescription %>
+  <strong>Descrição:</strong>
+  <%= @item.to_s %>
 </p>
 
 <p>
-  <strong>Longdescription:</strong>
-  <%= @item.longDescription %>
+  <strong>Marca:</strong>
+  <%= @item.brand %>
+</p>
+
+<p>
+  <strong>Número serial:</strong>
+  <%= @item.serial %>
+</p>
+
+<p>
+  <strong>Plaqueta</strong>
+  <%= @item.plate %>
 </p>
 
 <p>
   <strong>Value:</strong>
   <%= @item.value %>
+</p>
+
+<p>
+  <strong>Outras Informações:</strong>
+  <%= @item.longDescription %>
+</p>
+
+<table>
+  <tr>
+    <th>Descrição</th>
+    <th>Data de alocação</th>
+  </tr>
+  <% @item.placements.order('created_at DESC').each do |p| %>
+    <tr>
+      <td><%= link_to p, placement_path(p) %></td>
+      <td><%= p.created_at %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <strong>Descartado?:</strong>
+  <%= @item.isDischarged %>
+</p>
+
+<p>
+  <strong>Descrição do descarte:</strong>
+  <%= @item.dischargeDescription %>
 </p>
 
 <%= link_to 'Editar', edit_item_path(@item) %> |

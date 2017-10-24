@@ -1,7 +1,11 @@
 <%= simple_form_for(@placement) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :description, label: "favor descreva este local:", error: "É necessário apresentar uma descrição do local."%>
+  <%= f.input :state, label: "UF:" %>
+  <%= f.input :city, label: "Cidade:" %>
+  <%= f.input :other, label: "Outras Informações:" %>
+  <%= f.input :contact, label: "Contatos:", error: "Você deve informar alguma informação de contato."%>
+  <%= f.input :address, label: "Endereço:", error: "Você deve informar o endereço do local."%>
 
   <%= f.submit "Salvar" %>
 <% end %>

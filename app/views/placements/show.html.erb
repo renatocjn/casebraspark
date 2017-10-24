@@ -2,21 +2,37 @@
 
 <p>
   <strong>Descrição:</strong>
-  <%= @placement.description %>
+  <%= @placement %>
+</p>
+
+<p>
+  <strong>Contatos:</strong>
+  <%= @placement.contact %>
+</p>
+
+<p>
+  <strong>Endereço:</strong>
+  <%= @placement.address %>
 </p>
 
 <% if @placement.items.any? %>
 <h3>Items alocados neste local</h3>
 <table>
   <tr>
-    <th>Descrição curta</th>
-    <th>Descrição Longa</th>
+    <th>Plaqueta</th>
+    <th>Tipo</th>
+    <th>Marca</th>
+    <th>Modelo</th>
+    <th>Número de série</th>
     <th>Valor(R$)</th>
   </tr>
 <% @placement.items.each do |item| %>
   <tr>
-    <td> <%= item.shortDescription %> </td>
-    <td> <%= item.longDescription %> </td>
+    <td> <%= link_to item.plate, item_path(item) %> </td>
+    <td> <%= item.item_type.name %> </td>
+    <td> <%= item.brand %> </td>
+    <td> <%= item.model %> </td>
+    <td> <%= item.serial %> </td>
     <td> <%= item.value %> </td>
   </tr>
 <% end %>

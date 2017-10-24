@@ -1,22 +1,22 @@
 Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
 
-  resources :acquisitions
-  resources :allocations
-  resources :items
-  resources :placements
-  resources :operators
-  
+  resources :acquisitions, except: :destroy
+  resources :allocations, except: :destroy
+  resources :items, except: [:destroy, :new, :create]
+  resources :placements, except: :destroy
+  resources :operators, except: :destroy
+
   get '/index' => 'welcome#index'
   root 'welcome#index'
-  
+
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
   get '/signup' => 'operators#new'
-  post '/users' => 'operators#create'
-  
+  post '/users' => 'operators#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -7,7 +7,7 @@
 
 <p>
   <strong>E-mail:</strong>
-  <%= @operator.email %>
+  <%= mail_to @operator.email %>
 </p>
 
 <p>
@@ -19,9 +19,15 @@
   <strong>Pode Comprar?</strong>
   <%= @operator.canBuy %>
 </p>
+
 <p>
   <strong>Administrador?</strong>
   <%= @operator.isAdmin %>
+</p>
+
+<p>
+  <strong>Bloqueado?</strong>
+  <%= @operator.isBlocked %>
 </p>
 
 <%= link_to 'Editar', edit_operator_path(@operator) %> |

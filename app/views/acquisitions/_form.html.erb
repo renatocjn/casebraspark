@@ -2,6 +2,14 @@
 
   <%= af.error_notification %>
 
+  <%# if @acquisition.errors.any?
+  @acquisition.errors.each do |attribute, message| #%>
+    <%#=attribute%>
+    <br>
+    <%#=message%>
+    <br>
+  <%# end end %>
+
   <%= af.input :reason, label: "Motivo desta compra:" %>
 
   <%= af.input :supplier, label: "Fornecedor:" %>
@@ -9,12 +17,12 @@
   <div id='allocation'>
   <%= af.simple_fields_for :allocation do |f| %>
     <%# f.input :reason, label: "Motivo da alocação:" %>
-    <%= f.association :placement, label_method: :description, value_method: :id, label: "Local de alocação:" %>
+    <%= f.association :placement, label_method: :to_s, value_method: :id, label: "Local de alocação:" %>
 
     <div class="items">
     <%= f.simple_fields_for :items do |i| %>
-      <%= render "allocations/item_fields", :f => i %>
-      <%= link_to_add_association 'Adicionar item', f, :items, partial: "allocations/item_fields" %>
+      <%= render "item_fields", :f => i %>
+      <%= link_to_add_association 'Adicionar item', f, :items %>
     <% end %>
     </div>
   </div>

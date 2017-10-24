@@ -60,3 +60,12 @@ gem "cocoon", "~> 1.2"
 
 # Added at 2017-10-16 19:39:00 +0000 by ubuntu:
 gem "bootstrap", "~> 4.0.beta"
+
+# Added at 2017-10-24 19:21:38 +0000 by ubuntu:
+#gem "bootstrap-sass", "~> 3.3"
+
+# Added at 2017-10-24 19:21:59 +0000 by ubuntu:
+gem "autoprefixer-rails", "~> 7.1"
+
+# Added at 2017-10-24 19:59:48 +0000 by ubuntu:
+gem "popper_js", "~> 1.11"

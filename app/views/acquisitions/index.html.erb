@@ -11,7 +11,7 @@
       <th>Operador Responsável</th>
       <th>Numero de itens</th>
       <th>Valor total</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -20,13 +20,13 @@
       <tr>
         <td><%= acquisition.reason %></td>
         <td><%= acquisition.supplier %></td>
-        <td><%= acquisition.allocation ? acquisition.allocation.placement.description : "Alocação não encontrada" %></td>
-        <td><%= acquisition.operator.name %></td>
+        <td><%= link_to acquisition.placement.to_s, placement_path(acquisition.allocation.placement) %></td>
+        <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator) %></td>
         <td><%= acquisition.items.count %></td>
         <td><%= acquisition.totalValue %></td>
         <td><%= link_to 'Detalhes', acquisition %></td>
         <td><%= link_to 'Editar', edit_acquisition_path(acquisition) %></td>
-        <td><%= link_to 'Excluir', acquisition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= link_to 'Excluir', acquisition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

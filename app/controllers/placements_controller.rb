@@ -1,6 +1,7 @@
 class PlacementsController < ApplicationController
   before_action :set_placement, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
+  before_filter :apenasAdmin, except: [:index, :show]
 
   # GET /placements
   # GET /placements.json
@@ -29,7 +30,7 @@ class PlacementsController < ApplicationController
 
     respond_to do |format|
       if @placement.save
-        format.html { redirect_to @placement, notice: 'Placement was successfully created.' }
+        format.html { redirect_to @placement, notice: 'Novo local registrado com sucesso.' }
         format.json { render :show, status: :created, location: @placement }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class PlacementsController < ApplicationController
   def update
     respond_to do |format|
       if @placement.update(placement_params)
-        format.html { redirect_to @placement, notice: 'Placement was successfully updated.' }
+        format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso.' }
         format.json { render :show, status: :ok, location: @placement }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class PlacementsController < ApplicationController
   def destroy
     @placement.destroy
     respond_to do |format|
-      format.html { redirect_to placements_url, notice: 'O registro do local foi excluido com sucesso.' }
+      format.html { redirect_to placements_url, notice: 'O registro foi excluido com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +71,6 @@ class PlacementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def placement_params
-      params.require(:placement).permit(:description)
+      params.require(:placement).permit(:state, :city, :other, :address, :contact)
     end
 end
