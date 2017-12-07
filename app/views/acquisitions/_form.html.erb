@@ -1,33 +1,43 @@
 <%= simple_form_for @acquisition do |af| %>
+<%= af.simple_fields_for :allocation do |f| %>
 
-  <%= af.error_notification %>
-
-  <%# if @acquisition.errors.any?
-  @acquisition.errors.each do |attribute, message| #%>
-    <%#=attribute%>
-    <br>
-    <%#=message%>
-    <br>
-  <%# end end %>
-
-  <%= af.input :reason, label: "Motivo desta compra:" %>
-
-  <%= af.input :supplier, label: "Fornecedor:" %>
-
-  <div id='allocation'>
-  <%= af.simple_fields_for :allocation do |f| %>
-    <%# f.input :reason, label: "Motivo da alocação:" %>
-    <%= f.association :placement, label_method: :to_s, value_method: :id, label: "Local de alocação:" %>
-
-    <div class="items">
-    <%= f.simple_fields_for :items do |i| %>
-      <%= render "item_fields", :f => i %>
-      <%= link_to_add_association 'Adicionar item', f, :items %>
-    <% end %>
+  <div class="row">
+    <div class="col">
+      <%= af.error_notification %>
     </div>
   </div>
 
-  <% end %>
-  <%= af.submit "Salvar" %>
+  <div class="row">
+    <div class="col">
+      <%= af.input :reason, label: "Motivo desta compra:", :wrapper_html => { :class => "w-100 h-100" } %>
+    </div>
 
+    <div class="col">
+      <%= af.input :supplier, label: "Fornecedor:" %>
+      <%= f.association :placement, label_method: :to_s, value_method: :id, label: "Local de alocação:"%>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col d-flex justify-content-around flex-wrap">
+      <div id="insertionPoint" hidden></div>
+      <%= f.simple_fields_for :items do |i| %>
+        <%= render "item_fields", :f => i %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <%= link_to_add_association 'Adicionar item', f, :items, class: "btn btn-secondary btn-block text-white", "data-association-insertion-node" => "#insertionPoint" %>
+    </div>
+
+    <div class="col-6">
+      <%= af.submit "Salvar", class: "btn btn-primary btn-block text-white" %>
+    </div>
+  </div>
+
+<% end %>
 <% end %>

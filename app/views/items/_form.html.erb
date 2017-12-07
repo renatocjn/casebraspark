@@ -1,17 +1,46 @@
 <%= simple_form_for(@item) do |f| %>
 
-  <%= f.error_notification %>
+<div class="row">
+  <div class="col">
+    <%= f.error_notification %>
+  </div>
+</div>
 
-  <%= f.input :plate, label: "Plaqueta:" %>
-  <%= f.association :item_type, label_method: :name, value_method: :id, label: "Tipo:" %>
-  <%= f.input :brand, label: "Marca:" %>
-  <%= f.input :model, label: "Modelo:" %>
-  <%= f.input :serial, label: "Número de série:" %>
-  <%= f.input :value, label: "Valor (R$):" %>
-  <%= f.input :longDescription, label: "Descrição:" %>
-  <%= f.input :isDischarged, label: "Descartado" %>
-  <%= f.input :dischargeDescription, label: "Motivo do descarte" %>
+<div class="row">
+  <div class="col">
+    <%= f.input :plate, label: "Plaqueta:" %>
+    <%= f.input :type, collection: Item.tiposDeItems.keys, label: "Tipo:" %>
+    <%= f.input :brand, label: "Marca:" %>
+    <%= f.input :model, label: "Modelo:" %>
+    <%= f.input :serial, label: "Número de série:" %>
+  </div>
 
-  <%= f.submit "Salvar" %>
+  <div class="col">
+    <%= f.input :value, label: "Valor:", :locale => "pt_BR" %>
+    <%= f.input :longDescription, label: "Descrição:" %>
+    <div id="attrForItems">
+      <% if @item.type == "Screen" %>
+        <%= f.input :inches, label: "Polegadas:" %>
+      <% else if @item.type == "Computer" %>
+        <%= f.input :processor, label: "Polegadas:" %>
+        <%= f.input :memory, label: "Memória:" %>
+        <%= f.input :harddrive, label: "Disco:" %>
+      <% else if @item.type == "Printer" %>
+        <%= f.input :laser, label: "Laser?" %>
+        <%= f.input :color, label: "Imprime Colorido?" %>
+        <%= f.input :scanner, label: "Scanner?" %>
+      <% end %>
+    </div>
+    <%= f.input :isDischarged, label: "Descartado", :input_html => { "id" => "dischargeCheckbox", "data-toggle" => "collapse", "target" => "#dischargeDescription"}, :wrapper => :horizontal_boolean %>
+    <%= f.input :dischargeDescription, label: "Motivo do descarte", :wrapper_html => { "id" => "dischargeDescription" } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <%= f.submit "Salvar", class: "btn btn-primary btn-block text-white" %>
+  </div>
+</div>
 
 <% end %>

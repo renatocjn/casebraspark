@@ -1,34 +1,44 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nome do operador:</strong>
-  <%= @operator.name %>
-</p>
+<div class="row">
+  <div class="col justify-content-end">
+    <p>
+      <label>Nome do operador:</label>
+      <%= @operator.name %>
+    </p>
 
-<p>
-  <strong>E-mail:</strong>
-  <%= mail_to @operator.email %>
-</p>
+    <p>
+      <label>E-mail:</label>
+      <%= mail_to @operator.email %>
+    </p>
+  </div>
 
-<p>
-  <strong>Pode Alocar?</strong>
-  <%= @operator.canAlocate %>
-</p>
+  <div class="col">
+    <h4> Permissões </h4>
+    <p>
+      <label>Pode Alocar?</label>
+      <%= @operator.canAlocate ? "Sim" : "Não" %>
+    </p>
 
-<p>
-  <strong>Pode Comprar?</strong>
-  <%= @operator.canBuy %>
-</p>
+    <p>
+      <label>Pode Comprar?</label>
+      <%= @operator.canBuy ? "Sim" : "Não" %>
+    </p>
 
-<p>
-  <strong>Administrador?</strong>
-  <%= @operator.isAdmin %>
-</p>
+    <p>
+      <label>Administrador?</label>
+      <%= @operator.isAdmin ? "Sim" : "Não" %>
+    </p>
 
-<p>
-  <strong>Bloqueado?</strong>
-  <%= @operator.isBlocked %>
-</p>
+    <p>
+      <label>Bloqueado?</label>
+      <%= @operator.isBlocked ? "Sim" : "Não" %>
+    </p>
+  </div>
+</div>
 
-<%= link_to 'Editar', edit_operator_path(@operator) %> |
-<%= link_to 'Voltar', operators_path %>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <%= link_to 'Editar', edit_operator_path(@operator), class: "btn btn-primary btn-block text-white" %>
+  </div>
+</div>

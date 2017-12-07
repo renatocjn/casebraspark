@@ -1,24 +1,76 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang='pt-br'>
 <head>
-  <title>Workspace</title>
+  <title>Casebrás Park</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://use.fontawesome.com/0d709543da.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <div class="container">
 
-<div id="opInfo">
-  <% if (session[:user_id]) then %>
-    <div> Usuário logado: <%= current_user.name %> </div>
-    <div> <%= link_to "Voltar para a tela inicial", :root %> </div>
-    <div> <%= link_to "Log off", logout_path() %> </div>
-  <% end %>
+<nav class="navbar navbar-expand-xl navbar-light bg-light">
+  <span class="navbar-brand" href="#">Casebrás Park</span>
+  <div class="collapse navbar-collapse">
+    <div class="navbar-nav mr-auto">
+      <%= link_to "Ínicio", :root, class: "nav-item nav-link" %>
+
+      <% if session[:user_id] %>
+        <% if current_user.canBuy %>
+          <%= link_to "Aquisições", acquisitions_path, class: "nav-item nav-link" %>
+        <% end %>
+
+        <% if current_user.canAlocate %>
+          <%= link_to "Alocações", allocations_path, class: "nav-item nav-link" %>
+        <% end %>
+
+        <% if current_user.isAdmin %>
+          <%= link_to "Localidades", placements_path, class: "nav-item nav-link" %>
+          <%= link_to "Itens de Inventório", items_path, class: "nav-item nav-link" %>
+          <%= link_to "Operadores", operators_path, class: "nav-item nav-link" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if session[:user_id] %>
+      <div class="navbar-nav justify-content-end">
+        <span class="navbar-text d-flex justify-content-end"> <%= current_user.name %> </span>
+        <%= link_to "Sair", logout_path, class: "nav-item nav-link d-flex justify-content-end" %>
+      </div>
+    <% end %>
+  </div>
+</nav>
+
+<% if notice %>
+  <div class="alert alert-warning alert-dismissible fade show w-50 mx-auto" role="alert">
+    <p id="notice"><%= notice %></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+<div id='content' class="m-3 mt-5">
+  <%= yield %>
 </div>
-<%= yield %>
+
+<footer class="footer container pt-5">
+<nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+  <div class="collapse navbar-collapse">
+    <div class="navbar-nav justify-content-center">
+      <%= link_to "Contatos", class: "nav-item nav-link" %>
+      <%= link_to "Sobre", class: "nav-item nav-link" %>
+      <%= link_to "etc1", class: "nav-item nav-link" %>
+      <%= link_to "etc2", class: "nav-item nav-link" %>
+    </div>
+  </div>
+</nav>
+</footer>
+
 </div>
+
 </body>
 </html>

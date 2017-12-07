@@ -28,7 +28,9 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
+    if not @item.isDischarged
+      @item.dischargeDescription = ""
+    end
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item de inventário foi criado com sucesso.' }
@@ -43,6 +45,9 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    if not @item.isDischarged
+      @item.dischargeDescription = ""
+    end
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Informações atualizadas com sucesso.' }
@@ -70,7 +75,6 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       @item = Item.where("plate = ?", params[:id]).first
-      logger.debug "Busca por placa: #{@item.inspect}"
       raise ActiveRecord::RecordNotFound unless @item
     end
 
@@ -82,6 +86,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:plate, :item_type_id, :brand, :model, :serial, :value, :isDischarged, :dischargeDescription)
+      params.require(:item).permit(:plate, :type, :brand, :model, :serial, :value, :isDischarged, :dischargeDescription, :inches, :processor, :memory, :harddrive, :laser, :color, :scanner)
     end
 end

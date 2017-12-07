@@ -1,35 +1,40 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listagem de Operadores</h1>
+<div class="row">
+  <div class="col">
+    <table class='table table-hover text-center'>
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Pode Alocar?</th>
+          <th scope="col">Pode Comprar?</th>
+          <th scope="col">Administrador?</th>
+          <th scope="col">Bloqueado?</th>
+          <th colspan="2" scope="col"></th>
+        </tr>
+      </thead>
 
-<table class='table table-striped table-hover'>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>E-mail</th>
-      <th>Pode Alocar?</th>
-      <th>Pode Comprar?</th>
-      <th>Administrador?</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @operators.each do |operator| %>
+          <tr scope="row">
+            <td><%= operator.name %></td>
+            <td><%= mail_to operator.email %></td>
+            <td><%= operator.canAlocate ? "Sim" : "Não" %></td>
+            <td><%= operator.canBuy ? "Sim" : "Não" %></td>
+            <td><%= operator.isAdmin ? "Sim" : "Não" %></td>
+            <td><%= operator.isBlocked ? "Sim" : "Não" %></td>
+            <td><%= link_to 'Detalhes', operator, class: "btn btn-info btn-sm text-white" %></td>
+            <td><%= link_to 'Editar', edit_operator_path(operator), class: "btn btn-secondary btn-sm text-white" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <tbody>
-    <% @operators.each do |operator| %>
-      <tr>
-        <td><%= operator.name %></td>
-        <td><%= mail_to operator.email %></td>
-        <td><%= operator.canAlocate %></td>
-        <td><%= operator.canBuy %></td>
-        <td><%= operator.isAdmin %></td>
-        <td><%= link_to 'Detalhes', operator, class: "btn btn-primary btn-sm" %></td>
-        <td><%= link_to 'Editar', edit_operator_path(operator), class: "btn btn-secondary btn-sm" %></td>
-        <td><%#= link_to 'Excluir', operator, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Operator', new_operator_path, class: "btn btn-success" %>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <%= link_to 'Registrar novo operador', new_operator_path, class: "btn btn-primary btn-block text-white"  %>
+  </div>
+</div>

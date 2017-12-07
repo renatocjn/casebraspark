@@ -16,7 +16,7 @@ ActiveRecord::Base.transaction do
     fullAdmin.canBuy = true
     fullAdmin.canAlocate = true
     fullAdmin.isAdmin = true
-    fullAdmin.isBlocked = true
+    fullAdmin.isBlocked = false
     fullAdmin.save!
 
     allocador = Operator.new
@@ -27,7 +27,7 @@ ActiveRecord::Base.transaction do
     allocador.canBuy = false
     allocador.canAlocate = true
     allocador.isAdmin = false
-    allocador.isBlocked = true
+    allocador.isBlocked = false
     allocador.save!
 
     comprador = Operator.new
@@ -38,8 +38,19 @@ ActiveRecord::Base.transaction do
     comprador.canBuy = true
     comprador.canAlocate = false
     comprador.isAdmin = false
-    comprador.isBlocked = true
+    comprador.isBlocked = false
     comprador.save!
+
+    bloqueado = Operator.new
+    bloqueado.name = "Bloqueado"
+    bloqueado.email = "bloqueado@casebras.com.br"
+    bloqueado.password = "1234"
+    bloqueado.password_confirmation = "1234"
+    bloqueado.canBuy = false
+    bloqueado.canAlocate = false
+    bloqueado.isAdmin = false
+    bloqueado.isBlocked = true
+    bloqueado.save!
 
     admin = Operator.new
     admin.name = "Admin"
@@ -49,15 +60,15 @@ ActiveRecord::Base.transaction do
     admin.canBuy = false
     admin.canAlocate = false
     admin.isAdmin = true
-    admin.isBlocked = true
+    admin.isBlocked = false
     admin.save!
 
     Placement.new(other: "Matriz", address: "Santos Dummont", contact: "88888888").save!
     Placement.new(other: "Corporate", address: "Santos Dummont", contact: "88888888").save!
     Placement.new(state: "CE", city: "Taubaté", other: "Padrão de vida", address: "Taubaté - CE", contact: "88888888").save!
 
-    ItemType.new(name: "Monitor").save!
-    ItemType.new(name: "Gabinete").save!
-    ItemType.new(name: "Impressora").save!
+    #ItemType.new(name: "Monitor").save!
+    #ItemType.new(name: "Gabinete").save!
+    #ItemType.new(name: "Impressora").save!
 
 end

@@ -1,4 +1,4 @@
-pt-BR:
+pt_BR:
   # formatos de data e hora
   date:
     formats:
@@ -117,7 +117,7 @@ pt-BR:
       decimal_units:
         format: "%n %u"
         units:
-          unit: ""     
+          unit: ""
           thousand: "mil"
           million:
             one: milhão

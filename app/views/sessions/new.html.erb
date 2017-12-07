@@ -1,13 +1,30 @@
 <!-- app/views/sessions/new.html.erb -->
 
-<h1>Login</h1>
+<!doctype html>
+<html lang='pt-br'>
+<head>
+  <title>Casebrás Park</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-<p id="notice"><%= notice %></p>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%= csrf_meta_tags %>
+</head>
 
-<%= form_tag '/login' do %>
-
-  Email: <%= text_field_tag :email %> <br>
-  Password: <%= password_field_tag :password %>
-  <%= submit_tag "enviar" %>
-
-<% end %>
+<body>
+<div class="container d-flex pt-5 justify-content-center align-middle">
+<div class="card w-25  m-auto">
+  <%= image_tag "temp", alt: "Logo Casebrás", class: "card-img-top" %>
+  <div class="card-body">
+    <h4 class="card-title text-center">Sistema de Park Casebrás</h4>
+    <%= form_tag '/login' do %>
+      <p id='notice' class="text-center text-danger"> <%= notice %> </p>
+      <label>Insira seu e-mail:</label> <%= email_field :email, "", class: "form-control", placeholder: "nome@casebras.com.br" %> <br>
+      <label>Insira sua senha:</label> <%= password_field_tag :password, "", class: "form-control" %> <br>
+      <%= submit_tag "Entrar", class: "btn btn-primary btn-block" %>
+    <% end %>
+  </div>
+</div>
+</div>
+</body>

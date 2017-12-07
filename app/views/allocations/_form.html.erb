@@ -1,18 +1,40 @@
 <%= simple_form_for @allocation do |f| %>
 
-  <%= f.error_notification %>
-
-  <%= f.input :reason, label: "Motivo da alocação:" %>
-
-  <%= f.association :placement, value_method: :id, label: "Local de alocação:" %>
-
-  <div class="items">
-    <%= f.simple_fields_for :items do |i| %>
-      <%= render "item_fields", :f => i %>
-      <%= link_to_add_association 'Adicionar item', f, :items %>
-    <% end %>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
   </div>
 
-  <%= f.submit "Salvar" %>
+
+  <div class="row">
+    <div class="col">
+      <%= f.association :placement, value_method: :id, label: "Local de alocação:" %>
+    </div>
+    <div class="col">
+      <%= f.input :reason, label: "Motivo da alocação:" %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col d-flex justify-content-around flex-wrap">
+      <div id="insertionPoint" hidden></div>
+      <%= f.simple_fields_for :items do |i| %>
+        <%= render "item_fields", :f => i %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to_add_association 'Adicionar Plaqueta', f, :items, class: "btn btn-secondary btn-block text-white", "data-association-insertion-node" => "#insertionPoint" %>
+    </div>
+    <div class="col">
+      <%= f.submit "Salvar", class: "btn btn-primary btn-block text-white" %>
+    </div>
+  </div>
+
 
 <% end %>

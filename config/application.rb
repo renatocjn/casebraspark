@@ -24,5 +24,8 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     config.logger = Logger.new(STDOUT)
     #config.logger = Log4r::Logger.new("Application Log")
+
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local # Or :utc
   end
 end

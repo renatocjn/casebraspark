@@ -1,57 +1,69 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col">
+    <p>
+    <label>Descrição:</label>
+    <%= @item.to_s %>
+    </p>
 
-<p>
-  <strong>Descrição:</strong>
-  <%= @item.to_s %>
-</p>
+    <p>
+      <label>Marca:</label>
+      <%= @item.brand %>
+    </p>
 
-<p>
-  <strong>Marca:</strong>
-  <%= @item.brand %>
-</p>
+    <p>
+      <label>Valor: </label>
+      <%= number_to_currency @item.value, :locale => :pt_BR %>
+    </p>
 
-<p>
-  <strong>Número serial:</strong>
-  <%= @item.serial %>
-</p>
+    <p>
+      <label>Outras Informações:</label>
+      <%= @item.longDescription %>
+    </p>
+  </div>
 
-<p>
-  <strong>Plaqueta</strong>
-  <%= @item.plate %>
-</p>
+  <div class="col">
+    <%= link_to 'Editar', edit_item_path(@item), class:"btn btn-primary btn-block text-white my-3" %>
 
-<p>
-  <strong>Value:</strong>
-  <%= @item.value %>
-</p>
+    <p>
+      <label>Número serial:</label>
+      <%= @item.serial %>
+    </p>
 
-<p>
-  <strong>Outras Informações:</strong>
-  <%= @item.longDescription %>
-</p>
+    <p>
+    <label>Plaqueta:</label>
+    <%= @item.plate %>
+    </p>
 
-<table>
+    <p>
+      <label>Foi Descartado?</label>
+      <%= @item.isDischarged ? "Sim" : "Não" %>
+    </p>
+
+    <% if @item.isDischarged %>
+      <p>
+        <label>Descrição do descarte:</label>
+        <%= @item.dischargeDescription %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="w-50 mx-auto text-center">
+<h4>Histório de alocações</h4>
+<table class="table table-sm">
   <tr>
-    <th>Descrição</th>
-    <th>Data de alocação</th>
+    <th scope="col">Descrição</th>
+    <th scope="col">Data de alocação</th>
   </tr>
   <% @item.placements.order('created_at DESC').each do |p| %>
-    <tr>
-      <td><%= link_to p, placement_path(p) %></td>
-      <td><%= p.created_at %></td>
+    <tr scope="row">
+      <td><%= link_to p, placement_path(p), class: "text-info" %></td>
+      <td><%= localize p.created_at, :locale => :pt_BR, :format => :short %></td>
     </tr>
   <% end %>
 </table>
 
-<p>
-  <strong>Descartado?:</strong>
-  <%= @item.isDischarged %>
-</p>
 
-<p>
-  <strong>Descrição do descarte:</strong>
-  <%= @item.dischargeDescription %>
-</p>
 
-<%= link_to 'Editar', edit_item_path(@item) %> |
-<%= link_to 'Voltar', items_path %>

@@ -1,18 +1,34 @@
 <%= simple_form_for(@operator) do |f| %>
-  <%= f.error_notification %>
 
-  <%= f.input :name , label: "Nome completo:" %>
-  <%= f.input :email, label: "E-mail:" %>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
+  </div>
 
-  <%= f.input :password, label: "Senha:" %>
-  <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
+  <div class="row">
 
-  <%= f.input :canAlocate, label: "Pode alocar?" %>
-  <%= f.input :canBuy, label: "Pode fazer aquisições?" %>
-  <%= f.input :isAdmin, label: "Administrador" %>
+    <div class="col">
+      <%= f.input :name , label: "Nome completo:" %>
+      <%= f.input :email, label: "E-mail:" %>
+      <%= f.input :password, label: "Senha:" %>
+      <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
+    </div>
 
-  <%= f.input :isBlocked, label: "Bloqueado" unless @operator.new_record? %>
+    <div class="col mt-5">
+      <h4> Permissões </h4>
+      <%= f.input :canAlocate, inline_label: "Pode alocar?" %>
+      <%= f.input :canBuy, inline_label: "Pode fazer aquisições?" %>
+      <%= f.input :isAdmin, inline_label: "Administrador" %>
+      <%= f.input :isBlocked, inline_label: "Bloqueado" unless @operator.new_record? %>
+    </div>
 
-  <%= f.submit "Salvar" %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+       <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
 
 <% end %>

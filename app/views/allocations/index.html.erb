@@ -1,33 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listagem de Alocações</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Motivo</th>
-      <th>Local alocado</th>
-      <th>Operador responsável</th>
-      <th>Numero de itens</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <div class="col">
+    <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">Operador responsável</th>
+          <th scope="col">Local alocado</th>
+          <th scope="col">Motivo</th>
+          <th scope="col">Numero de itens</th>
+          <th colspan="2" scope="col"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @allocations.each do |allocation| %>
-      <tr>
-        <td><%= allocation.reason %></td>
-        <td><%= link_to allocation.placement, placement_path(allocation.placement) %></td>
-        <td><%= link_to allocation.operator.name, operator_path(allocation.operator) %></td>
-        <td><%= allocation.items.count %></td>
-        <td><%= link_to 'Detalhes', allocation %></td>
-        <td><%= link_to 'Editar', edit_allocation_path(allocation) %></td>
-        <td><%#= link_to 'Excluir', allocation, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @allocations.each do |allocation| %>
+          <tr scope="row">
+            <td><%= link_to allocation.operator.name, operator_path(allocation.operator), class: "text-info" %></td>
+            <td><%= link_to allocation.placement, placement_path(allocation.placement), class: "text-info"%></td>
+            <td><%= allocation.reason %></td>
+            <td><%= allocation.items.count %></td>
+            <td><%= link_to 'Detalhes', allocation, class: "btn btn-info btn-sm text-white" %></td>
+            <td><%= link_to 'Editar', edit_allocation_path(allocation), class: "btn btn-secondary btn-sm text-white" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<br>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <%= link_to 'Nova Alocação', new_allocation_path, class: "btn btn-primary btn-block text-white"  %>
+  </div>
+</div>
 
-<%= link_to 'New Allocation', new_allocation_path %>

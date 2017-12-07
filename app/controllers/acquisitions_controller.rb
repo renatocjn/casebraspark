@@ -9,9 +9,11 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions.json
   def index
     if current_user.isAdmin
-      @acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*')
+      #@acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*')
+      @acquisitions = Acquisition.all
     else
-      @acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*').where('allocations.operator_id = ?', current_user)
+      #@acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*').where('allocations.operator_id = ?', current_user)
+      @acquisitions = Acquisition.where('allocations.operator_id = ?', current_user)
     end
   end
 

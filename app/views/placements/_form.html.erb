@@ -1,11 +1,28 @@
 <%= simple_form_for(@placement) do |f| %>
-  <%= f.error_notification %>
 
-  <%= f.input :state, label: "UF:" %>
-  <%= f.input :city, label: "Cidade:" %>
-  <%= f.input :other, label: "Outras Informações:" %>
-  <%= f.input :contact, label: "Contatos:", error: "Você deve informar alguma informação de contato."%>
-  <%= f.input :address, label: "Endereço:", error: "Você deve informar o endereço do local."%>
+  <div class="row">
+    <div class="col">
+      <%= f.error_notification %>
+    </div>
+  </div>
 
-  <%= f.submit "Salvar" %>
+  <div class="row">
+    <div class="col">
+      <%= f.input :state, label: "UF:" %>
+      <%= f.input :city, label: "Cidade:" %>
+      <%= f.input :other, label: "Outras Informações:" %>
+    </div>
+    <div class="col">
+      <%= f.input :contact, label: "Contatos:", error: "Você deve informar alguma informação de contato."%>
+      <%= f.input :address, label: "Endereço:", error: "Você deve informar o endereço do local."%>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+
+
 <% end %>

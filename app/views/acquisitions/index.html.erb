@@ -1,37 +1,41 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listagem de Aquisições</h1>
+<div class="row">
+  <div class="col">
+    <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">Motivo</th>
+          <th scope="col">fornecedor</th>
+          <th scope="col">Local de alocação</th>
+          <th scope="col">Operador Responsável</th>
+          <th scope="col">Numero de itens</th>
+          <th scope="col">Valor total</th>
+          <th scope="col" colspan="2"></th>
+        </tr>
+      </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Motivo</th>
-      <th>fornecedor</th>
-      <th>Local de alocação</th>
-      <th>Operador Responsável</th>
-      <th>Numero de itens</th>
-      <th>Valor total</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @acquisitions.each do |acquisition| %>
+          <tr scope="row">
+            <td><%= acquisition.reason %></td>
+            <td><%= acquisition.supplier %></td>
+            <td><%= link_to acquisition.placement.to_s, placement_path(acquisition.allocation.placement), class: "text-info" %></td>
+            <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
+            <td><%= acquisition.items.count %></td>
+            <td><%= number_to_currency acquisition.totalValue, :locale => :pt_BR %></td>
+            <td><%= link_to 'Detalhes', acquisition, class: "btn btn-info btn-sm text-white" %></td>
+            <td><%= link_to 'Editar', edit_acquisition_path(acquisition), class: "btn btn-secondary btn-sm text-white" %></td>
+            <td><%#= link_to 'Excluir', acquisition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <tbody>
-    <% @acquisitions.each do |acquisition| %>
-      <tr>
-        <td><%= acquisition.reason %></td>
-        <td><%= acquisition.supplier %></td>
-        <td><%= link_to acquisition.placement.to_s, placement_path(acquisition.allocation.placement) %></td>
-        <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator) %></td>
-        <td><%= acquisition.items.count %></td>
-        <td><%= acquisition.totalValue %></td>
-        <td><%= link_to 'Detalhes', acquisition %></td>
-        <td><%= link_to 'Editar', edit_acquisition_path(acquisition) %></td>
-        <td><%#= link_to 'Excluir', acquisition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'Criar Nova Aquisição', new_acquisition_path %>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <%= link_to 'Criar Nova Aquisição', new_acquisition_path, class: "btn btn-primary btn-block text-white" %>
+  </div>
+</div>

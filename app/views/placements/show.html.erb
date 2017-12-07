@@ -1,34 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-6">
+    <p>
+      <label>Descrição:</label>
+      <%= @placement %>
+    </p>
+  </div>
+  <div class="col-6">
+    <p>
+      <%= link_to 'Editar', edit_placement_path(@placement), class: "btn btn-primary btn-block" %>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Descrição:</strong>
-  <%= @placement %>
-</p>
+<div class="row">
+  <div class="col">
+    <p>
+      <label>Contatos:</label>
+      <%= @placement.contact %>
+    </p>
+  </div>
 
-<p>
-  <strong>Contatos:</strong>
-  <%= @placement.contact %>
-</p>
+  <div class="col">
+    <p>
+      <label>Endereço:</label>
+      <%= @placement.address %>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Endereço:</strong>
-  <%= @placement.address %>
-</p>
+
 
 <% if @placement.items.any? %>
-<h3>Items alocados neste local</h3>
-<table>
+<hr>
+<h4 class="d-flex justify-content-center">Items registrados neste local</h4>
+<table class="table table-hover table-sm text-center">
   <tr>
-    <th>Plaqueta</th>
-    <th>Tipo</th>
-    <th>Marca</th>
-    <th>Modelo</th>
-    <th>Número de série</th>
-    <th>Valor(R$)</th>
+    <th scope="col">Plaqueta</th>
+    <th scope="col">Tipo</th>
+    <th scope="col">Marca</th>
+    <th scope="col">Modelo</th>
+    <th scope="col">Número de série</th>
+    <th scope="col">Valor(R$)</th>
   </tr>
 <% @placement.items.each do |item| %>
-  <tr>
-    <td> <%= link_to item.plate, item_path(item) %> </td>
+  <tr scope="row">
+    <td> <%= link_to item.plate, item_path(item), class: "text-info" %> </td>
     <td> <%= item.item_type.name %> </td>
     <td> <%= item.brand %> </td>
     <td> <%= item.model %> </td>
@@ -38,6 +54,3 @@
 <% end %>
 </table>
 <% end %>
-
-<%= link_to 'Editar', edit_placement_path(@placement) %> |
-<%= link_to 'Voltar', placements_path %>

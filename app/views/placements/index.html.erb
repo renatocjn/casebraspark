@@ -1,39 +1,43 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listagem de Locais</h1>
+<div class="row">
+  <div class="col">
+    <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">Descrição</th>
+          <th scope="col">Contatos</th>
+          <th scope="col">Endereço</th>
+          <% if current_user.isAdmin %>
+            <th scope="col">Numero de items</th>
+            <th colspan="2" scope="col"></th>
+          <% end %>
+        </tr>
+      </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Descrição</th>
-      <th>Contatos</th>
-      <th>Endereço</th>
-      <% if current_user.isAdmin %>
-        <th>Numero de items</th>
-        <th colspan="2"></th>
-      <% end %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @placements.each do |placement| %>
-      <tr>
-        <td><%= link_to placement, placement_path(placement) %></td>
-        <td><%= placement.contact %></td>
-        <td><%= placement.address %></td>
-        <% if current_user.isAdmin %>
-          <td><%= placement.items.count %></td>
-          <td><%= link_to 'Detalhes', placement %></td>
-          <td><%= link_to 'Editar', edit_placement_path(placement) %></td>
-          <td><%#= link_to 'Excluir', placement, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
+      <tbody>
+        <% @placements.each do |placement| %>
+          <tr scope="row">
+            <td><%= placement %></td>
+            <td><%= placement.contact %></td>
+            <td><%= placement.address %></td>
+            <% if current_user.isAdmin %>
+              <td><%= placement.items.count %></td>
+              <td><%= link_to 'Detalhes', placement, class: "btn btn-sm btn-info text-white" %></td>
+              <td><%= link_to 'Editar', edit_placement_path(placement), class: "btn btn-secondary btn-sm text-white" %></td>
+              <td><%#= link_to 'Excluir', placement, method: :delete, data: { confirm: 'Você tem certeza??' } %></td>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <% if current_user.isAdmin %>
-  <%= link_to 'Cadastrar novo local', new_placement_path %>
+<div class="row">
+  <div class="col-6"> </div>
+  <div class="col-6">
+    <%= link_to 'Cadastrar novo local', new_placement_path, class: "btn btn-primary btn-block text-white" %>
+  </div>
+</div>
 <% end %>

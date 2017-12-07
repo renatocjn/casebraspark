@@ -1,55 +1,67 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col">
+    <p>
+      <label>Motivo da compra:</label>
+      <%= @acquisition.reason %>
+    </p>
 
-<p>
-  <strong>Motivo da compra:</strong>
-  <%= @acquisition.reason %>
-</p>
+    <p>
+      <label>Fornecedor:</label>
+      <%= @acquisition.supplier %>
+    </p>
 
-<p>
-  <strong>Fornecedor:</strong>
-  <%= @acquisition.supplier %>
-</p>
+    <p>
+      <label>Valor Total:</label>
+      <%= number_to_currency @acquisition.totalValue, :locale => :pt_BR %>
+    </p>
+  </div>
 
-<p>
-  <strong>Valor Total:</strong>
-  <%= @acquisition.totalValue %>
-</p>
+  <div class="col">
+      <p>
+        <label>Local de alocação:</label>
+        <%= link_to @acquisition.allocation.placement.to_s, placement_path(@acquisition.allocation.placement), class: "text-info" %>
+      </p>
 
-<p>
-  <strong>Local de alocação:</strong>
-  <%= link_to @acquisition.allocation.placement.to_s, placement_path(@acquisition.allocation.placement) %>
-</p>
+      <p>
+        <label>Operador responsável:</label>
+        <%= link_to @acquisition.operator.name, operator_path(@acquisition.operator), class: "text-info" %>
+      </p>
+  </div>
+</div>
 
-<p>
-  <strong>Operador responsável:</strong>
-  <%= link_to @acquisition.operator.name, operator_path(@acquisition.operator) %>
-</p>
+<div class="row">
+  <div class="col">
 
+  </div>
+</div>
 <% if @acquisition.items.any? %>
-<p>
-  <strong>Items:</strong>
+  <h4 class="text-center">Items:</h4>
+  <table class="table table-sm table-hover">
+    <tr>
+      <th scope="col">Plaqueta</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Número de serie</th>
+      <th scope="col">Valor</th>
+    </tr>
   <% @acquisition.items.each do |item| %>
-    <table>
-      <tr>
-        <th>Plaqueta</th>
-        <th>Tipo</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Número de serie</th>
-        <th>Valor</th>
-      </tr>
-      <tr>
-        <td><%= link_to item.plate, item_path(item) %></td>
-        <td><%= item.item_type.name %></td>
-        <td><%= item.brand %></td>
-        <td><%= item.model %></td>
-        <td><%= item.serial %></td>
-        <td><%= item.value %></td>
-      </tr>
-    </table>
+    <tr scope="row">
+      <td><%= link_to item.plate, item_path(item), class:"text-info"%></td>
+      <td><%= item.item_type.name %></td>
+      <td><%= item.brand %></td>
+      <td><%= item.model %></td>
+      <td><%= item.serial %></td>
+      <td><%= number_to_currency item.value, :locale => :pt_BR %></td>
+    </tr>
   <% end %>
-</p>
+  </table>
 <% end %>
 
-<%= link_to 'Editar', edit_acquisition_path(@acquisition) %> |
-<%= link_to 'Voltar', acquisitions_path %>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <%= link_to 'Editar', edit_acquisition_path(@acquisition), class: "btn btn-primary btn-block text-white" %>
+  </div>
+</div>
+

@@ -8,9 +8,11 @@ class AllocationsController < ApplicationController
   # GET /allocations.json
   def index
     if current_user.isAdmin
-      @allocations = Allocation.joins(:items, :placement)
+      #@allocations = Allocation.joins(:items, :placement)
+      @allocations = Allocation.all
     else
-      @allocations = Allocation.where('operator_id = ?', current_user).joins(:items, :placement)
+      #@allocations = Allocation.where('operator_id = ?', current_user).joins(:items, :placement)
+      @allocations = Allocation.where('operator_id = ?', current_user)
     end
   end
 
