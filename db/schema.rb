@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129195548) do
+ActiveRecord::Schema.define(version: 20171214175155) do
 
   create_table "acquisitions", force: :cascade do |t|
-    t.text     "reason"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "supplier"
@@ -44,6 +43,14 @@ ActiveRecord::Schema.define(version: 20171129195548) do
   add_index "allocations_items", ["allocation_id", "item_id"], name: "index_allocations_items_on_allocation_id_and_item_id"
   add_index "allocations_items", ["item_id", "allocation_id"], name: "index_allocations_items_on_item_id_and_allocation_id"
 
+  create_table "computers", force: :cascade do |t|
+    t.string   "processor"
+    t.string   "memory"
+    t.string   "harddrive"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string   "plate"
     t.string   "brand"
@@ -55,14 +62,8 @@ ActiveRecord::Schema.define(version: 20171129195548) do
     t.datetime "updated_at",           null: false
     t.boolean  "isDischarged"
     t.text     "dischargeDescription"
-    t.integer  "inches"
-    t.string   "processor"
-    t.string   "memory"
-    t.string   "harddrive"
-    t.boolean  "laser"
-    t.boolean  "color"
-    t.boolean  "scanner"
-    t.string   "type"
+    t.integer  "parkable_item_id"
+    t.string   "parkable_item_type"
   end
 
 # Could not dump table "operators" because of following NoMethodError
@@ -74,6 +75,17 @@ ActiveRecord::Schema.define(version: 20171129195548) do
     t.string   "other"
     t.text     "contact"
     t.text     "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "printers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "screens", force: :cascade do |t|
+    t.integer  "inches"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

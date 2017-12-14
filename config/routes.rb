@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :printers
+  resources :computers
+  resources :screens
   # You can have the root of your site routed with "root"
 
   resources :acquisitions, except: :destroy

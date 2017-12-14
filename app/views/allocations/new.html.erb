@@ -1,2 +1,10 @@
 
-<%= render 'form' %>
+<%= simple_form_for @allocation do |f| %>
+
+<%= f.error_notification %>
+
+<%= render 'form', :f => f %>
+
+<%= f.submit "Salvar", class: "btn btn-primary" %>
+
+<% end %>

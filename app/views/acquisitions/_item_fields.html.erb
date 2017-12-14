@@ -1,13 +1,17 @@
 
-<div id="nested" class="card mx-1 my-3 nested-fields w-25">
+<div class="card mx-1 my-3 nested-fields w-25">
 <div class="card-block p-3">
+    <%# logger.debug "***DEBUG*** " + f.inspect + " " + type.inspect %>
     <%= link_to_remove_association "X", f, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %>
-    <%= f.input :plate, label: "Plaqueta:" %>
-    <%= f.association :item_type, label_method: :name, value_method: :id, label: "Tipo:" %>
-    <%= f.input :brand, label: "Marca:" %>
-    <%= f.input :model, label: "Modelo:" %>
-    <%= f.input :serial, label: "Número de série:" %>
-    <%= f.input :value, label: "Valor:" %>
+    <%= f.simple_fields_for :items do |f2| %>
+        <%= render "items/form", :f => f2, type: type %>
+    <% end %>
+    <%#= f.input :plate, label: "Plaqueta:" %>
+    <%#= f.association :item_type, label_method: :name, value_method: :id, label: "Tipo:" %>
+    <%#= f.input :brand, label: "Marca:" %>
+    <%#= f.input :model, label: "Modelo:" %>
+    <%#= f.input :serial, label: "Número de série:" %>
+    <%#= f.input :value, label: "Valor:" %>
     <%#= f.input :longDescription, label: "Descrição:" %>
 </div>
 </div>

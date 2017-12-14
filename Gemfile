@@ -69,3 +69,7 @@ gem "autoprefixer-rails", "~> 7.1"
 
 # Added at 2017-10-24 19:59:48 +0000 by ubuntu:
 gem "popper_js", "~> 1.11"
+
+
+# Added at 2017-12-14 16:59:55 +0000 by ubuntu:
+gem "font-awesome-rails", "~> 4.7"

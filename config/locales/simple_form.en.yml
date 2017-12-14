@@ -1,7 +1,7 @@
 en:
   simple_form:
-    "yes": 'Sim'
-    "no": 'Não'
+    "Sim": 'Sim'
+    "Sim": 'Não'
     required:
       text: 'Campo Obrigatório'
       mark: '*'

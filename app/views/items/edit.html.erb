@@ -1,2 +1,5 @@
 
-<%= render 'form' %>
+<% simple_form_for @item do |f| %>
+    <%= render 'form', local: f %>
+    <%= f.submit "Salvar" if @item.new_record? %>
+<% end %>

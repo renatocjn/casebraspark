@@ -1,40 +1,16 @@
-<%= simple_form_for @allocation do |f| %>
 
-  <div class="row">
-    <div class="col">
-      <%= f.error_notification %>
-    </div>
-  </div>
+<%= f.association :placement, label: "Local de alocação" %>
+<%= f.input :reason, label: "Motivo da alocação" %>
 
-
-  <div class="row">
-    <div class="col">
-      <%= f.association :placement, value_method: :id, label: "Local de alocação:" %>
-    </div>
-    <div class="col">
-      <%= f.input :reason, label: "Motivo da alocação:" %>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <div class="col d-flex justify-content-around flex-wrap">
-      <div id="insertionPoint" hidden></div>
-      <%= f.simple_fields_for :items do |i| %>
-        <%= render "item_fields", :f => i %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <%= link_to_add_association 'Adicionar Plaqueta', f, :items, class: "btn btn-secondary btn-block text-white", "data-association-insertion-node" => "#insertionPoint" %>
-    </div>
-    <div class="col">
-      <%= f.submit "Salvar", class: "btn btn-primary btn-block text-white" %>
-    </div>
-  </div>
+<div class="col d-flex justify-content-around flex-wrap">
+  <div id="insertionPoint" hidden></div>
+  <% logger.debug "***DEBUG*** " + allocation.items.inspect %>
+  <% allocation.items.each do |item| %>
+    <%= f.simple_fields_for item do |f2| %>
+      <%= render "item_fields", f: f2, type: item.parkable_item_type %>
+    <% end %>
+  <% end %>
+</div>
 
 
-<% end %>
+<%= link_to_add_association 'Adicionar Plaqueta', f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint" %>
