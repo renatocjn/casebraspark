@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     # If the user exists AND the password entered is correct.
 
     if user.nil?
-      redirect_to "/login", notice: "O email '#{params[:email]}' não pôde ser encontrado"
+      redirect_to "/login", notice: "O email \"#{params[:email][0]}\" não pôde ser encontrado"
     elsif user.isBlocked
       redirect_to "/login", notice: "Usuário bloqueado"
     elsif user.authenticate(params[:password])

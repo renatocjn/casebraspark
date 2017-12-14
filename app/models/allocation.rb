@@ -9,6 +9,6 @@ class Allocation < ActiveRecord::Base
 
     has_many :allocations_items
     has_many :items, through: :allocations_items
-    accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+    accepts_nested_attributes_for :items, :reject_if => :all_blank
     #validates_associated :items
 end

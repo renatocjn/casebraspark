@@ -2,15 +2,13 @@
 <%= f.association :placement, label: "Local de alocação" %>
 <%= f.input :reason, label: "Motivo da alocação" %>
 
-<div class="col d-flex justify-content-around flex-wrap">
+<div class="d-flex justify-content-center flex-wrap">
   <div id="insertionPoint" hidden></div>
-  <% logger.debug "***DEBUG*** " + allocation.items.inspect %>
-  <% allocation.items.each do |item| %>
-    <%= f.simple_fields_for item do |f2| %>
-      <%= render "item_fields", f: f2, type: item.parkable_item_type %>
-    <% end %>
+  <%= f.simple_fields_for :items do |f2| %>
+    <%= render "item_fields", :f => f2, :type => item.parkable_item_type %>
   <% end %>
 </div>
 
-
-<%= link_to_add_association 'Adicionar Plaqueta', f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint" %>
+<%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:desktop), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Screen' }} %>
+<%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:windows), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Computer' }} %>
+<%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:print), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Printer' }} %>

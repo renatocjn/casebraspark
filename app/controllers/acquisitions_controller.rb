@@ -25,7 +25,7 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions/new
   def new
     @acquisition = Acquisition.new
-    @acquisition.build_allocation.items.build
+    @acquisition.build_allocation
   end
 
   # GET /acquisitions/1/edit

@@ -4,6 +4,7 @@ class Item < ActiveRecord::Base
     has_many :placements, through: :allocations
 
     belongs_to :parkable_item, polymorphic: true
+    accepts_nested_attributes_for :parkable_item, :reject_if => :all_blank
 
     validates :dischargeDescription, presence: { message: "Um motivo deve ser fornecido" }, if: :isDischarged
 

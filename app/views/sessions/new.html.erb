@@ -9,13 +9,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%= favicon_link_tag %>
   <%= csrf_meta_tags %>
 </head>
 
 <body>
 <div class="container d-flex pt-5 justify-content-center align-middle">
 <div class="card w-25  m-auto">
-  <%= image_tag "temp", alt: "Logo Casebrás", class: "card-img-top" %>
+  <%= image_tag :selo_casebras, alt: "Logo Casebrás", class: "card-img-top" %>
   <div class="card-body">
     <h4 class="card-title text-center">Sistema de Park Casebrás</h4>
     <%= form_tag '/login' do %>

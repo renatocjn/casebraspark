@@ -17,3 +17,14 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 */
+
+.small-input:not(.hidden),
+.small-input input:not([type='hidden']){
+    width: 25%;
+    min-width: 15em;
+}
+
+.small-input:not(.hidden) {
+    display: inline-block;
+    margin: auto 5pt;
+}

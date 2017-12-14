@@ -1,10 +1,15 @@
-<%= f.input :plate, label: "Plaqueta:" %>
-<%= f.input :brand, label: "Marca:" %>
-<%= f.input :model, label: "Modelo:" %>
-<%= f.input :serial, label: "Número de série:" %>
-<%= f.input :value, label: "Valor do item:" %>
 
-<%= render partial: "#{type}/form" %>
+<%= f.input :plate,  label: "Plaqueta:", wrapper_html: {class: "small-input"} %>
+<%= f.input :brand,  label: "Marca:", wrapper_html: {class: "small-input"} %>
+<%= f.input :model,  label: "Modelo:", wrapper_html: {class: "small-input"} %>
+<%= f.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
+<%= f.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"}, input_html: {style: "display: inline"} %>
 
-<%= f.input :isDischarged, as: :select, include_blank: false, label: "Item descartado", :input_html => { "id" => "dischargeCheckbox", "data-toggle" => "collapse", "target" => "#dischargeDescription"}, :wrapper => :horizontal_boolean %>
-<%= f.input :dischargeDescription, label: "Motivo do descarte", :wrapper_html => { "id" => "dischargeDescription" } %>
+<%= f.simple_fields_for :parkable_item do |f2| %>
+    <%= render "#{type.downcase.pluralize.strip}/form", :f => f2 %>
+<% end %>
+
+<% if defined? update %>
+    <%= f.input :isDischarged, as: :select, include_blank: false, label: "Item descartado", :input_html => { "id" => "dischargeCheckbox", "data-toggle" => "collapse", "target" => "#dischargeDescription"} %>
+    <%= f.input :dischargeDescription, label: "Motivo do descarte", :wrapper_html => { "id" => "dischargeDescription" } %>
+<% end %>
