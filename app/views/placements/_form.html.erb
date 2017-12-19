@@ -8,7 +8,7 @@
 
   <div class="row">
     <div class="col">
-      <%= f.input :state, label: "UF:" %>
+      <%= f.input :state, as: :select, collection: Placement::STATES_BR, label: "UF:" %>
       <%= f.input :city, label: "Cidade:" %>
       <%= f.input :other, label: "Outras Informações:" %>
     </div>

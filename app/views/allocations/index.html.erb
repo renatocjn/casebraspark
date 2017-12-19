@@ -1,28 +1,27 @@
-<p id="notice"><%= notice %></p>
-
 
 <div class="row">
   <div class="col">
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th scope="col">Operador responsável</th>
-          <th scope="col">Local alocado</th>
-          <th scope="col">Motivo</th>
-          <th scope="col">Numero de itens</th>
-          <th colspan="2" scope="col"></th>
+          <th class="col-2" scope="col">Data</th>
+          <th class="col-2" scope="col">Operador responsável</th>
+          <th class="col-2" scope="col">Local alocado</th>
+          <th class="col-2" scope="col">Número de itens</th>
+          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary"  %></th>
+          <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_allocation_path, class: "btn btn-primary"%></th>
         </tr>
       </thead>
 
       <tbody>
         <% @allocations.each do |allocation| %>
           <tr scope="row">
-            <td><%= link_to allocation.operator.name, operator_path(allocation.operator), class: "text-info" %></td>
-            <td><%= link_to allocation.placement, placement_path(allocation.placement), class: "text-info"%></td>
-            <td><%= allocation.reason %></td>
-            <td><%= allocation.items.count %></td>
-            <td><%= link_to 'Detalhes', allocation, class: "btn btn-info btn-sm text-white" %></td>
-            <td><%= link_to 'Editar', edit_allocation_path(allocation), class: "btn btn-secondary btn-sm text-white" %></td>
+            <td class="col-2"><%= localize allocation.created_at.to_date %></td>
+            <td class="col-2"><%= link_to allocation.operator.name, operator_path(allocation.operator), class: "text-info" %></td>
+            <td class="col-2"><%= link_to allocation.placement, placement_path(allocation.placement), class: "text-info"%></td>
+            <td class="col-2"><%= allocation.items.count %></td>
+            <td class="col-1"><%= link_to fa_icon("info-circle"), allocation, class: "btn btn-info" %></td>
+            <td class="col-1"><%= link_to fa_icon(:pencil), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
       </tbody>
@@ -33,7 +32,7 @@
 <div class="row">
   <div class="col-6"></div>
   <div class="col-6">
-    <%= link_to 'Nova Alocação', new_allocation_path, class: "btn btn-primary btn-block text-white"  %>
+
   </div>
 </div>
 

@@ -1,7 +1,5 @@
-<h1>Novo Item</h1>
 
-<% simple_form_for @item do |f| %>
-    <%= render 'form', local: f %>
+<%= simple_form_for @item do |f| %>
+    <%= render 'form', f: f %>
+    <%= f.submit "Salvar" %>
 <% end %>
-
-<%= link_to 'Voltar', items_path %>

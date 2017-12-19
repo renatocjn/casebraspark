@@ -1,0 +1,20 @@
+I"”(function() {
+  jQuery(function() {
+    return $('.allocation_items_plate input:text').change(function() {
+      var v;
+      v = $(this).val().trim();
+      return $.get({
+        url: "/items/" + v + ".json",
+        dataType: "json",
+        success: function(data) {
+          return alert("Item encontrado com sucesso!");
+        },
+        fail: function(data) {
+          return alert("Item n√£o encontrado");
+        }
+      });
+    });
+  });
+
+}).call(this);
+:ET

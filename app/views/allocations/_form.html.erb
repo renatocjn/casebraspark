@@ -1,14 +1,11 @@
 
 <%= f.association :placement, label: "Local de alocação" %>
-<%= f.input :reason, label: "Motivo da alocação" %>
+<%= f.input :reason, label: "Motivo desta operação" %>
 
 <div class="d-flex justify-content-center flex-wrap">
   <div id="insertionPoint" hidden></div>
   <%= f.simple_fields_for :items do |f2| %>
-    <%= render "item_fields", :f => f2, :type => item.parkable_item_type %>
+    <%= render "item_fields", :f => f2, :type => f2.object.parkable_item_type %>
   <% end %>
 </div>
 
-<%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:desktop), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Screen' }} %>
-<%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:windows), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Computer' }} %>
-<%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:print), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Printer' }} %>

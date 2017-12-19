@@ -1,20 +1,18 @@
 
-<div class="card mx-1 my-3 nested-fields w-100">
+<div class="card my-3 nested-fields w-100">
 <div class="card-block p-3">
     <div class="row">
         <div class="col-2">
             <% if type == "Printer" %>
-                <%= image_tag :printer_card, class: "card-img-top", alt: "Impressora" %>
+                <%= image_tag :printer_card_img, class: "card-img-top", alt: "Impressora", width: "20em" %>
             <% elsif type == "Screen" %>
-                <%= image_tag :screen_card, class: "card-img-top", alt: "Monitor" %>
+                <%= image_tag :screen_card_img, class: "card-img-top", alt: "Monitor", width: "100%" %>
             <% elsif type == "Computer" %>
-                <%= image_tag :computer_card, class: "card-img-top", alt: "Computador" %>
+                <%= image_tag :computer_card_img, class: "card-img-top", alt: "Computador", width: "100%" %>
             <% end %>
         </div>
         <div class="col">
-            <%= f.simple_fields_for :items do |f2| %>
-                <%= render "items/form", :f => f, type: type %>
-            <% end %>
+            <%= render "items/form", f: f, type: type %>
         </div>
         <div class="col-auto">
             <%= link_to_remove_association fa_icon(:times), f, class: "btn btn-danger" %>

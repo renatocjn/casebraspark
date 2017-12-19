@@ -1,5 +1,5 @@
 class AddAllocationRefToOperator < ActiveRecord::Migration
   def change
-    add_column :operators, :allocation, :reference
+    add_reference :operators, :allocation
   end
 end

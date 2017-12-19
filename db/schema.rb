@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214175155) do
+ActiveRecord::Schema.define(version: 20171219190404) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "supplier"
     t.integer  "operator_id"
+    t.integer  "supplier_id"
+    t.integer  "company_id"
   end
 
+  add_index "acquisitions", ["company_id"], name: "index_acquisitions_on_company_id"
   add_index "acquisitions", ["operator_id"], name: "index_acquisitions_on_operator_id"
+  add_index "acquisitions", ["supplier_id"], name: "index_acquisitions_on_supplier_id"
 
   create_table "allocations", force: :cascade do |t|
     t.text     "reason"
@@ -43,6 +46,13 @@ ActiveRecord::Schema.define(version: 20171214175155) do
   add_index "allocations_items", ["allocation_id", "item_id"], name: "index_allocations_items_on_allocation_id_and_item_id"
   add_index "allocations_items", ["item_id", "allocation_id"], name: "index_allocations_items_on_item_id_and_allocation_id"
 
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "cnpj"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "computers", force: :cascade do |t|
     t.string   "processor"
     t.string   "memory"
@@ -56,7 +66,6 @@ ActiveRecord::Schema.define(version: 20171214175155) do
     t.string   "brand"
     t.string   "model"
     t.string   "serial"
-    t.text     "longDescription"
     t.float    "value"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -64,10 +73,23 @@ ActiveRecord::Schema.define(version: 20171214175155) do
     t.text     "dischargeDescription"
     t.integer  "parkable_item_id"
     t.string   "parkable_item_type"
+    t.integer  "placement_id"
   end
 
-# Could not dump table "operators" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  add_index "items", ["placement_id"], name: "index_items_on_placement_id"
+
+  create_table "operators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.boolean  "canAlocate"
+    t.boolean  "canBuy"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.boolean  "isAdmin"
+    t.integer  "allocation_id"
+    t.boolean  "isBlocked"
+  end
 
   create_table "placements", force: :cascade do |t|
     t.string   "state"
@@ -88,6 +110,16 @@ ActiveRecord::Schema.define(version: 20171214175155) do
     t.integer  "inches"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phones"
+    t.string   "other"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "address"
   end
 
 end

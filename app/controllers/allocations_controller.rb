@@ -34,7 +34,6 @@ class AllocationsController < ApplicationController
   # POST /allocations
   # POST /allocations.json
   def create
-
     items = Array.new
     allocation_params[:items_attributes].each do |k, item|
       items.push item[:plate]
@@ -48,6 +47,7 @@ class AllocationsController < ApplicationController
     @allocation.items = items
     respond_to do |format|
       if @allocation.save
+        @allocation.items.each {|i| i.update placement: @allocation.placement }
         format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
         format.json { render :show, status: :created, location: @allocation }
       else
@@ -55,7 +55,6 @@ class AllocationsController < ApplicationController
         format.json { render json: @allocation.errors, status: :unprocessable_entity }
       end
     end
-
   rescue ActiveRecord::RecordNotFound
     redirect_to new_allocation_path, notice: "O item com placa #{item[:plate]} não foi encontrado"
   end
@@ -65,6 +64,7 @@ class AllocationsController < ApplicationController
   def update
     respond_to do |format|
       if @allocation.update(allocation_params)
+        @allocation.items.each {|i| i.update placement: @allocation.placement }
         format.html { redirect_to @allocation, notice: 'Registro de alocação registrado com sucesso.' }
         format.json { render :show, status: :ok, location: @allocation }
       else
@@ -92,8 +92,8 @@ class AllocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allocation_params
-      params.require(:allocation).permit(:reason, :operator, :placement_id,
-      :items_attributes => [:plate, :_destroy])
+      params.require(:allocation).permit(:reason, :placement_id,
+      :items_attributes => [:id, :plate, :_destroy])
       #:items_attributes => [:plate, :item_type_id, :brand, :model, :serial, :value, :_destroy])
     end
 

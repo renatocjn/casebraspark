@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <script src="https://use.fontawesome.com/0d709543da.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%= favicon_link_tag %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -14,60 +15,58 @@
 <div class="container">
 
 <nav class="navbar navbar-expand-xl navbar-light bg-light">
-  <span class="navbar-brand" href="#">Casebrás Park</span>
+  <%= link_to :root, class: "navbar-brand" do %>
+    <%= image_tag :logo_casebras, width: "30px", heigth: "30px" %>
+    CasePark
+  <% end %>
   <div class="collapse navbar-collapse">
-    <div class="navbar-nav mr-auto">
-      <%= link_to "Ínicio", :root, class: "nav-item nav-link" %>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="parkMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Park</a>
+        <div class="dropdown-menu" aria-labelledby="parkMovesdropdown">
+          <%= link_to "Aquisições", acquisitions_path, class: "dropdown-item" if current_user.canBuy %>
+          <%= link_to "Alocações", allocations_path, class: "dropdown-item" if current_user.canAlocate %>
+          <%= link_to "Itens do park", items_path, class: "dropdown-item" if current_user.isAdmin %>
+        </div>
+      </li>
 
-      <% if session[:user_id] %>
-        <% if current_user.canBuy %>
-          <%= link_to "Aquisições", acquisitions_path, class: "nav-item nav-link" %>
-        <% end %>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="unparkableMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inventário</a>
+        <div class="dropdown-menu" aria-labelledby="unparkableMovesdropdown">
+          <%= link_to "Estoque", "#", class: "dropdown-item" if current_user.canBuy %>
+          <%= link_to "Movimentações", "#", class: "dropdown-item" if current_user.canAlocate %>
+        </div>
+      </li>
 
-        <% if current_user.canAlocate %>
-          <%= link_to "Alocações", allocations_path, class: "nav-item nav-link" %>
-        <% end %>
-
-        <% if current_user.isAdmin %>
-          <%= link_to "Localidades", placements_path, class: "nav-item nav-link" %>
-          <%= link_to "Itens de Inventório", items_path, class: "nav-item nav-link" %>
-          <%= link_to "Operadores", operators_path, class: "nav-item nav-link" %>
-        <% end %>
+      <% if current_user.isAdmin %>
+        <li class="nav-item"> <%= link_to "Localidades", placements_path, class: "nav-link" %> </li>
+        <li class="nav-item"> <%= link_to "Operadores", operators_path, class: "nav-link" %> </li>
+        <li class="nav-item"> <%= link_to "Empresas", companies_path, class: "nav-link" %> </li>
+        <li class="nav-item"> <%= link_to "Fornecedores", suppliers_path, class: "nav-link" %> </li>
       <% end %>
-    </div>
-
-    <% if session[:user_id] %>
-      <div class="navbar-nav justify-content-end">
-        <span class="navbar-text d-flex justify-content-end"> <%= current_user.name %> </span>
-        <%= link_to "Sair", logout_path, class: "nav-item nav-link d-flex justify-content-end" %>
-      </div>
-    <% end %>
+    </ul>
+    <ul class="navbar-nav d-flex justify-content-end">
+      <li class="nav-item"> <%= link_to current_user.name, current_user, class: "nav-link" %> </li>
+      <li class="nav-item"> <%= link_to "Sair", logout_path, class: "nav-link" %> </li>
+    </ul>
   </div>
 </nav>
 
 <% if notice %>
-  <div class="alert alert-warning alert-dismissible fade show w-50 mx-auto" role="alert">
+  <div class="alert alert-warning alert-dismissible fade show w-50 mx-auto text-center my-3" style="min-width: 20em" role="alert">
     <p id="notice"><%= notice %></p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
+      <span aria-hidden="true"> <%= fa_icon(:times) %></span>
     </button>
   </div>
 <% end %>
+
 <div id='content' class="m-3 mt-5">
   <%= yield %>
 </div>
 
-<footer class="footer container pt-5">
-<nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
-  <div class="collapse navbar-collapse">
-    <div class="navbar-nav justify-content-center">
-      <%= link_to "Contatos", class: "nav-item nav-link" %>
-      <%= link_to "Sobre", class: "nav-item nav-link" %>
-      <%= link_to "etc1", class: "nav-item nav-link" %>
-      <%= link_to "etc2", class: "nav-item nav-link" %>
-    </div>
-  </div>
-</nav>
+<footer class="footer mt-5 bg-light text-muted fixed-bottom text-right p-2">
+Sistema de Park Casebrás | contato: helpdesk@casebras.com.br | <%= fa_icon(:copyright) %> 2017
 </footer>
 
 </div>

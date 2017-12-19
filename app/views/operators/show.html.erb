@@ -13,26 +13,29 @@
   </div>
 
   <div class="col">
-    <h4> Permissões </h4>
-    <p>
-      <label>Pode Alocar?</label>
-      <%= @operator.canAlocate ? "Sim" : "Não" %>
-    </p>
-
-    <p>
-      <label>Pode Comprar?</label>
-      <%= @operator.canBuy ? "Sim" : "Não" %>
-    </p>
-
-    <p>
-      <label>Administrador?</label>
-      <%= @operator.isAdmin ? "Sim" : "Não" %>
-    </p>
-
-    <p>
-      <label>Bloqueado?</label>
-      <%= @operator.isBlocked ? "Sim" : "Não" %>
-    </p>
+    <table class="table table-sm table-hover">
+      <thead>
+        <th colspan="2" class="text-center">Permissões</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><label>Pode Alocar?</label></td>
+          <td><%= @operator.canAlocate ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+        </tr>
+        <tr>
+          <td><label>Pode Comprar?</label></td>
+          <td><%= @operator.canBuy ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+        </tr>
+        <tr>
+          <td><label>Administrador?</label></td>
+          <td><%= @operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+          </tr>
+        <tr>
+          <td><label>Bloqueado?</label></td>
+          <td><%= @operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 

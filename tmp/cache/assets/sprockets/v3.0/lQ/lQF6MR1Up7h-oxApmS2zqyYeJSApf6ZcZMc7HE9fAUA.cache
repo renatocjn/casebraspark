@@ -1,0 +1,13 @@
+I"6(function() {
+  jQuery(function() {
+    if ($('#dischargeCheckbox').value === "true") {
+      alert("Teste");
+      $("#dischargeDescription").collapse();
+    }
+    return $('#dischargeCheckbox').on('change', '#dischargeDescription', function() {
+      return $(this).collapse();
+    });
+  });
+
+}).call(this);
+:ET

@@ -6,7 +6,7 @@ class PlacementsController < ApplicationController
   # GET /placements
   # GET /placements.json
   def index
-    @placements = Placement.all
+    @placements = Placement.includes(:allocations, :items).all
   end
 
   # GET /placements/1

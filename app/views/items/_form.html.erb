@@ -1,12 +1,19 @@
 
+<%= f.hidden_field :id %>
 <%= f.input :plate,  label: "Plaqueta:", wrapper_html: {class: "small-input"} %>
 <%= f.input :brand,  label: "Marca:", wrapper_html: {class: "small-input"} %>
 <%= f.input :model,  label: "Modelo:", wrapper_html: {class: "small-input"} %>
 <%= f.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
 <%= f.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"}, input_html: {style: "display: inline"} %>
 
-<%= f.simple_fields_for :parkable_item do |f2| %>
+<%= f.simple_fields_for :parkable_item, (f.object.new_record? ? type.constantize.new : f.object.parkable_item) do |f2| %>
     <%= render "#{type.downcase.pluralize.strip}/form", :f => f2 %>
+<% end %>
+
+<% if defined? type %>
+    <%= f.hidden_field :parkable_item_type, value: type %>
+<% else %>
+    <%= f.hidden_field :parkable_item_type %>
 <% end %>
 
 <% if defined? update %>

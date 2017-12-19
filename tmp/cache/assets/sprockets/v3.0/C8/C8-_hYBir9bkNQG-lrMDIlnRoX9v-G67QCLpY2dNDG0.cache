@@ -1,0 +1,22 @@
+I"ƒ(function() {
+  jQuery(function() {
+    $('#dischargeCheckbox').on('click', function() {
+      if ($('#dischargeDescription')) {
+        return $('#dischargeDescription').collapse('toggle');
+      }
+    });
+    $("#dischargeDescription").collapse('show');
+    $('#dischargeDescription').on('hide.bs.collapse', function() {
+      return $('#dischargeDescription textarea').val('');
+    });
+    if ($('#dischargeCheckbox').prop('checked') === "1") {
+      alert(1);
+      return $("#dischargeDescription").collapse('show');
+    } else {
+      alert("other");
+      return $("#dischargeDescription").collapse('hide');
+    }
+  });
+
+}).call(this);
+:ET

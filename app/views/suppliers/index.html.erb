@@ -1,0 +1,26 @@
+
+<table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th class="col-3" scope="col">Nome do fornecedor</th>
+      <th class="col-3" scope="col">Email de contato</th>
+      <th class="col-3" scope="col">Telefones</th>
+      <th class="col-1" scope="col"></th>
+      <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
+      <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_supplier_path, class: "btn btn-primary" %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @suppliers.each do |supplier| %>
+      <tr scope="row">
+        <td class="col-3"><%= supplier.name %></td>
+        <td class="col-3"><%= supplier.email %></td>
+        <td class="col-3"><%= simple_format supplier.phones %></td>
+        <td class="col-1"><%= link_to fa_icon("info-circle"), supplier, class: "btn btn-info" %></td>
+        <td class="col-1"><%= link_to fa_icon(:pencil), edit_supplier_path(supplier), class: "btn btn-secondary" %></td>
+        <td class="col-1"><%= link_to fa_icon(:trash), supplier, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

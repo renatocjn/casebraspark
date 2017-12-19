@@ -1,0 +1,22 @@
+I"8(function() {
+  jQuery(function() {
+    return $('.new_allocation:form').change(function() {
+      return $('.allocation_items_plate input:text').change(function() {
+        var u, v;
+        v = $(this).val().trim();
+        return u = $.get({
+          url: "/items/" + v + ".json",
+          dataType: "json",
+          success: function(data) {
+            return alert("Item encontrado com sucesso!");
+          },
+          error: function(data) {
+            return alert("Item não encontrado");
+          }
+        });
+      });
+    });
+  });
+
+}).call(this);
+:ET

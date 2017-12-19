@@ -1,52 +1,40 @@
-<div class="row">
-  <div class="col">
-    <p>
-    <label>Descrição:</label>
-    <%= @item.to_s %>
-    </p>
 
-    <p>
-      <label>Marca:</label>
-      <%= @item.brand %>
-    </p>
+<p>
+<label>Plaqueta:</label>
+<%= @item.plate %>
+</p>
 
-    <p>
-      <label>Valor: </label>
-      <%= number_to_currency @item.value, :locale => :pt_BR %>
-    </p>
+<p>
+  <label>Descrição:</label>
+  <%= @item.to_s %>
+</p>
 
-    <p>
-      <label>Outras Informações:</label>
-      <%= @item.longDescription %>
-    </p>
-  </div>
 
-  <div class="col">
-    <%= link_to 'Editar', edit_item_path(@item), class:"btn btn-primary btn-block text-white my-3" %>
+<p>
+  <label>Número serial:</label>
+  <%= @item.serial %>
+</p>
 
-    <p>
-      <label>Número serial:</label>
-      <%= @item.serial %>
-    </p>
+<p>
+  <label>Valor: </label>
+  <%= number_to_currency @item.value, :locale => :pt_BR %>
+</p>
 
-    <p>
-    <label>Plaqueta:</label>
-    <%= @item.plate %>
-    </p>
+<%= render @item.parkable_item_type.downcase.pluralize+"/show", item: @item.parkable_item %>
 
-    <p>
-      <label>Foi Descartado?</label>
-      <%= @item.isDischarged ? "Sim" : "Não" %>
-    </p>
+<p>
+  <label>Foi Descartado?</label>
+  <%= @item.isDischarged ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %>
+</p>
 
-    <% if @item.isDischarged %>
-      <p>
-        <label>Descrição do descarte:</label>
-        <%= @item.dischargeDescription %>
-      </p>
-    <% end %>
-  </div>
-</div>
+<% if @item.isDischarged %>
+  <p>
+    <label>Descrição do descarte:</label>
+    <%= @item.dischargeDescription %>
+  </p>
+<% end %>
+
+<%= link_to 'Editar', edit_item_path(@item), class:"btn btn-primary btn-block text-white my-3" %>
 
 <hr>
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :companies
+  resources :suppliers
   resources :printers
   resources :computers
   resources :screens

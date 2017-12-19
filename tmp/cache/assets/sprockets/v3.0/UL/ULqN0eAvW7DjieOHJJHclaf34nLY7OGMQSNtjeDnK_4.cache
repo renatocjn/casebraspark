@@ -1,0 +1,15 @@
+I"Å(function() {
+  jQuery(function() {
+    if ($('#dischargeCheckbox').val() === "1") {
+      $("#dischargeDescription").collapse('show');
+    } else {
+      $("#dischargeDescription").collapse('hide');
+    }
+    return $('#dischargeCheckbox').on('change', '#dischargeDescription', function() {
+      alert($(this));
+      return $(this).collapse('toggle');
+    });
+  });
+
+}).call(this);
+:ET

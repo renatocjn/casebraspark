@@ -67,6 +67,13 @@ ActiveRecord::Base.transaction do
     Placement.new(other: "Corporate", address: "Santos Dummont", contact: "88888888").save!
     Placement.new(state: "CE", city: "Taubaté", other: "Padrão de vida", address: "Taubaté - CE", contact: "88888888").save!
 
+    Company.create! name: "CASEBRAS", cnpj: "00.000.000/0000-00"
+    Company.create! name: "CASPEB", cnpj: "00.000.000/0000-00"
+
+    Supplier.create! name: "iByte", email: "ibyte@ibyte.com", phones: "9999-9999\n9999-9999"
+    Supplier.create! name: "nagem", email: "nagem@nagem.com", phones: "9999-9999"
+    Supplier.create! name: "cstore", email: "cstore@cstore.com", phones: "9999-9999"
+
     #ItemType.new(name: "Monitor").save!
     #ItemType.new(name: "Gabinete").save!
     #ItemType.new(name: "Impressora").save!

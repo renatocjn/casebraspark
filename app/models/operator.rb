@@ -12,4 +12,8 @@ class Operator < ActiveRecord::Base
     has_many :acquisitions
 
     has_secure_password
+
+    def to_s
+        name
+    end
 end

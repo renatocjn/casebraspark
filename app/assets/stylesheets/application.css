@@ -12,6 +12,7 @@
  *
  *= require font-awesome
  *= require_tree .
+ *= require_tree ../../../vendor/assets/stylesheets
  *= require_self
 
 @import "bootstrap-sprockets"
@@ -27,4 +28,14 @@
 .small-input:not(.hidden) {
     display: inline-block;
     margin: auto 5pt;
+}
+
+footer {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

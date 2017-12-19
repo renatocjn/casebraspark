@@ -6,10 +6,16 @@
     </div>
   </div>
 
-  <%= f.input :supplier, label: "Fornecedor desta acquisição" %>
+  <%= f.association :supplier, as: :select, include_blank: false, label: "Fornecedor desta aquisição" %>
 
-  <%= simple_fields_for @acquisition.allocation do |f2| %>
-    <%= render "allocations/form", f: f2, allocation: @acquisition.allocation %>
+  <%= f.association :company, as: :select, include_blank: false, label: "Empresa desta compra" %>
+
+  <%= f.simple_fields_for :allocation do |f2| %>
+    <%= render "allocations/form", f: f2 %>
+
+      <%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:desktop), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Screen' }} %>
+      <%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:windows), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Computer' }} %>
+      <%= link_to_add_association fa_icon(:plus) +" "+ fa_icon(:print), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Printer' }} %>
   <% end %>
 
   <%= f.submit "Salvar", class: "btn btn-primary" %>

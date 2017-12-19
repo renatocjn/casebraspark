@@ -82,7 +82,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:plate, :type, :brand, :model, :serial, :value, :isDischarged, :dischargeDescription,
-        :parkable_item => [:type, :inches, :processor, :memory, :harddisk])
+      params.require(:item).permit(:id, :plate, :brand, :model, :serial, :value, :isDischarged, :dischargeDescription,
+        :parkable_item => [:id, :inches, :processor, :memory, :harddisk])
     end
 end

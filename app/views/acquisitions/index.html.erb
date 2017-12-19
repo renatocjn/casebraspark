@@ -4,28 +4,28 @@
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th scope="col">Motivo</th>
-          <th scope="col">fornecedor</th>
-          <th scope="col">Local de alocação</th>
-          <th scope="col">Operador Responsável</th>
-          <th scope="col">Numero de itens</th>
-          <th scope="col">Valor total</th>
-          <th scope="col" colspan="2"></th>
+          <th class="col-2" scope="col">Data da acquisição</th>
+          <th class="col-2" scope="col">Operador Responsável</th>
+          <th class="col-2" scope="col">fornecedor</th>
+          <th class="col-2" scope="col">Local de alocação</th>
+          <th class="col-2" scope="col">Número de itens</th>
+          <th class="col-2" scope="col">Valor total</th>
+          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th></th>
+          <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
         </tr>
       </thead>
 
       <tbody>
         <% @acquisitions.each do |acquisition| %>
           <tr scope="row">
-            <td><%= acquisition.reason %></td>
-            <td><%= acquisition.supplier %></td>
-            <td><%= link_to acquisition.placement.to_s, placement_path(acquisition.allocation.placement), class: "text-info" %></td>
-            <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
-            <td><%= acquisition.items.count %></td>
-            <td><%= number_to_currency acquisition.totalValue, :locale => :pt_BR %></td>
-            <td><%= link_to 'Detalhes', acquisition, class: "btn btn-info btn-sm text-white" %></td>
-            <td><%= link_to 'Editar', edit_acquisition_path(acquisition), class: "btn btn-secondary btn-sm text-white" %></td>
-            <td><%#= link_to 'Excluir', acquisition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class="col-2"><%= localize acquisition.created_at.to_date %></td>
+            <td class="col-2"><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
+            <td class="col-2"><%= acquisition.supplier %></td>
+            <td class="col-2"><%= link_to acquisition.placement.to_s, placement_path(acquisition.allocation.placement), class: "text-info" %></td>
+            <td class="col-2"><%= acquisition.items.count %></td>
+            <td class="col-2"><%= number_to_currency acquisition.totalValue %></td>
+            <td class="col-1"><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
+            <td class="col-1"><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
       </tbody>
@@ -33,9 +33,3 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-6"></div>
-  <div class="col-6">
-    <%= link_to 'Criar Nova Aquisição', new_acquisition_path, class: "btn btn-primary btn-block text-white" %>
-  </div>
-</div>

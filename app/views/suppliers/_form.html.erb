@@ -1,0 +1,12 @@
+<%= simple_form_for(@supplier) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name, label: "Nome do fornecedor" %>
+  <%= f.input :email, label: "Email de contato" %>
+  <%= f.input :address, as: :text, label: "Endereço" %>
+  <%= f.input :phones, as: :text, label: "Telefone(s) de contato" %>
+  <%= f.input :other, as: :text, label: "Outras informações" %>
+
+  <%= f.button :submit, "Salvar", class: "btn btn-primary" %>
+
+<% end %>

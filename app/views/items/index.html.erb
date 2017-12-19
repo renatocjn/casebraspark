@@ -4,29 +4,26 @@
     <table class="table table-hover table-sm text-center">
       <thead>
         <tr>
-          <th scope="col">Plaqueta</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">Marca</th>
-          <th scope="col">Modelo</th>
-          <th scope="col">Número Serial</th>
-          <th scope="col">Valor</th>
-          <th scope="col">Localização Atual</th>
-          <th colspan="2" scope="col"></th>
+          <th class="col-2" scope="col">Plaqueta</th>
+          <th class="col-2" scope="col">Descrição</th>
+          <th class="col-2" scope="col">Localização atual</th>
+          <th class="col-2" scope="col">Número Serial</th>
+          <th class="col-2" scope="col">Valor</th>
+          <th class="col-1" scope="col"></th>
+          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
         </tr>
       </thead>
 
       <tbody>
         <% @items.each do |item| %>
           <tr scope="row">
-            <td><%= item.plate %> </td>
-            <td><%= item.item_type.name %></td>
-            <td><%= item.brand %></td>
-            <td><%= item.model %></td>
-            <td><%= item.serial %></td>
-            <td><%= number_to_currency item.value, :locale => :pt_BR %></td>
-            <td><%= item.placements.order("created_at DESC").first %></td>
-            <td><%= link_to 'detalhes', item_path(item), class: "btn btn-info btn-block btn-sm text-white" %></td>
-            <td><%= link_to 'Editar', edit_item_path(item), class: "btn btn-secondary btn-block btn-sm text-white" %></td>
+            <td class="col-2"><%= item.plate %> </td>
+            <td class="col-2"><%= item.description %></td>
+            <td class="col-2"><%= item.placement %></td>
+            <td class="col-2"><%= item.serial %></td>
+            <td class="col-2"><%= number_to_currency item.value %></td>
+            <td class="col-1"><%= link_to fa_icon("info-circle"), item_path(item), class: "btn btn-info" %></td>
+            <td class="col-1"><%= link_to fa_icon(:pencil), edit_item_path(item), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
       </tbody>
@@ -34,5 +31,3 @@
 
   </div>
 </div>
-
-<%#= link_to 'New Item', new_item_path %>

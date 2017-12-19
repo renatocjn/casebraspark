@@ -8,7 +8,7 @@
 
     <p>
       <strong>Operador responsavel:</strong>
-      <%= link_to @allocation.operator.name, operator_path(@allocation.operator), class: "text-info" %>
+      <%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %>
     </p>
   </div>
   <div class="col">
@@ -34,7 +34,7 @@
 <% @allocation.items.each do |item| %>
     <tr scope="row">
       <td><%= link_to item.plate, item_path(item), class: "text-info" %></td>
-      <td><%= item.item_type.name %></td>
+      <td><%= item.type_pt_BR %></td>
       <td><%= item.brand %></td>
       <td><%= item.model %></td>
       <td><%= item.serial %></td>
