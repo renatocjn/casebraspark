@@ -1,0 +1,22 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th></th>
+      <th><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
+      <th><%= link_to fa_icon("plus-circle"), new_stock_items_type_path, class: "btn btn-primary" %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_items_types.each do |stock_items_type| %>
+      <tr>
+        <td><%= stock_items_type.description %></td>
+        <td><%= link_to fa_icon("info-circle"), stock_items_type, class: "btn btn-secondary" %></td>
+        <td><%= link_to fa_icon(:pencil), edit_stock_items_type_path(stock_items_type), class: "btn btn-secondary" %></td>
+        <td><%= link_to fa_icon(:trash), stock_items_type, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -24,8 +24,8 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="parkMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Park</a>
         <div class="dropdown-menu" aria-labelledby="parkMovesdropdown">
-          <%= link_to "Aquisições", acquisitions_path, class: "dropdown-item" if current_user.canBuy %>
-          <%= link_to "Alocações", allocations_path, class: "dropdown-item" if current_user.canAlocate %>
+          <%= link_to "Aquisições", acquisitions_path, class: "dropdown-item" if current_user.canBuy or current_user.isAdmin %>
+          <%= link_to "Alocações", allocations_path, class: "dropdown-item" if current_user.canAlocate or current_user.isAdmin %>
           <%= link_to "Itens do park", items_path, class: "dropdown-item" if current_user.isAdmin %>
         </div>
       </li>
@@ -33,8 +33,8 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="unparkableMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inventário</a>
         <div class="dropdown-menu" aria-labelledby="unparkableMovesdropdown">
-          <%= link_to "Estoque", "#", class: "dropdown-item" if current_user.canBuy %>
-          <%= link_to "Movimentações", "#", class: "dropdown-item" if current_user.canAlocate %>
+          <%= link_to "Estoque", "#", class: "dropdown-item" if current_user.canBuy or current_user.isAdmin %>
+          <%= link_to "Movimentações", "#", class: "dropdown-item" if current_user.canAlocate or current_user.isAdmin %>
         </div>
       </li>
 

@@ -16,14 +16,14 @@
   <div class="col">
     <p>
       <label>Contatos:</label>
-      <%= @placement.contact %>
+      <%= simple_format @placement.contact %>
     </p>
   </div>
 
   <div class="col">
     <p>
       <label>Endereço:</label>
-      <%= @placement.address %>
+      <%= simple_format @placement.address %>
     </p>
   </div>
 </div>
@@ -32,7 +32,7 @@
 
 <% if @placement.items.any? %>
 <hr>
-<h4 class="d-flex justify-content-center">Items registrados neste local</h4>
+<h4 class="text-center">Items alocados neste local</h4>
 <table class="table table-hover table-sm text-center">
   <tr>
     <th scope="col">Plaqueta</th>
@@ -49,8 +49,10 @@
     <td> <%= item.brand %> </td>
     <td> <%= item.model %> </td>
     <td> <%= item.serial %> </td>
-    <td> <%= item.value %> </td>
+    <td> <%= number_to_currency item.value %> </td>
   </tr>
 <% end %>
 </table>
+<% else %>
+  <h4 class="text-center">Nenhum item alocado neste local</h4>
 <% end %>

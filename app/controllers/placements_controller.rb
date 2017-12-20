@@ -2,6 +2,7 @@ class PlacementsController < ApplicationController
   before_action :set_placement, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
   before_filter :apenasAdmin, except: [:index, :show]
+  before_filter :protect_stock, only: :destroy
 
   # GET /placements
   # GET /placements.json
@@ -72,5 +73,9 @@ class PlacementsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def placement_params
       params.require(:placement).permit(:state, :city, :other, :address, :contact)
+    end
+
+    def protect_stock
+      redirect_to placementes_url, notice: "O estoque não pode ser apagado" unless @placement != Placement.stock
     end
 end

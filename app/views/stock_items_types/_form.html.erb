@@ -1,0 +1,7 @@
+<%= simple_form_for(@stock_items_type) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :description, label: "Descrição" %>
+  <%= f.button :submit, "Salvar" %>
+
+<% end %>

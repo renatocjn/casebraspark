@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171219202423) do
+ActiveRecord::Schema.define(version: 20171220171200) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",     null: false
@@ -111,6 +111,25 @@ ActiveRecord::Schema.define(version: 20171219202423) do
     t.integer  "inches"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stock_items", force: :cascade do |t|
+    t.string   "serial_number"
+    t.string   "short_description"
+    t.text     "long_description"
+    t.integer  "acquisition_id"
+    t.integer  "stock_item_type_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "stock_items", ["acquisition_id"], name: "index_stock_items_on_acquisition_id"
+  add_index "stock_items", ["stock_item_type_id"], name: "index_stock_items_on_stock_item_type_id"
+
+  create_table "stock_items_types", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "suppliers", force: :cascade do |t|

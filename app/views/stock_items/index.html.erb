@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Stock Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serial number</th>
+      <th>Short description</th>
+      <th>Long description</th>
+      <th>Acquisition</th>
+      <th>Stock item types</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_items.each do |stock_item| %>
+      <tr>
+        <td><%= stock_item.serial_number %></td>
+        <td><%= stock_item.short_description %></td>
+        <td><%= stock_item.long_description %></td>
+        <td><%= stock_item.acquisition %></td>
+        <td><%= stock_item.stock_item_types %></td>
+        <td><%= link_to 'Show', stock_item %></td>
+        <td><%= link_to 'Edit', edit_stock_item_path(stock_item) %></td>
+        <td><%= link_to 'Destroy', stock_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock item', new_stock_item_path %>

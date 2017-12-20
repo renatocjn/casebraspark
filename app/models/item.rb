@@ -7,11 +7,12 @@ class Item < ActiveRecord::Base
     belongs_to :parkable_item, polymorphic: true
     accepts_nested_attributes_for :parkable_item, :reject_if => :all_blank
 
-    validates :dischargeDescription, presence: { message: "Um motivo deve ser fornecido" }, if: :isDischarged
+    validates :dischargeDescription, presence: true, if: :isDischarged
 
-    validates :plate, :model, :serial, :brand, :value, :parkable_item, presence: { message: "Informação obrigatória" }
-    validates :plate, uniqueness: { message: "Esta plaqueta já foi registrada" }
-    validates :value, numericality: { :greater_than => 0, message: "Deve ser fornecido um valor numérico positivo" }
+    validates :plate, :model, :serial, :brand, :value, :placement, :parkable_item, presence: true
+    validates :plate, uniqueness: true
+    validates :value, numericality: {:greater_than => 0}
+    validates_associated :parkable_item
 
     def description
         r = ""
@@ -39,9 +40,5 @@ class Item < ActiveRecord::Base
 
     def acquisition
         self.allocations.order(created_at: :asc).includes(:acquisition).first.acquisition
-    end
-
-    def current_placement
-        self.allocations.order(created_at: :desc).first.placement
     end
 end

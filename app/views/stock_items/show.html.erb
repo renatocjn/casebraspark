@@ -1,0 +1,24 @@
+
+<p>
+  <label>Número serial:</label>
+  <%= @stock_item.serial_number %>
+</p>
+
+<p>
+  <label>Descrição curta:</label>
+  <%= @stock_item.short_description %>
+</p>
+
+<p>
+  <label>Descrição Longa:</label>
+  <%= @stock_item.long_description %>
+</p>
+
+<p>
+  <%= link_to "aquisição", @stock_item.acquisition, class: "text-info" %>
+</p>
+
+<p>
+  <label>Tipo:</label>
+  <%= @stock_item.stock_item_type %>
+</p>

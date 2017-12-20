@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  serial_number: MyString
+  short_description: MyString
+  long_description: MyString
+  acquisition_id: 
+  stock_item_types_id: 
+
+two:
+  serial_number: MyString
+  short_description: MyString
+  long_description: MyString
+  acquisition_id: 
+  stock_item_types_id: 

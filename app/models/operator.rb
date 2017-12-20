@@ -4,9 +4,9 @@ class Operator < ActiveRecord::Base
     validates :email, uniqueness: { message: "Este email já está em uso" }
 
     validates :password, length: {minimum: 4, message: "A sua senha deve conter pelo menos 4 caracteres"}
-    validates :password, confirmation: {message: "Confirmação inválida"}
+    validates :password, confirmation: true
 
-    validates :canAlocate, :canBuy, :isAdmin, :isBlocked, inclusion: [true, false]
+    #validates :canAlocate, :canBuy, :isAdmin, :isBlocked, inclusion: [true, false]
 
     has_many :allocations, through: :allocations_items
     has_many :acquisitions

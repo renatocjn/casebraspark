@@ -1,0 +1,11 @@
+<%= simple_form_for(@stock_item) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :serial_number, label: "Número serial" %>
+  <%= f.input :short_description, label: "Descrição curta" %>
+  <%= f.input :long_description, label: "Descrição longa" %>
+  <%#= f.association :acquisition %>
+  <%= f.association :stock_item_type %>
+
+  <%= f.button :submit, "Salvar" %>
+<% end %>
