@@ -20,12 +20,17 @@
   <div class="col">
       <p>
         <label>Local de alocação:</label>
-        <%= link_to @acquisition.allocation.placement, placement_path(@acquisition.allocation.placement), class: "text-info" %>
+        <%= link_to @acquisition.allocation.placement, @acquisition.allocation.placement, class: "text-info" %>
       </p>
 
       <p>
         <label>Operador responsável:</label>
-        <%= link_to @acquisition.operator.name, operator_path(@acquisition.operator), class: "text-info" %>
+        <%= link_to @acquisition.operator.name, @acquisition.operator, class: "text-info" %>
+      </p>
+
+      <p>
+        <label>Número da nota:</label>
+        <%= @acquisition.invoice_number %>
       </p>
   </div>
 </div>
@@ -36,7 +41,7 @@
     <tr>
       <th scope="col">Plaqueta</th>
       <th scope="col">Descrição</th>
-      <th scope="col">Número de serie</th>
+      <th scope="col">Número de série</th>
       <th scope="col">Valor</th>
     </tr>
   <% @acquisition.items.each do |item| %>
@@ -44,7 +49,7 @@
       <td><%= link_to item.plate, item_path(item), class:"text-info"%></td>
       <td><%= item.description %></td>
       <td><%= item.serial %></td>
-      <td><%= number_to_currency item.value, :locale => :pt_BR %></td>
+      <td><%= number_to_currency item.value %></td>
     </tr>
   <% end %>
   </table>
@@ -52,7 +57,7 @@
 
 <div class="row">
   <div class="col-6 offset-6">
-    <%= link_to 'Editar', edit_acquisition_path(@acquisition), class: "btn btn-primary btn-block text-white" %>
+    <%= link_to 'Editar', edit_acquisition_path(@acquisition), class: "btn btn-primary" %>
   </div>
 </div>
 
