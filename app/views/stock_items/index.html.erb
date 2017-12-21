@@ -1,0 +1,28 @@
+
+<table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th class="col-8" scope="col">Descrição curta</th>
+      <th class="col-1" scope="col">Quantidade disponível</th>
+      <th class="col-1" scope="col"></th>
+      <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
+      <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_stock_item_path, class: "btn btn-primary" %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_items.each do |stock_item| %>
+      <tr scope="row">
+        <td class="col-8"><%= stock_item.short_description %></td>
+        <td class="col-1"><%= stock_item.stock %></td>
+        <td class="col-1"><%= link_to fa_icon("info-circle"), stock_item, class: "btn btn-secondary" %></td>
+        <td class="col-1"><%= link_to fa_icon(:pencil), edit_stock_item_path(stock_item), class: "btn btn-secondary" %></td>
+        <td class="col-1"><%= link_to fa_icon(:trash), stock_item, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

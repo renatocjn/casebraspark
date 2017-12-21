@@ -43,7 +43,6 @@ class AllocationsController < ApplicationController
     allocation_params.delete :items_attributes
 
     @allocation = Allocation.new(allocation_params)
-    @allocation.operator = current_user
     @allocation.items = items
     respond_to do |format|
       if @allocation.save
@@ -93,7 +92,7 @@ class AllocationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def allocation_params
       params.require(:allocation).permit(:reason, :placement_id,
-      :items_attributes => [:id, :plate, :_destroy])
+        :items_attributes => [:id, :plate, :_destroy])
       #:items_attributes => [:plate, :item_type_id, :brand, :model, :serial, :value, :_destroy])
     end
 

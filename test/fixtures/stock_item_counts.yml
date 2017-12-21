@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_item_id: 
+  placement_id: 
+  count: 1
+
+two:
+  stock_item_id: 
+  placement_id: 
+  count: 1

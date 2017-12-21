@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_item_id: 
+  quantity: 1
+  allocation_id: 
+
+two:
+  stock_item_id: 
+  quantity: 1
+  allocation_id: 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171219202423) do
+ActiveRecord::Schema.define(version: 20171221200513) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",     null: false
@@ -32,12 +32,14 @@ ActiveRecord::Schema.define(version: 20171219202423) do
     t.datetime "updated_at",     null: false
     t.integer  "acquisition_id"
     t.integer  "operator_id"
-    t.integer  "placement_id"
+    t.integer  "destination_id"
+    t.integer  "origin_id"
   end
 
   add_index "allocations", ["acquisition_id"], name: "index_allocations_on_acquisition_id"
+  add_index "allocations", ["destination_id"], name: "index_allocations_on_destination_id"
   add_index "allocations", ["operator_id"], name: "index_allocations_on_operator_id"
-  add_index "allocations", ["placement_id"], name: "index_allocations_on_placement_id"
+  add_index "allocations", ["origin_id"], name: "index_allocations_on_origin_id"
 
   create_table "allocations_items", id: false, force: :cascade do |t|
     t.integer "allocation_id", null: false
@@ -111,6 +113,35 @@ ActiveRecord::Schema.define(version: 20171219202423) do
     t.integer  "inches"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stock_item_counts", force: :cascade do |t|
+    t.integer  "stock_item_id"
+    t.integer  "placement_id"
+    t.integer  "count"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "stock_item_counts", ["placement_id"], name: "index_stock_item_counts_on_placement_id"
+  add_index "stock_item_counts", ["stock_item_id"], name: "index_stock_item_counts_on_stock_item_id"
+
+  create_table "stock_item_groups", force: :cascade do |t|
+    t.integer  "stock_item_id"
+    t.integer  "quantity"
+    t.integer  "allocation_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "stock_item_groups", ["allocation_id"], name: "index_stock_item_groups_on_allocation_id"
+  add_index "stock_item_groups", ["stock_item_id"], name: "index_stock_item_groups_on_stock_item_id"
+
+  create_table "stock_items", force: :cascade do |t|
+    t.string   "short_description"
+    t.text     "long_description"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "suppliers", force: :cascade do |t|

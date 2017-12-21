@@ -4,7 +4,6 @@ class AcquisitionsController < ApplicationController
   before_filter :podeComprar
   before_filter :admin_or_mine, except: [:index, :new, :create]
 
-
   # GET /acquisitions
   # GET /acquisitions.json
   def index
@@ -37,9 +36,6 @@ class AcquisitionsController < ApplicationController
   # POST /acquisitions.json
   def create
     @acquisition = Acquisition.new acquisition_params
-    @acquisition.operator = current_user
-    @acquisition.allocation.operator = current_user
-
     respond_to do |format|
       if @acquisition.save
         @acquisition.items.each {|i| i.update placement: @acquisition.allocation.placement }
@@ -88,7 +84,8 @@ class AcquisitionsController < ApplicationController
       params.require(:acquisition).permit(:supplier_id, :company_id,
         :allocation_attributes => [:id, :reason, :placement_id,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :_destroy,
-            :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]]])
+            :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]],
+            :stock_item_group_attributes => [:id, :stock_item_id, :quantity, :_destroy]])
     end
 
     def admin_or_mine

@@ -1,5 +1,6 @@
 
-<%= f.association :placement, label: "Local de alocação" %>
+<%= f.association :origin, label: "Origem dos items" %>
+<%= f.association :destination, label: "Destino dos items" %>
 <%= f.input :reason, label: "Motivo desta operação" %>
 
 <div class="d-flex justify-content-center flex-wrap">
@@ -7,5 +8,8 @@
   <%= f.simple_fields_for :items do |f2| %>
     <%= render "item_fields", :f => f2, :type => f2.object.parkable_item_type %>
   <% end %>
+  <%#= f.simple_fields_for :stock_items_groups do |f2| %>
+    <%#= render "stock_items/group_partial", :f => f2 %>
+  <%# end %>
 </div>
 

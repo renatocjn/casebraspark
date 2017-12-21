@@ -1,0 +1,9 @@
+<%= simple_form_for(@stock_item) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :short_description, label: "Descrição curta" %>
+  <%= f.input :long_description, label: "Descrição longa" %>
+
+  <%= f.button :submit, "Salvar" %>
+
+<% end %>

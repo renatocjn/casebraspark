@@ -21,22 +21,20 @@
   <% end %>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="parkMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Park</a>
-        <div class="dropdown-menu" aria-labelledby="parkMovesdropdown">
-          <%= link_to "Aquisições", acquisitions_path, class: "dropdown-item" if current_user.canBuy %>
-          <%= link_to "Alocações", allocations_path, class: "dropdown-item" if current_user.canAlocate %>
-          <%= link_to "Itens do park", items_path, class: "dropdown-item" if current_user.isAdmin %>
-        </div>
-      </li>
+      <!--<li class="nav-item dropdown">-->
+      <!--  <a class="nav-link dropdown-toggle" id="parkMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Park</a>-->
+      <!--  <div class="dropdown-menu" aria-labelledby="parkMovesdropdown">-->
+      <!--    <%#= link_to "Aquisições", acquisitions_path, class: "dropdown-item" if current_user.canBuy or current_user.isAdmin %>-->
+          <%#= link_to "Alocações", allocations_path, class: "dropdown-item" if current_user.canAlocate or current_user.isAdmin %>
+          <%#= link_to "Itens do park", items_path, class: "dropdown-item" if current_user.isAdmin %>
+      <!--  </div>-->
+      <!--</li>-->
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="unparkableMovesdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inventário</a>
-        <div class="dropdown-menu" aria-labelledby="unparkableMovesdropdown">
-          <%= link_to "Estoque", "#", class: "dropdown-item" if current_user.canBuy %>
-          <%= link_to "Movimentações", "#", class: "dropdown-item" if current_user.canAlocate %>
-        </div>
-      </li>
+      <li class="nav-item"> <%= link_to "Aquisições", acquisitions_path, class: "nav-link" if current_user.canBuy or current_user.isAdmin %> </li>
+      <li class="nav-item"> <%= link_to "Alocações", allocations_path, class: "nav-link" if current_user.canAlocate or current_user.isAdmin %> </li>
+      <li class="nav-item"> <%= link_to "Itens do park", items_path, class: "nav-link" if current_user.isAdmin %></li>
+
+      <li class="nav-item"> <%= link_to "Estoque", stock_items_path, class: "nav-link" %> </li>
 
       <% if current_user.isAdmin %>
         <li class="nav-item"> <%= link_to "Localidades", placements_path, class: "nav-link" %> </li>
@@ -52,9 +50,18 @@
   </div>
 </nav>
 
-<% if notice %>
+<% if flash.notice %>
+  <div class="alert alert-info alert-dismissible fade show w-50 mx-auto text-center my-3" style="min-width: 20em" role="alert">
+    <p id="notice"><%= flash.notice %></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true"> <%= fa_icon(:times) %></span>
+    </button>
+  </div>
+<% end %>
+
+<% if flash.alert %>
   <div class="alert alert-warning alert-dismissible fade show w-50 mx-auto text-center my-3" style="min-width: 20em" role="alert">
-    <p id="notice"><%= notice %></p>
+    <p id="notice"><%= flash.alert %></p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true"> <%= fa_icon(:times) %></span>
     </button>
