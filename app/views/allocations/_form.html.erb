@@ -1,5 +1,6 @@
 
-<%= f.association :origin, label: "Origem dos items" %>
+<%= f.hidden_field :id if defined? acquisition %>
+<%= f.association :origin, label: "Origem dos items" unless defined? acquisition %>
 <%= f.association :destination, label: "Destino dos items" %>
 <%= f.input :reason, label: "Motivo desta operação" %>
 
@@ -8,8 +9,11 @@
   <%= f.simple_fields_for :items do |f2| %>
     <%= render "item_fields", :f => f2, :type => f2.object.parkable_item_type %>
   <% end %>
-  <%#= f.simple_fields_for :stock_items_groups do |f2| %>
-    <%#= render "stock_items/group_partial", :f => f2 %>
-  <%# end %>
+  <%= f.simple_fields_for :stock_item_groups do |f2| %>
+    <%= render "stock_items/group_partial", :f => f2 %>
+  <% end %>
+
 </div>
 
+<%= link_to_add_association fa_icon(:plus, text: "Plaqueta"), f, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint" unless defined? acquisition %>
+<%= link_to_add_association fa_icon(:plus, text: "Outros"), f, :stock_item_groups, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", partial: "stock_items/group_partial" unless defined? acquisition %>

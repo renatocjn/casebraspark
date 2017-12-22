@@ -2,8 +2,20 @@
 <div class="row">
   <div class="col">
     <p>
-      <strong>Local de Alocação:</strong>
-      <%= link_to @allocation.placement, placement_path(@allocation.placement), class: "text-info" %>
+      <strong>Origem da alocação:</strong>
+      <%= link_to @allocation.get_origin, placement_path(@allocation.get_origin), class: "text-info" %>
+    </p>
+
+    <p>
+      <strong>Destino da alocação:</strong>
+      <%= link_to @allocation.destination, placement_path(@allocation.destination), class: "text-info" %>
+    </p>
+
+  </div>
+  <div class="col">
+    <p>
+      <strong>Motivo:</strong>
+      <%= @allocation.reason %>
     </p>
 
     <p>
@@ -11,38 +23,46 @@
       <%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %>
     </p>
   </div>
-  <div class="col">
-    <p>
-      <strong>Motivo:</strong>
-      <%= @allocation.reason %>
-    </p>
-  </div>
 </div>
 
-<div class="row">
-<div class="col">
-  <h4 class="text-center">Itens</h4>
-  <table class="table table-sm table-hover">
-    <tr>
-      <th scope="col">Plaqueta</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Marca</th>
-      <th scope="col">Modelo</th>
-      <th scope="col">Número de serie</th>
-      <th scope="col">Valor</th>
-    </tr>
-<% @allocation.items.each do |item| %>
-    <tr scope="row">
-      <td><%= link_to item.plate, item_path(item), class: "text-info" %></td>
-      <td><%= item.type_pt_BR %></td>
-      <td><%= item.brand %></td>
-      <td><%= item.model %></td>
-      <td><%= item.serial %></td>
-      <td><%= number_to_currency item.value, :locale => :pt_BR %></td>
-    </tr>
-<% end %>
-</table>
-</div>
+<div class="row text-center">
+  <% if @allocation.items.any? %>
+    <div class="col">
+      <h5>Itens</h5>
+      <table class="table table-sm table-hover">
+        <tr>
+          <th scope="col">Plaqueta</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Número de serie</th>
+        </tr>
+        <% @allocation.items.each do |item| %>
+          <tr scope="row">
+            <td><%= link_to item.plate, item, class: "text-info" %></td>
+            <td><%= item %></td>
+            <td><%= item.serial %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+
+  <% if @allocation.stock_item_groups.any? %>
+    <div class="col">
+      <h5 class="text-center">items de estoque</h5>
+      <table class="table table-sm table-hover">
+        <tr>
+          <th class="col-9" scope="col">Descrição</th>
+          <th class="col-3" scope="col">Quantidade</th>
+        </tr>
+        <% @allocation.stock_item_groups.each do |item| %>
+          <tr scope="row">
+            <td class="col-9"><%= item.stock_item.short_description %></td>
+            <td class="col-3"><%= item.quantity %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
 </div>
 
 <div class="row">

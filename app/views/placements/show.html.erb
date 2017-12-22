@@ -29,28 +29,46 @@
 </div>
 
 
+<div class="row text-center">
+  <div class="col">
+    <h5>Items</h5>
+    <% if @placement.items.any? %>
+      <table class="table table-hover table-sm">
+        <tr>
+          <th class="col-4" scope="col">Plaqueta</th>
+          <th class="col-4" scope="col">Descrição</th>
+          <th class="col-4" scope="col">Número de série</th>
+        </tr>
+        <% @placement.items.each do |item| %>
+          <tr scope="row">
+            <td> <%= link_to item.plate, item_path(item), class: "text-info" %> </td>
+            <td> <%= item %> </td>
+            <td> <%= item.serial %> </td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      Nenhum item neste local
+    <% end %>
+  </div>
 
-<% if @placement.items.any? %>
-<hr>
-<h4 class="d-flex justify-content-center">Items registrados neste local</h4>
-<table class="table table-hover table-sm text-center">
-  <tr>
-    <th scope="col">Plaqueta</th>
-    <th scope="col">Tipo</th>
-    <th scope="col">Marca</th>
-    <th scope="col">Modelo</th>
-    <th scope="col">Número de série</th>
-    <th scope="col">Valor(R$)</th>
-  </tr>
-<% @placement.items.each do |item| %>
-  <tr scope="row">
-    <td> <%= link_to item.plate, item_path(item), class: "text-info" %> </td>
-    <td> <%= item.type_pt_BR %> </td>
-    <td> <%= item.brand %> </td>
-    <td> <%= item.model %> </td>
-    <td> <%= item.serial %> </td>
-    <td> <%= item.value %> </td>
-  </tr>
-<% end %>
-</table>
-<% end %>
+  <div class="col">
+    <% if @placement.stock_item_counts.any? %>
+      <h5>Items de estoque</h5>
+      <table class="table table-hover table-sm">
+        <tr>
+          <th class="col-9" scope="col">Descrição</th>
+          <th class="col-3" scope="col">Quantidade</th>
+        </tr>
+        <% @placement.stock_item_counts.each do |item| %>
+          <tr scope="row">
+            <td class="col-9"> <%= item.stock_item.short_description %> </td>
+            <td class="col-3"> <%= item.count %> </td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      Nenhum item de estoque neste local
+    <% end %>
+  </div>
+</div>

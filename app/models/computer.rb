@@ -1,7 +1,7 @@
 class Computer < ActiveRecord::Base
     has_one :item, as: :parkable_item, dependent: :destroy
 
-    validates :processor, :harddrive, :memory, presence: {message: "Esta informação deve ser fornecida"}
+    validates :processor, :harddrive, :memory, presence: true
     validate :checar_descritor_de_quantidade_de_bytes
 
     private

@@ -3,7 +3,7 @@
   <div class="col">
     <p>
       <label>Motivo da compra:</label>
-      <%= @acquisition.allocation.reason %>
+      <%= @acquisition.reason %>
     </p>
 
     <p>
@@ -20,7 +20,7 @@
   <div class="col">
       <p>
         <label>Local de alocação:</label>
-        <%= link_to @acquisition.allocation.placement, @acquisition.allocation.placement, class: "text-info" %>
+        <%= link_to @acquisition.allocation.destination, @acquisition.destination, class: "text-info" %>
       </p>
 
       <p>
@@ -35,25 +35,48 @@
   </div>
 </div>
 
-<% if @acquisition.items.any? %>
-  <h4 class="text-center">Items:</h4>
-  <table class="table table-sm table-hover text-center">
-    <tr>
-      <th scope="col">Plaqueta</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Número de série</th>
-      <th scope="col">Valor</th>
-    </tr>
-  <% @acquisition.items.each do |item| %>
-    <tr scope="row">
-      <td><%= link_to item.plate, item_path(item), class:"text-info"%></td>
-      <td><%= item.description %></td>
-      <td><%= item.serial %></td>
-      <td><%= number_to_currency item.value %></td>
-    </tr>
-  <% end %>
-  </table>
-<% end %>
+<div class="row text-center">
+  <div class="col-6">
+    <h5>Items</h5>
+    <% if @acquisition.items.any? %>
+      <table class="table table-sm table-hover">
+        <tr>
+          <th class="col-3" scope="col">Plaqueta</th>
+          <th class="col-6" scope="col">Descrição</th>
+          <th class="col-3" scope="col">Valor</th>
+        </tr>
+      <% @acquisition.items.each do |item| %>
+        <tr scope="row">
+          <td class="col-3"><%= link_to item.plate, item_path(item), class:"text-info"%></td>
+          <td class="col-6"><%= item.description %></td>
+          <td class="col-3"><%= number_to_currency item.value %></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+      Não existem items de estoque nesta aquisição
+    <% end %>
+  </div>
+  <div class="col-6">
+    <h5>Items de Estoque</h5>
+    <% if @acquisition.stock_item_groups.any? %>
+      <table class="table table-sm table-hover">
+        <tr>
+          <th class="col-9" scope="col">Descrição</th>
+          <th class="col-3" scope="col">Quantidade</th>
+        </tr>
+      <% @acquisition.stock_item_groups.each do |item| %>
+        <tr scope="row">
+          <td class="col-9"><%= item.stock_item.short_description %></td>
+          <td class="col-3"><%= item.quantity %></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+      Não existem items de estoque nesta aquisição
+    <% end %>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-6 offset-6">

@@ -3,9 +3,9 @@ class StockItemCount < ActiveRecord::Base
   belongs_to :placement
 
   before_validation do
-    self.quantity ||= 0
+    self.count ||= 0
   end
 
-  validates :stock_item, :placement, :quantity, presence: true
-  validates :quantity, numericality: {greater_than_or_equal_to: 0, only_integer: true}
+  validates :stock_item, :placement, :count, presence: true
+  validates :count, numericality: {greater_than_or_equal_to: 0, only_integer: true}
 end

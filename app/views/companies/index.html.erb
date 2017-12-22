@@ -2,8 +2,9 @@
 <table class="table table-hover text-center">
   <thead>
     <tr>
-      <th class="col-6" scope="col">Name</th>
-      <th class="col-3" scope="col">CNPJ</th>
+      <th class="col-5" scope="col">Name</th>
+      <th class="col-2" scope="col">CNPJ</th>
+      <th class="col-2" scope="col">Valor do Park</th>
       <th class="col-1"></th>
       <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
       <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_company_path, class: "btn btn-primary" %></th>
@@ -13,8 +14,9 @@
   <tbody>
     <% @companies.each do |company| %>
       <tr scope="row">
-        <td class="col-6"><%= company.name %></td>
-        <td class="col-3"><%= company.cnpj %></td>
+        <td class="col-5"><%= company.name %></td>
+        <td class="col-2"><%= company.cnpj %></td>
+        <td class="col-2"><%= number_to_currency company.park_value %></td>
         <td class="col-1"><%= link_to fa_icon("info-circle"), company, class: "btn btn-info" %></td>
         <td class="col-1"><%= link_to fa_icon(:pencil), edit_company_path(company), class: "btn btn-secondary" %></td>
         <td class="col-1"><%= link_to fa_icon(:trash), company, method: :delete, data: { confirm: "Você tem certeza?" }, class: "btn btn-danger" %></td>

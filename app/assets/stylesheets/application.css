@@ -39,3 +39,11 @@ footer {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+#content {
+    border-radius: 1em;
+    box-shadow: 0 0 .5em gray;
+    background-color: white;
+    padding: 1em;
+    margin: 1em;
+}

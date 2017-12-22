@@ -12,7 +12,7 @@ class AllocationsController < ApplicationController
       @allocations = Allocation.all
     else
       #@allocations = Allocation.where('operator_id = ?', current_user).joins(:items, :placement)
-      @allocations = Allocation.where('operator_id = ?', current_user)
+      @allocations = current_user.allocations
     end
   end
 
@@ -24,7 +24,6 @@ class AllocationsController < ApplicationController
   # GET /allocations/new
   def new
     @allocation = Allocation.new
-    @allocation.items.build
   end
 
   # GET /allocations/1/edit
@@ -34,28 +33,32 @@ class AllocationsController < ApplicationController
   # POST /allocations
   # POST /allocations.json
   def create
-    items = Array.new
-    allocation_params[:items_attributes].each do |k, item|
-      items.push item[:plate]
-    end
+    unless allocation_params.include? :items_attributes or allocation_params.include? :stock_item_groups_attributes
+      redirect_to new_allocation_path, alert: "Voce deve cadastrar pelo menos um item"
+    else
+      if allocation_params.include? :items_attributes
+        items = Array.new
+        allocation_params[:items_attributes].each {|k, item| items.push item[:plate]}
 
-    items = Item.where(plate: items)
-    allocation_params.delete :items_attributes
+        items = Item.where(plate: items)
+        allocation_params.delete :items_attributes
 
-    @allocation = Allocation.new(allocation_params)
-    @allocation.items = items
-    respond_to do |format|
-      if @allocation.save
-        @allocation.items.each {|i| i.update placement: @allocation.placement }
-        format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
-        format.json { render :show, status: :created, location: @allocation }
+        @allocation = Allocation.new(allocation_params)
+        @allocation.items = items
       else
-        format.html { render :new }
-        format.json { render json: @allocation.errors, status: :unprocessable_entity }
+        @allocation = Allocation.new(allocation_params)
+      end
+      @allocation.operator = current_user
+      respond_to do |format|
+        if @allocation.save
+          format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
+          format.json { render :show, status: :created, location: @allocation }
+        else
+          format.html { render :new }
+          format.json { render json: @allocation.errors, status: :unprocessable_entity }
+        end
       end
     end
-  rescue ActiveRecord::RecordNotFound
-    redirect_to new_allocation_path, notice: "O item com placa #{item[:plate]} não foi encontrado"
   end
 
   # PATCH/PUT /allocations/1
@@ -63,7 +66,7 @@ class AllocationsController < ApplicationController
   def update
     respond_to do |format|
       if @allocation.update(allocation_params)
-        @allocation.items.each {|i| i.update placement: @allocation.placement }
+        @allocation.items.each {|i| i.update placement: @allocation.destination }
         format.html { redirect_to @allocation, notice: 'Registro de alocação registrado com sucesso.' }
         format.json { render :show, status: :ok, location: @allocation }
       else
@@ -91,12 +94,12 @@ class AllocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allocation_params
-      params.require(:allocation).permit(:reason, :placement_id,
-        :items_attributes => [:id, :plate, :_destroy])
-      #:items_attributes => [:plate, :item_type_id, :brand, :model, :serial, :value, :_destroy])
+      params.require(:allocation).permit(:reason, :origin_id, :destination_id,
+        :items_attributes => [:id, :plate, :_destroy],
+        :stock_item_groups_attributes => [:stock_item_id, :quantity, :_destroy])
     end
 
     def admin_or_mine
-      redirect_to :root, notice: "Você não tem permissão para acessar esta página!" unless current_user.isAdmin or @allocation.operator == current_user
+      redirect_to :root, alert: "Você não tem permissão para acessar esta página!" unless current_user.isAdmin or @allocation.operator == current_user
     end
 end

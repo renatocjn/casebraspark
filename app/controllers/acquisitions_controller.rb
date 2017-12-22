@@ -36,9 +36,11 @@ class AcquisitionsController < ApplicationController
   # POST /acquisitions.json
   def create
     @acquisition = Acquisition.new acquisition_params
+    @acquisition.operator = current_user
+    @acquisition.allocation.operator = current_user
     respond_to do |format|
       if @acquisition.save
-        @acquisition.items.each {|i| i.update placement: @acquisition.allocation.placement }
+        @acquisition.items.each {|i| i.update placement: @acquisition.allocation.destination }
         format.html { redirect_to @acquisition, notice: 'Aquisição registrada com sucesso.' }
         format.json { render :show, status: :created, location: @acquisition }
       else
@@ -53,7 +55,6 @@ class AcquisitionsController < ApplicationController
   def update
     respond_to do |format|
       if @acquisition.update(acquisition_params)
-        @acquisition.items.each {|i| i.update placement: @acquisition.allocation.placement }
         format.html { redirect_to @acquisition, notice: 'Informações atualizadas.' }
         format.json { render :show, status: :ok, location: @acquisition }
       else
@@ -81,11 +82,11 @@ class AcquisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
-      params.require(:acquisition).permit(:supplier_id, :company_id,
-        :allocation_attributes => [:id, :reason, :placement_id,
+      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number,
+        :allocation_attributes => [:id, :reason, :destination_id,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :_destroy,
             :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]],
-            :stock_item_group_attributes => [:id, :stock_item_id, :quantity, :_destroy]])
+            :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :_destroy]])
     end
 
     def admin_or_mine

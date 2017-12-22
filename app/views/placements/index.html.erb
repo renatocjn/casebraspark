@@ -9,7 +9,7 @@
           <th class="col-2" scope="col">Contatos</th>
           <th class="col-2" scope="col">Endereço</th>
           <% if admin %>
-            <th class="col-2" scope="col">Tamanho do park</th>
+            <th class="col-2" scope="col">Quantidade de items</th>
             <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
             <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_placement_path, class: "btn btn-primary" %></th>
           <% end %>
@@ -23,7 +23,7 @@
             <td class="col-2"><%= simple_format placement.contact %></td>
             <td class="col-2"><%= simple_format placement.address %></td>
             <% if admin %>
-              <td class="col-2"><%= placement.items.count %></td>
+              <td class="col-2"><%= placement.item_count %></td>
               <td class="col-1"><%= link_to fa_icon("info-circle"), placement, class: "btn btn-info" %></td>
               <td class="col-1"><%= link_to fa_icon(:pencil), edit_placement_path(placement), class: "btn btn-secondary" %></td>
             <% end %>

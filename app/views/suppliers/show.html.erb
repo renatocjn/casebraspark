@@ -1,20 +1,37 @@
 
-<p>
-  <strong>Name:</strong>
-  <%= @supplier.name %>
-</p>
+<div class="row">
+  <div class="col">
+    <p>
+      <label>Nome:</label>
+      <%= @supplier.name %>
+    </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @supplier.email %>
-</p>
+    <p>
+      <label>E-mail:</label>
+      <%= @supplier.email %>
+    </p>
 
-<p>
-  <strong>Telefones de contato:</strong>
-  <%= simple_format @supplier.phones %>
-</p>
+    <p>
+      <label>Telefones de contato:</label>
+      <%= simple_format @supplier.phones %>
+    </p>
 
-<p>
-  <strong>Outras informações:</strong>
-  <%= simple_format @supplier.other %>
-</p>
+    <p>
+      <label>Outras informações:</label>
+      <%= simple_format @supplier.other %>
+    </p>
+  </div>
+
+  <% if @supplier.get_buyable_items.any? %>
+    <div class="col">
+      <h5>Items já comprados neste fornecedor</h5>
+      <table class="table table-sm">
+        <% @supplier.get_buyable_items.each do |bi_description| %>
+          <tr> <td> <%= bi_description %> </td> </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
+
+</div>

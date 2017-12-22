@@ -60,9 +60,9 @@ ActiveRecord::Base.transaction do
     Company.create! name: "CASEBRAS", cnpj: "00.000.000/0000-00"
     Company.create! name: "CASPEB",   cnpj: "00.000.000/0000-00"
 
-    Supplier.create! name: "iByte", email: "ibyte@ibyte.com", phones: "9999-9999\n9999-9999"
-    Supplier.create! name: "nagem", email: "nagem@nagem.com", phones: "9999-9999"
-    Supplier.create! name: "cstore", email: "cstore@cstore.com", phones: "9999-9999"
+    Supplier.create! name: "iByte", email: "contato@ibyte.com", phones: "9999-9999\n9999-9999"
+    Supplier.create! name: "Nagem", email: "contato@nagem.com", phones: "9999-9999"
+    Supplier.create! name: "CStore", email: "contato@cstore.com", phones: "9999-9999"
 
     StockItem.create! short_description: "Mouse"
     StockItem.create! short_description: "Teclado"

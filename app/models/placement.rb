@@ -1,13 +1,27 @@
 class Placement < ActiveRecord::Base
 
-  validates :contact, :address, presence: :true
-  validates :state, length: { is: 2, allow_nil: true, allow_blank: true, message: "Deve ser no formato de UF, ex: CE, DF, etc" }
-  validate :check_description
-
   has_many :allocations
   has_many :items
   has_many :stock_item_counts
   has_many :stock_items, through: :stock_item_counts
+
+  validates :contact, :address, presence: :true
+  validates :state, length: { is: 2, allow_nil: true, allow_blank: true, message: "Deve ser no formato de UF, ex: CE, DF, etc" }
+  validate :check_description
+  validate :protect_stock, on: :destroy
+  validate on: :destroy do |record|
+    false unless record.items_count == 0
+  end
+
+  def check_description
+    if [state, city, other].all? {|w| w.blank?}
+      self.errors.add 'Você deve fornecer o estado, a cidade ou outra informação para descrever o local'
+    end
+  end
+
+  def protect_stock
+    errors.add "O estoque não pode ser destruído" if self == Placement.where(other: "Estoque").first
+  end
 
   STATES_BR = %w(AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO)
 
@@ -23,15 +37,7 @@ class Placement < ActiveRecord::Base
     self.items.order(created_at: :desc)
   end
 
-  def stock
-    Placement.where(other: "Estoque").first
-  end
-
-  def check_description
-    if [state, city, other].all? {|w| w.blank?}
-      placement.errors[:state] << 'Você deve fornecer o estado, a cidade ou outra informação para descrever o local'
-      placement.errors[:city] << 'Você deve fornecer o estado, a cidade ou outra informação para descrever o local'
-      placement.errors[:other] << 'Você deve fornecer o estado, a cidade ou outra informação para descrever o local'
-    end
+  def item_count
+    items.count + stock_item_counts.reduce(0) {|acc, item_count| acc += item_count.count}
   end
 end

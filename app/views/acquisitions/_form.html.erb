@@ -13,7 +13,7 @@
   <%= f.input :invoice_number, label: "Número da nota fiscal" %>
 
   <%= f.simple_fields_for :allocation do |f2| %>
-    <%= render "allocations/form", f: f2 %>
+    <%= render "allocations/form", f: f2, acquisition: true %>
 
     <%= link_to_add_association fa_icon(:plus, text: "Monitor"), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Screen' }} %>
     <%= link_to_add_association fa_icon(:plus, text: "Computador"), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Computer' }} %>
