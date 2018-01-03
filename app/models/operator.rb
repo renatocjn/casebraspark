@@ -1,10 +1,10 @@
 class Operator < ActiveRecord::Base
     validates :name, :email, presence: true
     validates :email, format: {:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "E-mail inválido"}
-    validates :email, uniqueness: { message: "Este email já está em uso" }
+    validates :email, uniqueness: true
 
-    validates :password, length: {minimum: 4, message: "A sua senha deve conter pelo menos 4 caracteres"}
-    validates :password, confirmation: {message: "Confirmação inválida"}
+    validates :password, length: {minimum: 4}
+    validates :password, confirmation: true
 
     validates :canAlocate, :canBuy, :isAdmin, :isBlocked, inclusion: [true, false]
 
