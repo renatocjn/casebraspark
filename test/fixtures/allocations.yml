@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  reason: MyText
+allocation1:
+  reason: Reason 1
 
-two:
-  reason: MyText
+Allocation2:
+  reason: Reason 2
+
+allocation3:
+  reason: Reason 2

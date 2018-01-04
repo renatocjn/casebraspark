@@ -26,43 +26,49 @@
 </div>
 
 <div class="row text-center">
-  <% if @allocation.items.any? %>
-    <div class="col">
-      <h5>Itens</h5>
-      <table class="table table-sm table-hover">
-        <tr>
-          <th scope="col">Plaqueta</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">Número de serie</th>
-        </tr>
-        <% @allocation.items.each do |item| %>
-          <tr scope="row">
-            <td><%= link_to item.plate, item, class: "text-info" %></td>
-            <td><%= item %></td>
-            <td><%= item.serial %></td>
-          </tr>
-        <% end %>
-      </table>
+  <div class="col">
+    <h5 class="d-inline">Itens</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :items_page %>
+      <%= link_to_next_page @items, fa_icon("chevron-right"), param_name: :items_page %>
     </div>
-  <% end %>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th scope="col">Plaqueta</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Número de serie</th>
+      </tr>
+      <% @items.each do |item| %>
+        <tr scope="row">
+          <td><%= link_to item.plate, item, class: "text-info" %></td>
+          <td><%= item %></td>
+          <td><%= item.serial %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+    </table>
+  </div>
 
-  <% if @allocation.stock_item_groups.any? %>
-    <div class="col">
-      <h5 class="text-center">items de estoque</h5>
-      <table class="table table-sm table-hover">
-        <tr>
-          <th class="col-9" scope="col">Descrição</th>
-          <th class="col-3" scope="col">Quantidade</th>
-        </tr>
-        <% @allocation.stock_item_groups.each do |item| %>
-          <tr scope="row">
-            <td class="col-9"><%= item.stock_item.short_description %></td>
-            <td class="col-3"><%= item.quantity %></td>
-          </tr>
-        <% end %>
-      </table>
+  <div class="col">
+    <h5 class="d-inline">Items de estoque</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @stock_item_groups, fa_icon("chevron-left"), param_name: :stock_items_page %>
+      <%= link_to_next_page @stock_item_groups, fa_icon("chevron-right"), param_name: :stock_items_page %>
     </div>
-  <% end %>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th class="col-9" scope="col">Descrição</th>
+        <th class="col-3" scope="col">Quantidade</th>
+      </tr>
+      <% @stock_item_groups.each do |item| %>
+        <tr scope="row">
+          <td class="col-9"><%= item.stock_item.short_description %></td>
+          <td class="col-3"><%= item.quantity %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="2"> <small> <%= page_entries_info @stock_item_groups %> </small> </td> </tr>
+    </table>
+  </div>
 </div>
 
 <div class="row">

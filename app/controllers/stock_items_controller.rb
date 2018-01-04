@@ -4,7 +4,7 @@ class StockItemsController < ApplicationController
   # GET /stock_items
   # GET /stock_items.json
   def index
-    @stock_items = StockItem.all
+    @stock_items = StockItem.all.page params[:page]
   end
 
   # GET /stock_items/1

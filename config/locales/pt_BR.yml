@@ -1,5 +1,12 @@
 pt_BR:
   # formatos de data e hora
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "&hellip;"
   date:
     formats:
       default: "%d/%m/%Y"
@@ -19,6 +26,20 @@ pt_BR:
       long: "%A, %d de %B de %Y, %H:%M h"
     am: ''
     pm: ''
+
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Nenhum registro"
+          one: "Mostrando <b>1</b>"
+          other: "Mostrando <b>%{count}</b>"
+          #zero: "Nenhuma %{entry_name} encontrada"
+          #one: "Mostrando <b>1</b> %{entry_name}"
+          #other: "Mostrando <b>todas %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b>"
+        #display_entries: "Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> no total"
 
   # distancia do tempo em palavras
   datetime:

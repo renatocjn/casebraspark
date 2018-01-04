@@ -66,7 +66,13 @@ ActiveRecord::Base.transaction do
 
     StockItem.create! short_description: "Mouse"
     StockItem.create! short_description: "Teclado"
-    StockItem.create! short_description: "Câmera - Intelbrás"
-    StockItem.create! short_description: "Câmera - SpeedDome"
-    StockItem.create! short_description: "Câmera - Outras"
+    StockItem.create! short_description: "Câmera Intelbrás Simples"
+    StockItem.create! short_description: "Câmera Intelbrás Speed Dome"
+    StockItem.create! short_description: "Câmera Coptek Simples"
+    StockItem.create! short_description: "Câmera Coptek Speed Dome"
+    StockItem.create! short_description: "Scanner Help"
+    StockItem.create! short_description: "Pad Help"
+    StockItem.create! short_description: "Pinpad Help"
+    StockItem.create! short_description: "WebCam Help"
+    StockItem.create! short_description: "Biometria Help"
 end

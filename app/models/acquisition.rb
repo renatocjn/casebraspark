@@ -14,11 +14,18 @@ class Acquisition < ActiveRecord::Base
     end
 
     validates :invoice_number, :supplier, :allocation, :operator, presence: true
-    validates :invoice_number, :allocation, uniqueness: true
+    validates :invoice_number, uniqueness: true
 
     def totalValue
         items.pluck(:value).sum()
     end
 
     delegate :count_items, :reason, to: :allocation
+
+    after_rollback do
+        logger.debug self.inspect
+        logger.debug self.allocation.inspect
+        allocation.items.each { |i| logger.debug i.inspect }
+        allocation.stock_item_groups.each { |i| logger.debug i.inspect }
+    end
 end

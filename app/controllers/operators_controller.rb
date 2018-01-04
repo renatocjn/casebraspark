@@ -7,7 +7,7 @@ class OperatorsController < ApplicationController
   # GET /operators
   # GET /operators.json
   def index
-    @operators = Operator.all
+    @operators = Operator.all.page params[:page]
   end
 
   # GET /operators/1

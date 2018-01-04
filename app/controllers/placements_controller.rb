@@ -6,12 +6,14 @@ class PlacementsController < ApplicationController
   # GET /placements
   # GET /placements.json
   def index
-    @placements = Placement.includes(:stock_item_counts, :items).all
+    @placements = Placement.includes(:stock_item_counts, :items).all.page params[:page]
   end
 
   # GET /placements/1
   # GET /placements/1.json
   def show
+    @stock_item_counts = @placement.stock_item_counts.page(params[:stock_items_page]).per(5)
+    @items = @placement.items.page(params[:items_page]).per(5)
   end
 
   # GET /placements/new

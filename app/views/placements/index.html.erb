@@ -2,6 +2,7 @@
 <% admin = current_user.isAdmin %>
 <div class="row">
   <div class="col">
+    <div class="float-right"><%= paginate @placements %></div>
     <table class="table table-hover text-center">
       <thead>
         <tr>
@@ -9,7 +10,7 @@
           <th class="col-2" scope="col">Contatos</th>
           <th class="col-2" scope="col">Endereço</th>
           <% if admin %>
-            <th class="col-2" scope="col">Quantidade de items</th>
+            <th class="col-2" scope="col">Items</th>
             <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
             <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_placement_path, class: "btn btn-primary" %></th>
           <% end %>

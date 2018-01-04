@@ -9,16 +9,18 @@ class AllocationsController < ApplicationController
   def index
     if current_user.isAdmin
       #@allocations = Allocation.joins(:items, :placement)
-      @allocations = Allocation.all
+      @allocations = Allocation.all.page params[:page]
     else
       #@allocations = Allocation.where('operator_id = ?', current_user).joins(:items, :placement)
-      @allocations = current_user.allocations
+      @allocations = current_user.allocations.page params[:page]
     end
   end
 
   # GET /allocations/1
   # GET /allocations/1.json
   def show
+    @items = @allocation.items.page(params[:items_page]).per(5)
+    @stock_item_groups = @allocation.stock_item_groups.page(params[:stock_items_page]).per(5)
   end
 
   # GET /allocations/new
@@ -37,8 +39,9 @@ class AllocationsController < ApplicationController
       redirect_to new_allocation_path, alert: "Voce deve cadastrar pelo menos um item"
     else
       if allocation_params.include? :items_attributes
-        items = Array.new
-        allocation_params[:items_attributes].each {|k, item| items.push item[:plate]}
+      items = allocation_params[:items_attributes].values.each_with_object([]) {|item, items_list| items_list.push item[:plate] unless item[:_destroy] == "true"}
+        logger.debug "Placas enviadas: " + allocation_params[:items_attributes].values.inspect
+        logger.debug "Placas selecionadas: " + items.inspect
 
         items = Item.where(plate: items)
         allocation_params.delete :items_attributes
@@ -67,7 +70,7 @@ class AllocationsController < ApplicationController
     respond_to do |format|
       if @allocation.update(allocation_params)
         @allocation.items.each {|i| i.update placement: @allocation.destination }
-        format.html { redirect_to @allocation, notice: 'Registro de alocação registrado com sucesso.' }
+        format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
         format.json { render :show, status: :ok, location: @allocation }
       else
         format.html { render :edit }

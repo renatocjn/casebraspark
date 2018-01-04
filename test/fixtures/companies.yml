@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  cpf_cpnj: MyString
+  cpnj: MyString
 
 two:
   name: MyString
-  cpf_cpnj: MyString
+  cpnj: MyString

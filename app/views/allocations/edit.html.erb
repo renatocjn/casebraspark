@@ -1,7 +1,18 @@
 
 <%= simple_form_for @allocation do |f| %>
 
-<%= f.error_notification %>
+<div class="row">
+    <div class="col">
+        <%= f.error_notification %>
+        <% if @acquisition.errors.any? %>
+            <div class="alert alert-warning">
+                <% @allocation.errors[:base].each do |error| %>
+                    <%= error %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>
 
 <%= render 'form', :f => f %>
 

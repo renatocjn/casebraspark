@@ -73,3 +73,6 @@ gem "popper_js", "~> 1.11"
 
 # Added at 2017-12-14 16:59:55 +0000 by ubuntu:
 gem "font-awesome-rails", "~> 4.7"
+
+# Added at 2018-01-04 18:34:28 +0000 by ubuntu:
+gem "kaminari", "~> 1.1"

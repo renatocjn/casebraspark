@@ -2,7 +2,7 @@ class StockItemGroup < ActiveRecord::Base
   belongs_to :stock_item
   belongs_to :allocation
 
-  before_validation do
+  after_initialize do
     self.quantity ||= 0
   end
 

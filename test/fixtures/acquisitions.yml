@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  reason: MyText
+  allocation: allocation1
+  operator: admin
+  supplier: <%= Supplier.all.sample %>
+  company: <%= Company.all.sample %>
 
-two:
-  reason: MyText
+# invalid_acquisition:
+  # allocation: allocation2

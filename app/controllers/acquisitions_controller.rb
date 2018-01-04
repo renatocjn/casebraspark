@@ -9,16 +9,18 @@ class AcquisitionsController < ApplicationController
   def index
     if current_user.isAdmin
       #@acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*')
-      @acquisitions = Acquisition.all
+      @acquisitions = Acquisition.all.page params[:page]
     else
       #@acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*').where('allocations.operator_id = ?', current_user)
-      @acquisitions = current_user.acquisitions
+      @acquisitions = current_user.acquisitions.page params[:page]
     end
   end
 
   # GET /acquisitions/1
   # GET /acquisitions/1.json
   def show
+    @items = @acquisition.allocation.items.page(params[:items_page]).per(5)
+    @stock_item_groups = @acquisition.allocation.stock_item_groups.page(params[:stock_items_page]).per(5)
   end
 
   # GET /acquisitions/new
@@ -37,10 +39,8 @@ class AcquisitionsController < ApplicationController
   def create
     @acquisition = Acquisition.new acquisition_params
     @acquisition.operator = current_user
-    @acquisition.allocation.operator = current_user
     respond_to do |format|
       if @acquisition.save
-        @acquisition.items.each {|i| i.update placement: @acquisition.allocation.destination }
         format.html { redirect_to @acquisition, notice: 'Aquisição registrada com sucesso.' }
         format.json { render :show, status: :created, location: @acquisition }
       else
@@ -55,7 +55,7 @@ class AcquisitionsController < ApplicationController
   def update
     respond_to do |format|
       if @acquisition.update(acquisition_params)
-        format.html { redirect_to @acquisition, notice: 'Informações atualizadas.' }
+        format.html { redirect_to @acquisition, notice: 'Aquisição atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @acquisition }
       else
         format.html { render :edit }
@@ -86,7 +86,7 @@ class AcquisitionsController < ApplicationController
         :allocation_attributes => [:id, :reason, :destination_id,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :_destroy,
             :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]],
-            :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :_destroy]])
+          :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :_destroy]])
     end
 
     def admin_or_mine

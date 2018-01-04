@@ -31,44 +31,48 @@
 
 <div class="row text-center">
   <div class="col">
-    <h5>Items</h5>
-    <% if @placement.items.any? %>
-      <table class="table table-hover table-sm">
-        <tr>
-          <th class="col-4" scope="col">Plaqueta</th>
-          <th class="col-4" scope="col">Descrição</th>
-          <th class="col-4" scope="col">Número de série</th>
+    <h5 class="d-inline">Items</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :items_page %>
+      <%= link_to_next_page @items, fa_icon("chevron-right"), param_name: :items_page %>
+    </div>
+    <table class="table table-hover table-sm">
+      <tr>
+        <th class="col-4" scope="col">Plaqueta</th>
+        <th class="col-4" scope="col">Descrição</th>
+        <th class="col-4" scope="col">Número de série</th>
+      </tr>
+      <% @items.each do |item| %>
+        <tr scope="row">
+          <td> <%= link_to item.plate, item_path(item), class: "text-info" %> </td>
+          <td> <%= item %> </td>
+          <td> <%= item.serial %> </td>
         </tr>
-        <% @placement.items.each do |item| %>
-          <tr scope="row">
-            <td> <%= link_to item.plate, item_path(item), class: "text-info" %> </td>
-            <td> <%= item %> </td>
-            <td> <%= item.serial %> </td>
-          </tr>
-        <% end %>
-      </table>
-    <% else %>
-      Nenhum item neste local
-    <% end %>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+    </table>
   </div>
 
   <div class="col">
-    <% if @placement.stock_item_counts.any? %>
-      <h5>Items de estoque</h5>
-      <table class="table table-hover table-sm">
-        <tr>
-          <th class="col-9" scope="col">Descrição</th>
-          <th class="col-3" scope="col">Quantidade</th>
+    <h5 class="d-inline">Items de estoque</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @stock_item_counts, fa_icon("chevron-left"), param_name: :stock_items_page %>
+      <%= link_to_next_page @stock_item_counts, fa_icon("chevron-right"), param_name: :stock_items_page %>
+    </div>
+    <table class="table table-hover table-sm">
+      <tr>
+        <th class="col-9" scope="col">Descrição</th>
+        <th class="col-2" scope="col">Quantidade</th>
+        <th class="col-1" scope="col"></th>
+      </tr>
+      <% @stock_item_counts.each do |item| %>
+        <tr scope="row">
+          <td class="col-9"> <%= item.stock_item.short_description %> </td>
+          <td class="col-3"> <%= item.count %> </td>
+          <td class="col-1"> <%= link_to fa_icon("minus-circle"), "#" %> </td>
         </tr>
-        <% @placement.stock_item_counts.each do |item| %>
-          <tr scope="row">
-            <td class="col-9"> <%= item.stock_item.short_description %> </td>
-            <td class="col-3"> <%= item.count %> </td>
-          </tr>
-        <% end %>
-      </table>
-    <% else %>
-      Nenhum item de estoque neste local
-    <% end %>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @stock_item_counts %> </small> </td> </tr>
+    </table>
   </div>
 </div>

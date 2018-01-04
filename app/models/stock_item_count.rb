@@ -2,7 +2,7 @@ class StockItemCount < ActiveRecord::Base
   belongs_to :stock_item
   belongs_to :placement
 
-  before_validation do
+  after_initialize do
     self.count ||= 0
   end
 
