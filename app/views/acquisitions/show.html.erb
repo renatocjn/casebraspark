@@ -3,30 +3,35 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td><label>Número da nota:</label></td>
-        <td><%= @acquisition.invoice_number %></td>
+        <td class="w-50"><label>Número da nota:</label></td>
+        <td class="w-50"><%= @acquisition.invoice_number %></td>
       </tr>
       <tr>
-        <td><label>Fornecedor:</label></td>
-        <td><%= @acquisition.supplier %></td>
+        <td class="w-50"><label>Fornecedor:</label></td>
+        <td class="w-50"><%= @acquisition.supplier %></td>
       </tr>
       <tr>
-        <td><label>Valor Total:</label></td>
-        <td><%= number_to_currency @acquisition.totalValue %></td>
+        <td class="w-50"><label>Valor Total:</label></td>
+        <td class="w-50"><%= number_to_currency @acquisition.totalValue %></td>
       </tr>
     </table>
   </div>
 
   <div class="col">
     <table class="table">
-      <tr> <td colspan="2"><%= link_to fa_icon(:pencil, text: "Editar"), edit_acquisition_path(@acquisition), class: "btn btn-primary btn-block" %></td> </tr>
+      <tr> <td colspan="2">
+        <div class="d-flex justify-content-around">
+          <%= link_to fa_icon(:pencil, text: "Editar"), edit_acquisition_path(@acquisition), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:list, text: "Voltar"), acquisitions_path, class: "btn btn-secondary btn-block m-0 mx-1" %>
+        </div>
+      </td> </tr>
       <tr>
-        <td><label>Local de alocação:</label></td>
-        <td><%= link_to @acquisition.allocation.destination, @acquisition.destination, class: "text-info" %></td>
+        <td class="w-50"><label>Local de alocação:</label></td>
+        <td class="w-50"><%= link_to @acquisition.allocation.destination, @acquisition.destination, class: "text-info" %></td>
       </tr>
       <tr>
-        <td><label>Operador responsável:</label></td>
-        <td><%= link_to @acquisition.operator.name, @acquisition.operator, class: "text-info" %></td>
+        <td class="w-50"><label>Operador responsável:</label></td>
+        <td class="w-50"><%= link_to @acquisition.operator.name, @acquisition.operator, class: "text-info" %></td>
       </tr>
     </table>
   </div>
@@ -36,8 +41,8 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td><label>Motivo da compra</label></td>
-        <td><%= simple_format @acquisition.reason %></td>
+        <td class="w-25"><label>Motivo da compra</label></td>
+        <td class="w-75"><%= simple_format @acquisition.reason %></td>
       </tr>
     </table>
   </div>
@@ -85,12 +90,6 @@
     <% end %>
       <tr> <td colspan="2"> <small> <%= page_entries_info @stock_item_groups %> </small> </td> </tr>
     </table>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-6 offset-6">
-
   </div>
 </div>
 

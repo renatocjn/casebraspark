@@ -8,11 +8,20 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions.json
   def index
     if current_user.isAdmin
-      #@acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*')
       @acquisitions = Acquisition.all.page params[:page]
     else
-      #@acquisitions = Acquisition.joins(:allocation, :placement, :items).select('placements.*').select('acquisitions.*').where('allocations.operator_id = ?', current_user)
       @acquisitions = current_user.acquisitions.page params[:page]
+    end
+
+    if params.key? :acquisition
+      @acquisitions = @acquisitions.where "acquisitions.created_at >= ?", Date.parse(params[:acquisition][:initial_date]) unless params[:acquisition][:initial_date].blank?
+      @acquisitions = @acquisitions.where "acquisitions.created_at <= ?", Date.parse(params[:acquisition][:final_date]) unless params[:acquisition][:final_date].blank?
+      @acquisitions = @acquisitions.where operator: params[:acquisition][:operator] unless params[:acquisition][:operator].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "allocations.destination" => params[:acquisition][:destination] unless params[:acquisition][:destination].blank?
+      @acquisitions = @acquisitions.where invoice_number: params[:acquisition][:invoice_number] unless params[:acquisition][:invoice_number].blank?
+      @acquisitions = @acquisitions.where supplier: params[:acquisition][:supplier] unless params[:acquisition][:supplier].blank?
+      @acquisitions = @acquisitions.where company: params[:acquisition][:company] unless params[:acquisition][:company].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "reason like '%#{params[:acquisition][:reason]}%'" unless params[:acquisition][:reason].blank?
     end
   end
 
@@ -82,7 +91,7 @@ class AcquisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
-      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number,
+      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number, :initial_date, :final_date,
         :allocation_attributes => [:id, :reason, :destination_id,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :_destroy,
             :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]],

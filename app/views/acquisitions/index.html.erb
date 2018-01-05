@@ -1,17 +1,53 @@
 
+
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :acquisition, method: :get do |f| %>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <%= f.input :invoice_number, label: false, placeholder: "Número da nota", as: :string %>
+              <%= f.input :initial_date, label: false, placeholder: "Data inicial", as: :string %>
+              <%= f.input :company, label: false, include_blank: "Empresa", as: :select, collection: Company.all %>
+              <%= f.input :supplier, label: false, include_blank: "Fornecedor", as: :select, collection: Supplier.all %>
+            </div>
+            <div class="col">
+              <%= f.input :reason, label: false, placeholder: "Motivo", as: :string %>
+              <%= f.input :final_date, label: false, placeholder: "Data final", as: :string %>
+              <%= f.input :operator, label: false, include_blank: "Responsável", as: :select, collection: Operator.all if current_user.isAdmin %>
+              <%= f.input :destination, label: false, include_blank: "Destino", as: :select, collection: Placement.all %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", acquisitions_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     <div class="float-right"><%= paginate @acquisitions %></div>
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th class="col-2" scope="col">Data da acquisição</th>
-          <th class="col-2" scope="col">Operador Responsável</th>
+          <th class="col-2" scope="col">Data</th>
+          <th class="col-2" scope="col">Responsável</th>
           <th class="col-2" scope="col">fornecedor</th>
-          <th class="col-2" scope="col">Local de alocação</th>
+          <th class="col-2" scope="col">Destino</th>
           <th class="col-2" scope="col">Número de itens</th>
           <th class="col-2" scope="col">Valor total</th>
-          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th></th>
+          <th class="col-1" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
           <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
         </tr>
       </thead>
@@ -29,6 +65,7 @@
             <td class="col-1"><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
+        <tr> <td colspan="8"> <%= page_entries_info @acquisitions %> </td> </tr>
       </tbody>
     </table>
   </div>
