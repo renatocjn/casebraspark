@@ -1,10 +1,51 @@
 
-<p>
-  <strong>Nome da empresa:</strong>
-  <%= @company.name %>
-</p>
 
-<p>
-  <strong>CNPJ da empresa:</strong>
-  <%= @company.cnpj %>
-</p>
+<div class="row">
+  <div class="col">
+    <table class="table">
+      <tr>
+        <td class="w-25"><label>Nome:</label></td>
+        <td><%= @company.name %></td>
+      </tr>
+      <tr>
+        <td class="w-25"><label>CNPJ:</label></td>
+        <td><%= @company.cnpj %></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col">
+    <table class="table">
+      <tr> <td>
+        <div class="d-flex justify-content-around">
+          <%= link_to fa_icon(:pencil, text: "Editar"), edit_company_path(@company), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+        </div>
+      </td> </tr>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<div class="text-center">
+  <h5 class="d-inline">Itens de plaqueta desta empresa</h5>
+  <div class="d-inline float-right">
+    <%= paginate @items %>
+  </div>
+  <table class="table table-sm table-hover">
+    <tr>
+      <th scope="col">Plaqueta</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Número de serie</th>
+    </tr>
+    <% @items.each do |item| %>
+      <tr scope="row">
+        <td><%= link_to item.plate, item, class: "text-info" %></td>
+        <td><%= item %></td>
+        <td><%= item.serial %></td>
+      </tr>
+    <% end %>
+    <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+  </table>
+</div>

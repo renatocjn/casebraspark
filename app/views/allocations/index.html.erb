@@ -1,4 +1,37 @@
 
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :allocation, method: :get do |f| %>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <%= f.input :initial_date, label: false, placeholder: "Data inicial", as: :string %>
+              <%= f.input :origin, label: false, include_blank: "Origem", as: :select, collection: Placement.all %>
+              <%= f.input :operator, label: false, include_blank: "Responsável", as: :select, collection: Operator.all if current_user.isAdmin %>
+            </div>
+            <div class="col">
+              <%= f.input :final_date, label: false, placeholder: "Data final", as: :string %>
+              <%= f.input :destination, label: false, include_blank: "Destino", as: :select, collection: Placement.all %>
+              <%= f.input :reason, label: false, placeholder: "Motivo", as: :string %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", allocations_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     <div class="float-right"><%= paginate @allocations %></div>
@@ -6,11 +39,11 @@
       <thead>
         <tr>
           <th class="col-2" scope="col">Data</th>
-          <th class="col-2" scope="col">Operador responsável</th>
+          <th class="col-2" scope="col">Responsável</th>
           <th class="col-2" scope="col">Origem</th>
           <th class="col-2" scope="col">Destino</th>
           <th class="col-2" scope="col">Número de itens</th>
-          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary"  %></th>
+          <th class="col-1" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></th>
           <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_allocation_path, class: "btn btn-primary"%></th>
         </tr>
       </thead>
@@ -27,6 +60,7 @@
             <td class="col-1"><%= link_to fa_icon(:pencil), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
+        <tr> <td colspan="7"> <%= page_entries_info @allocations %> </td> </tr>
       </tbody>
     </table>
   </div>

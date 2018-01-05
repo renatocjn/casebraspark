@@ -1,32 +1,46 @@
 
 <div class="row">
   <div class="col">
-    <p>
-      <strong>Origem da alocação:</strong>
-      <%= link_to @allocation.get_origin, placement_path(@allocation.get_origin), class: "text-info" %>
-    </p>
-
-    <p>
-      <strong>Destino da alocação:</strong>
-      <%= link_to @allocation.destination, placement_path(@allocation.destination), class: "text-info" %>
-    </p>
-
+    <table class="table">
+      <tr>
+        <td class="w-50"><label>Origem da alocação:</label></td>
+        <td><%= link_to @allocation.get_origin, placement_path(@allocation.get_origin), class: "text-info" %></td>
+      </tr>
+      <tr>
+        <td class="w-50"><label>Destino da alocação:</label></td>
+        <td><%= link_to @allocation.destination, placement_path(@allocation.destination), class: "text-info" %></td>
+      </tr>
+    </table>
   </div>
   <div class="col">
-    <p>
-      <strong>Motivo:</strong>
-      <%= @allocation.reason %>
-    </p>
+    <table class="table">
+      <tr> <td colspan="2">
+        <div class="d-flex justify-content-around">
+          <%= link_to fa_icon(:pencil, text: "Editar"), edit_allocation_path(@allocation), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+        </div>
+      </td> </tr>
+      <tr>
+        <td class="w-50"><label>Operador responsavel:</label></td>
+        <td><%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %></td>
+      </tr>
+    </table>
+  </div>
+</div>
 
-    <p>
-      <strong>Operador responsavel:</strong>
-      <%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %>
-    </p>
+<div class="row">
+  <div class="col">
+    <table class="table">
+      <tr>
+        <td class="w-25"><label>Motivo:</label></td>
+        <td class="w-75"><%= @allocation.reason %></td>
+      </tr>
+    </table>
   </div>
 </div>
 
 <div class="row text-center">
-  <div class="col">
+  <div class="col border rounded p-2 m-2">
     <h5 class="d-inline">Itens</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :items_page %>
@@ -49,7 +63,7 @@
     </table>
   </div>
 
-  <div class="col">
+  <div class="col border rounded p-2 m-2">
     <h5 class="d-inline">Items de estoque</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @stock_item_groups, fa_icon("chevron-left"), param_name: :stock_items_page %>
@@ -68,12 +82,5 @@
       <% end %>
       <tr> <td colspan="2"> <small> <%= page_entries_info @stock_item_groups %> </small> </td> </tr>
     </table>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-6"></div>
-  <div class="col-6">
-    <%= link_to 'Editar', edit_allocation_path(@allocation), class: "btn btn-primary btn-block text-white" %>
   </div>
 </div>

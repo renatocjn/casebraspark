@@ -5,11 +5,17 @@ class SuppliersController < ApplicationController
   # GET /suppliers.json
   def index
     @suppliers = Supplier.all.page params[:page]
+
+    if params.key? :supplier
+      @suppliers = @suppliers.where "name like '%#{params[:supplier][:name]}%'" unless params[:supplier][:name].blank?
+    end
   end
 
   # GET /suppliers/1
   # GET /suppliers/1.json
   def show
+    @buyable_items = Kaminari.paginate_array(@supplier.get_buyable_items).page(params[:bi_page]).per(5)
+    @acquisitions = @supplier.acquisitions.order(created_at: :desc).page(params[:ac_page]).per(5)
   end
 
   # GET /suppliers/new

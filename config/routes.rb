@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   resources :stock_items
   resources :companies
   resources :suppliers
-  resources :printers
-  resources :computers
-  resources :screens
+  #resources :printers
+  #resources :computers
+  #resources :screens
   # You can have the root of your site routed with "root"
 
   resources :acquisitions, except: :destroy

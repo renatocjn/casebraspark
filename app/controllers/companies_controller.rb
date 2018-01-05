@@ -5,11 +5,17 @@ class CompaniesController < ApplicationController
   # GET /companies.json
   def index
     @companies = Company.all.page params[:page]
+
+    if params.key? :company
+      @companies = @companies.where "name like '%#{params[:company][:name]}%'" unless params[:company][:name].blank?
+      @companies = @companies.where cnpj: params[:company][:cnpj] unless params[:company][:cnpj].blank?
+    end
   end
 
   # GET /companies/1
   # GET /companies/1.json
   def show
+    @items = @company.items.page(params[:page]).per(7)
   end
 
   # GET /companies/new

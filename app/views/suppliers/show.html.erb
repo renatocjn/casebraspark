@@ -1,37 +1,86 @@
 
 <div class="row">
   <div class="col">
-    <p>
-      <label>Nome:</label>
-      <%= @supplier.name %>
-    </p>
-
-    <p>
-      <label>E-mail:</label>
-      <%= @supplier.email %>
-    </p>
-
-    <p>
-      <label>Telefones de contato:</label>
-      <%= simple_format @supplier.phones %>
-    </p>
-
-    <p>
-      <label>Outras informações:</label>
-      <%= simple_format @supplier.other %>
-    </p>
+    <table class="table">
+      <tr>
+        <td class="w-25"><label>Nome:</label></td>
+        <td><%= @supplier.name %></td>
+      </tr>
+      <tr>
+        <td class="w-25"><label>E-mail:</label></td>
+        <td><%= @supplier.email %></td>
+      </tr>
+    </table>
   </div>
 
-  <% if @supplier.get_buyable_items.any? %>
-    <div class="col">
-      <h5>Items já comprados neste fornecedor</h5>
-      <table class="table table-sm">
-        <% @supplier.get_buyable_items.each do |bi_description| %>
-          <tr> <td> <%= bi_description %> </td> </tr>
-        <% end %>
-      </table>
-    </div>
-  <% end %>
+  <div class="col">
+    <table class="table">
+      <tr> <td colspan="2">
+        <div class="d-flex justify-content-around">
+          <%= link_to fa_icon(:pencil, text: "Editar"), edit_supplier_path(@supplier), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+        </div>
+      </td> </tr>
+      <tr>
+        <td class="w-25"><label>Telefones:</label></td>
+        <td><%= simple_format @supplier.phones %></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
+<% unless @supplier.other.blank? %>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <tr>
+          <td class="w-25"><label>Outras informações:</label></td>
+          <td><%= simple_format @supplier.other %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+<div class="row text-center">
+  <div class="col border rounded p-2 m-2">
+    <h5 class="d-inline">Itens já comprados neste fornecedor</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @buyable_items, fa_icon("chevron-left"), param_name: :bi_page %>
+      <%= link_to_next_page @buyable_items, fa_icon("chevron-right"), param_name: :bi_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <% @buyable_items.each do |bi_description| %>
+        <tr scope="row">
+          <td><%= bi_description %></td>
+        </tr>
+      <% end %>
+      <tr> <td> <small> <%= page_entries_info @buyable_items %> </small> </td> </tr>
+    </table>
+  </div>
+
+  <div class="col border rounded p-2 m-2">
+    <h5 class="d-inline">Últimas Aquisições</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
+      <%= link_to_next_page @acquisitions, fa_icon("chevron-right"), param_name: :ac_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th class="col-auto" scope="col"></th>
+        <th class="col-4" scope="col">Data</th>
+        <th class="col-4" scope="col">Valor</th>
+        <th class="col-4" scope="col">Items</th>
+      </tr>
+      <% @acquisitions.each do |acquisition| %>
+        <tr scope="row">
+          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
+          <td class="col-4"><%= localize acquisition.created_at.to_date %></td>
+          <td class="col-4"><%= number_to_currency acquisition.totalValue %></td>
+          <td class="col-4"><%= acquisition.count_items %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+    </table>
+  </div>
 </div>

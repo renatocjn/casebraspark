@@ -1,4 +1,27 @@
 
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :company, method: :get do |f| %>
+        <div class="modal-body">
+          <%= f.input :name, label: false, placeholder: "Nome", as: :string %>
+          <%= f.input :cnpj, label: false, placeholder: "CNPJ", as: :string %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", companies_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="float-right"><%= paginate @companies %></div>
 <table class="table table-hover text-center">
   <thead>
@@ -7,7 +30,7 @@
       <th class="col-2" scope="col">CNPJ</th>
       <th class="col-2" scope="col">Valor do Park</th>
       <th class="col-1"></th>
-      <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
+      <th class="col-1" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
       <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_company_path, class: "btn btn-primary" %></th>
     </tr>
   </thead>
