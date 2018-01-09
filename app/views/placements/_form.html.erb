@@ -8,21 +8,29 @@
 
   <div class="row">
     <div class="col">
-      <%= f.input :state, as: :select, collection: Placement::STATES_BR, label: "UF:" %>
-      <%= f.input :city, label: "Cidade:" %>
-      <%= f.input :other, label: "Outras Informações:" %>
+      <%= f.input :state, as: :select, prompty: "Estado" collection: Placement::STATES_BR, label: "UF:" %>
     </div>
     <div class="col">
-      <%= f.input :contact, label: "Contatos:", error: "Você deve informar alguma informação de contato."%>
-      <%= f.input :address, label: "Endereço:", error: "Você deve informar o endereço do local."%>
+      <%= f.input :city, label: "Cidade:" %>
+    </div>
+    <div class="col">
+      <%= f.input :other, label: "Outras Informações:" %>
     </div>
   </div>
 
   <div class="row">
+    <div class="col"> <%= f.input :contact, label: "Contatos:", error: "Você deve informar alguma informação de contato."%> </div>
+    <div class="col"> <%= f.input :address, label: "Endereço:", error: "Você deve informar o endereço do local."%> </div>
+  </div>
+
+  <div class="row mb-3">
     <div class="col">
       <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
     </div>
-  </div>
 
+    <div class="col">
+      <%= link_to "Cancelar", :back, class: "btn btn-secondary btn-block" %>
+    </div>
+  </div>
 
 <% end %>

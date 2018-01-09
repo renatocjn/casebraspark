@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+
     has_many :allocations_items
     has_many :allocations, through: :allocations_items
     has_many :placements, through: :allocations, source: :destination
@@ -6,6 +7,12 @@ class Item < ActiveRecord::Base
 
     belongs_to :parkable_item, polymorphic: true
     accepts_nested_attributes_for :parkable_item#, :reject_if => :all_blank
+
+    delegate :processor, :memory, :harddrive, :inches, to: :parkable_item
+
+    after_initialize do
+        self.isDischarged ||= false if self.attributes.key? :isDischarged
+    end
 
     validates :dischargeDescription, presence: true, if: :isDischarged
 
@@ -37,10 +44,14 @@ class Item < ActiveRecord::Base
     end
 
     def acquisition
-        self.allocations.order(created_at: :asc).includes(:acquisition).first.acquisition
+        self.allocations.order(date: :asc).first.acquisition
     end
 
-    def current_placement
-        self.allocations.order(created_at: :desc).first.placement
+    def placement
+        self.isDischarged ? "Item descartado" : Placement.find(self[:placement_id])
+    end
+
+    before_update do
+        self.placement = isDischarged ? nil : self.allocations.order(date: :desc, created_at: :desc).first.destination
     end
 end

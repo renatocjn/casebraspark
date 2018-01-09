@@ -50,3 +50,51 @@
     </table>
   </div>
 </div>
+
+<div class="row text-center">
+  <div class="col border rounded p-2 m-2">
+    <h5 class="d-inline">Últimas Aquisições</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
+      <%= link_to_next_page @acquisitions, fa_icon("chevron-right"), param_name: :ac_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Responsável</th>
+        <th scope="col">Fornecedor</th>
+      </tr>
+      <% @acquisitions.each do |acquisition| %>
+        <tr scope="row">
+          <td><%= acquisition.date %></td>
+          <td><%= acquisition.operator %></td>
+          <td><%= acquisition.supplier %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+    </table>
+  </div>
+
+  <div class="col border rounded p-2 m-2">
+    <h5 class="d-inline">Últimas Alocações</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @allocations, fa_icon("chevron-left"), param_name: :al_page %>
+      <%= link_to_next_page @allocations, fa_icon("chevron-right"), param_name: :al_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Resonsável</th>
+        <th scope="col">items</th>
+      </tr>
+      <% @allocations.each do |allocation| %>
+        <tr scope="row">
+          <td><%= allocation.date %></td>
+          <td><%= allocation.operator %></td>
+          <td><%= allocation.count_items %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+    </table>
+  </div>
+</div>

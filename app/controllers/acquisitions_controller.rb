@@ -14,8 +14,8 @@ class AcquisitionsController < ApplicationController
     end
 
     if params.key? :acquisition
-      @acquisitions = @acquisitions.where "acquisitions.created_at >= ?", Date.parse(params[:acquisition][:initial_date]) unless params[:acquisition][:initial_date].blank?
-      @acquisitions = @acquisitions.where "acquisitions.created_at <= ?", Date.parse(params[:acquisition][:final_date]) unless params[:acquisition][:final_date].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "allocation.date >= ?", Date.parse(params[:acquisition][:initial_date]) unless params[:acquisition][:initial_date].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "allocation.date <= ?", Date.parse(params[:acquisition][:final_date]) unless params[:acquisition][:final_date].blank?
       @acquisitions = @acquisitions.where operator: params[:acquisition][:operator] unless params[:acquisition][:operator].blank?
       @acquisitions = @acquisitions.joins(:allocation).where "allocations.destination" => params[:acquisition][:destination] unless params[:acquisition][:destination].blank?
       @acquisitions = @acquisitions.where invoice_number: params[:acquisition][:invoice_number] unless params[:acquisition][:invoice_number].blank?
@@ -91,7 +91,7 @@ class AcquisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
-      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number, :initial_date, :final_date,
+      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number, :date,
         :allocation_attributes => [:id, :reason, :destination_id,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :_destroy,
             :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]],

@@ -8,7 +8,7 @@ class Operator < ActiveRecord::Base
 
     validates :canAlocate, :canBuy, :isAdmin, :isBlocked, inclusion: [true, false]
 
-    has_many :allocations, through: :allocations_items
+    has_many :allocations
     has_many :acquisitions
 
     has_secure_password

@@ -16,7 +16,7 @@
     <table class="table">
       <tr> <td colspan="2">
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon(:pencil, text: "Editar"), edit_allocation_path(@allocation), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:pencil, text: "Editar"), (@allocation.is_acquisition ? edit_acquisition_path(@allocation.acquisition) : edit_allocation_path(@allocation)), class: "btn btn-primary btn-block m-0 mx-1" %>
           <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>

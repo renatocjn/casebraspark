@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108142029) do
+ActiveRecord::Schema.define(version: 20180109115827) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",     null: false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180108142029) do
     t.integer  "operator_id"
     t.integer  "destination_id"
     t.integer  "origin_id"
+    t.date     "date"
   end
 
   add_index "allocations", ["acquisition_id"], name: "index_allocations_on_acquisition_id"

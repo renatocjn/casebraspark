@@ -1,0 +1,22 @@
+I"Ã(function() {
+  $(document).on("turbolinks:load", function() {
+    $('#dischargeCheckbox').on('change', function() {
+      if ($('#dischargeCheckbox').val() === "true") {
+        return $("#dischargeDescription").collapse('show');
+      } else {
+        return $("#dischargeDescription").collapse('hide');
+      }
+    });
+    $("#dischargeDescription").collapse();
+    $('#dischargeDescription').on('hide.bs.collapse', function() {
+      return $('#dischargeDescription textarea').val('');
+    });
+    if ($('#dischargeCheckbox').val() === "true") {
+      return $("#dischargeDescription").collapse('show');
+    } else {
+      return $("#dischargeDescription").collapse('hide');
+    }
+  });
+
+}).call(this);
+:ET

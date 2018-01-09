@@ -14,8 +14,8 @@ class AllocationsController < ApplicationController
     end
 
     if params.key? :allocation
-      @allocations = @allocations.where "created_at >= ?", Date.parse(params[:allocation][:initial_date]) unless params[:allocation][:initial_date].blank?
-      @allocations = @allocations.where "created_at <= ?", Date.parse(params[:allocation][:final_date]) unless params[:allocation][:final_date].blank?
+      @allocations = @allocations.where "date >= ?", Date.parse(params[:allocation][:initial_date]) unless params[:allocation][:initial_date].blank?
+      @allocations = @allocations.where "date <= ?", Date.parse(params[:allocation][:final_date]) unless params[:allocation][:final_date].blank?
       @allocations = @allocations.where operator: params[:allocation][:operator] unless params[:allocation][:operator].blank?
       @allocations = @allocations.where destination: params[:allocation][:destination] unless params[:allocation][:destination].blank?
       @allocations = @allocations.where origin: params[:allocation][:origin] unless params[:allocation][:origin].blank?
@@ -104,7 +104,7 @@ class AllocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allocation_params
-      params.require(:allocation).permit(:reason, :origin_id, :destination_id, :initial_date, :final_date,
+      params.require(:allocation).permit(:reason, :origin_id, :destination_id, :date,
         :items_attributes => [:id, :plate, :_destroy],
         :stock_item_groups_attributes => [:stock_item_id, :quantity, :_destroy])
     end

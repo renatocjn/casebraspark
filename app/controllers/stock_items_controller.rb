@@ -15,7 +15,7 @@ class StockItemsController < ApplicationController
   # GET /stock_items/1.json
   def show
     @placements = @stock_item.placements.page(params[:pl_page]).per(5)
-    @acquisitions = @stock_item.acquisitions.order(created_at: :desc).page(params[:ac_page]).per(5)
+    @acquisitions = @stock_item.acquisitions.order(date: :desc).page(params[:ac_page]).per(5)
   end
 
   # GET /stock_items/new

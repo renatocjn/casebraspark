@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @allocations = @item.allocations.order(created_at: :desc).page(params[:al_page]).per(5)
+    @allocations = @item.allocations.order(date: :desc, created_at: :desc).page(params[:al_page]).per(5)
   end
 
   # GET /items/new

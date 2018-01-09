@@ -17,7 +17,17 @@ class Allocation < ActiveRecord::Base
         origin.nil?
     end
 
-    validates :reason, :destination, :operator, presence: true
+    after_initialize do
+        self.date ||= Date.today
+    end
+
+    before_validation do
+        if self.date.is_a? String
+            self.date = Date.parse(self.date)
+        end
+    end
+
+    validates :reason, :destination, :operator, :date, presence: true
     validates :origin, presence: true, unless: :is_acquisition
     validate :check_presence_of_items
     validate :check_origin_items, unless: :is_acquisition

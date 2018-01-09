@@ -26,14 +26,13 @@
 <% admin = current_user.isAdmin %>
 <div class="row">
   <div class="col">
-    <div class="float-right"><%= paginate @placements %></div>
     <table class="table table-hover text-center">
       <thead>
         <tr>
           <th class="col-4" scope="col">Descrição</th>
           <th class="col-3" scope="col">Contatos</th>
           <th class="col-3" scope="col">Endereço</th>
-          <th class="col-2" scope="col">Quantidade de items</th>
+          <th class="col-2" scope="col">Items</th>
           <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
           <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_placement_path, class: "btn btn-primary" %></th>
         </tr>
@@ -53,5 +52,6 @@
         <tr> <td colspan="8"> <small> <%= page_entries_info @placements %> </small> </td> </tr>
       </tbody>
     </table>
+    <div class="float-right"><%= paginate @placements %></div>
   </div>
 </div>

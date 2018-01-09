@@ -12,7 +12,7 @@ class Supplier < ActiveRecord::Base
     end
 
     def get_buyable_items
-        items.select(:parkable_item_type).distinct.map {|i| i.type_pt_BR} +
+        items.select(:parkable_item_type).distinct.collect {|i| i.type_pt_BR} +
             stock_items.select(:short_description).distinct.pluck(:short_description)
     end
 end

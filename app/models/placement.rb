@@ -39,7 +39,7 @@ class Placement < ActiveRecord::Base
   end
 
   def current_items
-    self.items.order(created_at: :desc)
+    self.items.order(date: :desc)
   end
 
   def item_count

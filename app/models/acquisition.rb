@@ -20,7 +20,7 @@ class Acquisition < ActiveRecord::Base
         items.pluck(:value).sum()
     end
 
-    delegate :count_items, :reason, to: :allocation
+    delegate :count_items, :date, :reason, to: :allocation
 
     after_rollback do
         errors.full_messages.each {|m| logger.debug m}

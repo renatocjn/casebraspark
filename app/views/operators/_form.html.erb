@@ -15,19 +15,22 @@
       <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
     </div>
 
-    <div class="col mt-5">
-      <h4> Permissões </h4>
-      <%= f.input :canAlocate, inline_label: "Pode alocar?" %>
-      <%= f.input :canBuy, inline_label: "Pode fazer aquisições?" %>
-      <%= f.input :isAdmin, inline_label: "Administrador" %>
-      <%= f.input :isBlocked, inline_label: "Bloqueado" unless @operator.new_record? %>
+    <div class="col">
+      <%= f.input :canAlocate, label: "Pode alocar?", as: :select %>
+      <%= f.input :canBuy, label: "Pode fazer aquisições?", as: :select %>
+      <%= f.input :isAdmin, label: "Administrador?", as: :select %>
+      <%= f.input :isBlocked, label: "Bloqueado?", as: :select unless @operator.new_record? %>
     </div>
 
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col">
        <%= f.submit "Salvar", class: "btn btn-primary btn-block" %>
+    </div>
+
+    <div class="col">
+      <%= link_to "Cancelar", :back, class: "btn btn-secondary btn-block" %>
     </div>
   </div>
 

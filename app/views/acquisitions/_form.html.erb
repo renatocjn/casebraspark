@@ -1,3 +1,4 @@
+
 <%= simple_form_for @acquisition do |f| %>
 
   <div class="row">
@@ -16,22 +17,19 @@
     </div>
   </div>
 
-  <%= f.association :supplier, as: :select, label: "Fornecedor desta aquisição" %>
+  <div class="row">
+    <div class="col">
+      <%= f.input :invoice_number, label: "Número da nota fiscal" %>
+      <%= f.association :supplier, as: :select, label: "Fornecedor desta aquisição" %>
+    </div>
 
-  <%= f.association :company, as: :select, label: "Empresa responsável por esta compra" %>
-
-  <%= f.input :invoice_number, label: "Número da nota fiscal" %>
+    <div class="col">
+      <%= f.submit "Salvar", class: "btn btn-primary btn-block mt-4" %>
+      <%= f.association :company, as: :select, label: "Empresa responsável por esta compra", wrapper_html: {class:"mt-3"} %>
+    </div>
+  </div>
 
   <%= f.simple_fields_for :allocation do |f2| %>
     <%= render "allocations/form", f: f2, acquisition: true %>
-
-    <%= link_to_add_association fa_icon(:plus, text: "Monitor"), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Screen' }} %>
-    <%= link_to_add_association fa_icon(:plus, text: "Computador"), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Computer' }} %>
-    <%= link_to_add_association fa_icon(:plus, text: "Impressora"), f2, :items, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'Printer' }} %>
-    <%= link_to_add_association fa_icon(:plus, text: "Outros"), f2, :stock_item_groups, class: "btn btn-secondary", "data-association-insertion-node" => "#insertionPoint", partial: "stock_items/group_partial" %>
   <% end %>
-
-  <%= f.submit "Salvar", class: "btn btn-primary" %>
-
-
 <% end %>

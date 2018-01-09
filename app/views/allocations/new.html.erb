@@ -4,9 +4,9 @@
 <div class="row">
     <div class="col">
         <%= f.error_notification %>
-        <% if @acquisition.errors.any? %>
+        <% if @allocation.errors.any? %>
             <div class="alert alert-warning">
-                <% @allocation.errors[:base].each do |error| %>
+                <% @allocation.errors.full_messages_for(:base).each do |error| %>
                     <%= error %>
                 <% end %>
             </div>
@@ -15,7 +15,5 @@
 </div>
 
 <%= render 'form', :f => f %>
-
-<%= f.submit "Salvar", class: "btn btn-primary" %>
 
 <% end %>

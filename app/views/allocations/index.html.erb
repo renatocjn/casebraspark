@@ -34,7 +34,6 @@
 
 <div class="row">
   <div class="col">
-    <div class="float-right"><%= paginate @allocations %></div>
     <table class="table table-hover text-center">
       <thead>
         <tr>
@@ -57,11 +56,12 @@
             <td class="col-3"><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
             <td class="col-2"><%= allocation.count_items %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), allocation, class: "btn btn-info" %></td>
-            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), (allocation.is_acquisition ? edit_acquisition_path(allocation.acquisition) : edit_allocation_path(allocation)), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
-        <tr> <td colspan="7"> <%= page_entries_info @allocations %> </td> </tr>
+        <tr> <td colspan="7"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
       </tbody>
     </table>
+    <div class="float-right"><%= paginate @allocations %></div>
   </div>
 </div>
