@@ -190,3 +190,4 @@ pt_BR:
         odd: "deve ser ímpar"
         even: "deve ser par"
         record_invalid: "A validação falhou: %{errors}"
+        invalid_content_type: "Este formato de arquivo não é aceito"

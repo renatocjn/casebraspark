@@ -60,7 +60,7 @@
           <td> <%= link_to fa_icon("info-circle"), item, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
 
@@ -80,7 +80,7 @@
         <tr scope="row">
           <td class="col-9"> <%= item.stock_item.short_description %> </td>
           <td class="col-3"> <%= item.count %> </td>
-          <td class="col-1"> <%= link_to fa_icon("minus-circle"), "#" %> </td>
+          <td class="col-1"> <%= link_to fa_icon("minus-circle"), "#", class: "text-danger" %> </td>
         </tr>
       <% end %>
       <tr> <td colspan="3"> <small> <%= page_entries_info @stock_item_counts %> </small> </td> </tr>
@@ -110,7 +110,7 @@
           <td> <%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %> </td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 

@@ -3,6 +3,10 @@
   <div class="col">
     <table class="table">
       <tr>
+        <td class="w-50"><label>Data:</label></td>
+        <td><%= localize @allocation.date %></td>
+      </tr>
+      <tr>
         <td class="w-50"><label>Origem da alocação:</label></td>
         <td><%= link_to @allocation.get_origin, placement_path(@allocation.get_origin), class: "text-info" %></td>
       </tr>
@@ -48,18 +52,20 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Plaqueta</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Número de serie</th>
+        <th class="col-4" scope="col">Plaqueta</th>
+        <th class="col-4" scope="col">Tipo</th>
+        <th class="col-4" scope="col">Número de serie</th>
+        <th class="col-auto"></th>
       </tr>
       <% @items.each do |item| %>
         <tr scope="row">
-          <td><%= link_to item.plate, item, class: "text-info" %></td>
-          <td><%= item %></td>
-          <td><%= item.serial %></td>
+          <td class="col-4"><%= item.plate %></td>
+          <td class="col-4"><%= item %></td>
+          <td class="col-4"><%= item.serial %></td>
+          <td class="col-auto"><%= link_to fa_icon("info-circle"), item, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
 

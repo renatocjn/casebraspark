@@ -29,6 +29,15 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col">
+      <div class="form-group string required acquisition_invoice">
+        <label class="control-label string required" for="acquisition_invoice"><abbr title="Campo Obrigatório">*</abbr>&nbspCópia da nota fiscal</label>
+        <%= f.attachment_field :invoice, class: "form-control required string", id: "acquisition_invoice" %>
+      </div>
+    </div>
+  </div>
+
   <%= f.simple_fields_for :allocation do |f2| %>
     <%= render "allocations/form", f: f2, acquisition: true %>
   <% end %>

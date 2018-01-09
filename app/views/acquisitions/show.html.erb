@@ -30,12 +30,19 @@
         </div>
       </td> </tr>
       <tr>
+        <td class="w-50"><label>Data:</label></td>
+        <td class="w-50"><%= localize @acquisition.date %></td>
+      </tr>
+      <tr>
         <td class="w-50"><label>Local de alocação:</label></td>
         <td class="w-50"><%= link_to @acquisition.allocation.destination, @acquisition.destination, class: "text-info" %></td>
       </tr>
       <tr>
         <td class="w-50"><label>Operador responsável:</label></td>
         <td class="w-50"><%= link_to @acquisition.operator.name, @acquisition.operator, class: "text-info" %></td>
+      </tr>
+      <tr>
+        <td colspan="2"> <%= link_to fa_icon(:print, text: "Cópia da nota fiscal"), attachment_url(@acquisition, :invoice), class: "text-info" %> </td>
       </tr>
     </table>
   </div>
@@ -64,15 +71,17 @@
         <th class="col-3" scope="col">Plaqueta</th>
         <th class="col-6" scope="col">Descrição</th>
         <th class="col-3" scope="col">Valor</th>
+        <th class="col-auto" scope="col"></th>
       </tr>
     <% @items.each do |item| %>
       <tr scope="row">
-        <td class="col-3"><%= link_to item.plate, item_path(item), class:"text-info"%></td>
-        <td class="col-6"><%= item.description %></td>
-        <td class="col-3"><%= number_to_currency item.value %></td>
+        <td class="col-3"> <%= item.plate %> </td>
+        <td class="col-6"> <%= item.description %> </td>
+        <td class="col-3"> <%= number_to_currency item.value %> </td>
+        <td class="col-auto"> <%= link_to fa_icon("info-circle"), item, class:"text-info"%> </td>
       </tr>
     <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
   <div class="col border rounded p-2 m-2">

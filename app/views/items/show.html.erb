@@ -70,18 +70,20 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Local</th>
-        <th scope="col">Responsável</th>
+        <th class="col-4" scope="col">Data</th>
+        <th class="col-4" scope="col">Local</th>
+        <th class="col-4" scope="col">Responsável</th>
+        <th class="col-auto"></th>
       </tr>
     <% @allocations.each do |allocation| %>
       <tr scope="row">
-        <td><%= localize allocation.created_at.to_date %></td>
-        <td><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
-        <td><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
+        <td class="col-4"><%= localize allocation.created_at.to_date %></td>
+        <td class="col-4"><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
+        <td class="col-4"><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
+        <td class="col-auto"><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
       </tr>
     <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
     </table>
   </div>
 </div>

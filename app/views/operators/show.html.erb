@@ -60,18 +60,20 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Responsável</th>
-        <th scope="col">Fornecedor</th>
+        <th class="col-4" scope="col">Data</th>
+        <th class="col-4" scope="col">Responsável</th>
+        <th class="col-4" scope="col">Fornecedor</th>
+        <th class="col-auto" scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row">
-          <td><%= acquisition.date %></td>
-          <td><%= acquisition.operator %></td>
-          <td><%= acquisition.supplier %></td>
+          <td class="col-4"><%= acquisition.date %></td>
+          <td class="col-4"><%= acquisition.operator %></td>
+          <td class="col-4"><%= acquisition.supplier %></td>
+          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 
@@ -83,18 +85,20 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Resonsável</th>
-        <th scope="col">items</th>
+        <th class="col-4" scope="col">Data</th>
+        <th class="col-4" scope="col">Resonsável</th>
+        <th class="col-4" scope="col">items</th>
+        <th  class="col-auto" scope="row"></th>
       </tr>
       <% @allocations.each do |allocation| %>
         <tr scope="row">
-          <td><%= allocation.date %></td>
-          <td><%= allocation.operator %></td>
-          <td><%= allocation.count_items %></td>
+          <td class="col-4"><%= allocation.date %></td>
+          <td class="col-4"><%= allocation.operator %></td>
+          <td class="col-4"><%= allocation.count_items %></td>
+          <td class="col-auto"><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
     </table>
   </div>
 </div>

@@ -91,8 +91,8 @@ class AcquisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acquisition_params
-      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number, :date,
-        :allocation_attributes => [:id, :reason, :destination_id,
+      params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number, :invoice, :invoice_id, :invoice_content_size, :invoice_filename, :invoice_content_type,
+        :allocation_attributes => [:id, :reason, :destination_id, :date,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :_destroy,
             :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive]],
           :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :_destroy]])

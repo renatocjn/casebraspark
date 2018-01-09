@@ -1,4 +1,6 @@
 class Acquisition < ActiveRecord::Base
+    attachment :invoice, content_type: ["image/jpeg", "image/png", "image/gif", "application/pdf"]
+
     belongs_to :operator
     belongs_to :supplier
     belongs_to :company
@@ -13,7 +15,7 @@ class Acquisition < ActiveRecord::Base
         self.allocation.operator = self.operator
     end
 
-    validates :invoice_number, :supplier, :allocation, :operator, presence: true
+    validates :invoice_number, :supplier, :allocation, :operator, :invoice, presence: true
     validates :invoice_number, uniqueness: true
 
     def totalValue

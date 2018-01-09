@@ -11,15 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109115827) do
+ActiveRecord::Schema.define(version: 20180109164002) do
 
   create_table "acquisitions", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "operator_id"
     t.integer  "supplier_id"
     t.integer  "company_id"
     t.string   "invoice_number"
+    t.string   "invoice_id"
+    t.string   "invoice_filename"
+    t.string   "invoice_content_size"
+    t.string   "invoice_content_type"
   end
 
   add_index "acquisitions", ["company_id"], name: "index_acquisitions_on_company_id"

@@ -23,7 +23,7 @@ class OperatorsController < ApplicationController
   # GET /operators/1.json
   def show
     @allocations = @operator.allocations.order(date: :desc).page(params[:al_page]).per(5)
-    @acquisitions = @operator.acquisitions.order(date: :desc).page(params[:ac_page]).per(5)
+    @acquisitions = @operator.acquisitions.joins(:allocation).order("allocations.date DESC, created_at DESC").page(params[:ac_page]).per(5)
   end
 
   # GET /operators/new

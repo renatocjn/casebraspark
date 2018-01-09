@@ -47,10 +47,6 @@ class Item < ActiveRecord::Base
         self.allocations.order(date: :asc).first.acquisition
     end
 
-    def placement
-        self.isDischarged ? "Item descartado" : Placement.find(self[:placement_id])
-    end
-
     before_update do
         self.placement = isDischarged ? nil : self.allocations.order(date: :desc, created_at: :desc).first.destination
     end

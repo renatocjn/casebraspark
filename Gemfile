@@ -76,3 +76,6 @@ gem "font-awesome-rails", "~> 4.7"
 
 # Added at 2018-01-04 18:34:28 +0000 by ubuntu:
 gem "kaminari", "~> 1.1"
+
+gem "refile", require: "refile/rails"
+gem "refile-mini_magick"

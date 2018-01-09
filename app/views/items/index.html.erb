@@ -45,7 +45,7 @@
           <tr scope="row">
             <td class="col-2"><%= item.plate %> </td>
             <td class="col-3"><%= item.description %></td>
-            <td class="col-3"><%= link_to item.placement, item.placement, class: "text-info" %></td>
+            <td class="col-3"><%= item.isDischarged ? "Item descartado" : link_to(item.placement, item.placement, class: "text-info") %></td>
             <td class="col-2"><%= item.serial %></td>
             <td class="col-2"><%= number_to_currency item.value %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), item_path(item), class: "btn btn-info" %></td>

@@ -67,17 +67,17 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-auto" scope="col"></th>
         <th class="col-4" scope="col">Data</th>
         <th class="col-4" scope="col">Valor</th>
         <th class="col-4" scope="col">Items</th>
+        <th class="col-auto" scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row">
-          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
           <td class="col-4"><%= localize acquisition.created_at.to_date %></td>
           <td class="col-4"><%= number_to_currency acquisition.totalValue %></td>
           <td class="col-4"><%= acquisition.count_items %></td>
+          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
       <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
