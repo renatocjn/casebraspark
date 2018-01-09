@@ -6,6 +6,7 @@ class StockItemGroup < ActiveRecord::Base
     self.quantity ||= 0
   end
 
-  validates :stock_item, :quantity, presence: true
+  validates :stock_item, :quantity, :unit_value, presence: true
   validates :quantity, numericality: {greater_than_or_equal_to: 0, only_integer: true}
+  validates :unit_value, numericality: {greater_than: 0, only_integer: true}
 end

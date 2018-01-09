@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
     belongs_to :parkable_item, polymorphic: true
     accepts_nested_attributes_for :parkable_item#, :reject_if => :all_blank
 
-    delegate :processor, :memory, :harddrive, :inches, to: :parkable_item
+    delegate :processor, :memory, :harddrive, :inches, :paint, :connection, :number_of_channels, :functions, :function, to: :parkable_item
 
     after_initialize do
         self.isDischarged ||= false if self.attributes.key? :isDischarged
@@ -36,7 +36,11 @@ class Item < ActiveRecord::Base
     TYPES_TRANSLATIONS = {
         "Screen" => "Monitor",
         "Printer" => "Impressora",
-        "Computer" => "Computador"
+        "Computer" => "Computador",
+        "IpCamera" => "Câmera",
+        "IpPhone" => "Telefone IP",
+        "DvrDevice" => "DVR",
+        "NetDevice" => "Dispositivo de Rede"
     }
 
     def type_pt_BR

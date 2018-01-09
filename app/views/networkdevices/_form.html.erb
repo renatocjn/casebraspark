@@ -1,0 +1,5 @@
+<%# Printer partial %>
+
+<%= f.hidden_field :id %>
+
+<%= f.input :function, as: :select, label: "Tipo de dispositivo", include_blank: false, collection: NetworkDevice::FUNCTIONS, wrapper_html: {class: "small-input"} %>
