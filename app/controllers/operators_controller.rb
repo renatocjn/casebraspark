@@ -8,6 +8,15 @@ class OperatorsController < ApplicationController
   # GET /operators.json
   def index
     @operators = Operator.all.page params[:page]
+
+    if params.key? :operator
+      @operators = @operators.where "name like '%#{params[:operator][:name]}%'" unless params[:operator][:name].blank?
+      @operators = @operators.where "email like '%#{params[:operator][:email]}%'" unless params[:operator][:email].blank?
+      @operators = @operators.where canAlocate: params[:operator][:canAlocate] == "true" unless params[:operator][:canAlocate].blank?
+      @operators = @operators.where canBuy: params[:operator][:canBuy] == "true" unless params[:operator][:canBuy].blank?
+      @operators = @operators.where isAdmin: params[:operator][:isAdmin] == "true" unless params[:operator][:isAdmin].blank?
+      @operators = @operators.where isBlocked: params[:operator][:isBlocked] == "true" unless params[:operator][:isBlocked].blank?
+    end
   end
 
   # GET /operators/1

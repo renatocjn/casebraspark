@@ -5,11 +5,17 @@ class StockItemsController < ApplicationController
   # GET /stock_items.json
   def index
     @stock_items = StockItem.all.page params[:page]
+
+    if params.key? :stock_item
+      @stock_items = @stock_items.where "short_description like '%#{params[:stock_item][:short_description]}%'" unless params[:stock_item][:short_description].blank?
+    end
   end
 
   # GET /stock_items/1
   # GET /stock_items/1.json
   def show
+    @placements = @stock_item.placements.page(params[:pl_page]).per(5)
+    @acquisitions = @stock_item.acquisitions.order(created_at: :desc).page(params[:ac_page]).per(5)
   end
 
   # GET /stock_items/new

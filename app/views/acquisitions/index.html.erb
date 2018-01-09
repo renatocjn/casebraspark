@@ -1,5 +1,4 @@
 
-
 <div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -43,12 +42,12 @@
         <tr>
           <th class="col-2" scope="col">Data</th>
           <th class="col-2" scope="col">Responsável</th>
-          <th class="col-2" scope="col">fornecedor</th>
+          <th class="col-2" scope="col">Fornecedor</th>
           <th class="col-2" scope="col">Destino</th>
           <th class="col-2" scope="col">Número de itens</th>
           <th class="col-2" scope="col">Valor total</th>
-          <th class="col-1" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
-          <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
+          <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
+          <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
         </tr>
       </thead>
 
@@ -61,8 +60,8 @@
             <td class="col-2"><%= link_to acquisition.destination, placement_path(acquisition.allocation.destination), class: "text-info" %></td>
             <td class="col-2"><%= acquisition.count_items %></td>
             <td class="col-2"><%= number_to_currency acquisition.totalValue %></td>
-            <td class="col-1"><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
-            <td class="col-1"><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
         <tr> <td colspan="8"> <%= page_entries_info @acquisitions %> </td> </tr>

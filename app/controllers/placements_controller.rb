@@ -6,7 +6,13 @@ class PlacementsController < ApplicationController
   # GET /placements
   # GET /placements.json
   def index
-    @placements = Placement.includes(:stock_item_counts, :items).all.page params[:page]
+    @placements = Placement.all.page params[:page]
+
+    if params.key? :placement
+      @placement = @placement.where "state like '%#{params[:placement][:state]}%'" unless params[:placement][:state].blank?
+      @placement = @placement.where "state like '%#{params[:placement][:city]}%'" unless params[:placement][:city].blank?
+      @placement = @placement.where "state like '%#{params[:placement][:other]}%'" unless params[:placement][:other].blank?
+    end
   end
 
   # GET /placements/1
@@ -14,6 +20,8 @@ class PlacementsController < ApplicationController
   def show
     @stock_item_counts = @placement.stock_item_counts.page(params[:stock_items_page]).per(5)
     @items = @placement.items.page(params[:items_page]).per(5)
+    @allocations = @placement.allocations.order(created_at: :desc).page(params[:al_page]).per(5)
+    @acquisitions = @placement.acquisitions.order(created_at: :desc).page(params[:ac_page]).per(5)
   end
 
   # GET /placements/new

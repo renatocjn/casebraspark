@@ -37,13 +37,13 @@
     <tr>
       <th scope="col">Plaqueta</th>
       <th scope="col">Tipo</th>
-      <th scope="col">Número de serie</th>
+      <th scope="col">Local atual</th>
     </tr>
     <% @items.each do |item| %>
       <tr scope="row">
         <td><%= link_to item.plate, item, class: "text-info" %></td>
         <td><%= item %></td>
-        <td><%= item.serial %></td>
+        <td><%= link_to item.placement, item.placement, class: "text-info" %></td>
       </tr>
     <% end %>
     <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>

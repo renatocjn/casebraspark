@@ -21,7 +21,7 @@
         </div>
       </td> </tr>
       <tr>
-        <td class="w-50"><label>Operador responsavel:</label></td>
+        <td class="w-50"><label>Operador responsável:</label></td>
         <td><%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %></td>
       </tr>
     </table>
@@ -33,7 +33,7 @@
     <table class="table">
       <tr>
         <td class="w-25"><label>Motivo:</label></td>
-        <td class="w-75"><%= @allocation.reason %></td>
+        <td class="w-75"><%= simple_format @allocation.reason %></td>
       </tr>
     </table>
   </div>

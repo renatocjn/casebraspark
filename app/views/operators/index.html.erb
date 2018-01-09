@@ -1,42 +1,63 @@
 
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :operator, method: :get do |f| %>
+        <div class="modal-body">
+          <%= f.input :name, label: false, placeholder: "Nome", as: :string %>
+          <%= f.input :email, label: false, placeholder: "E-mail", as: :string %>
+          <%= f.input :canAlocate, label: false, prompt: "Pode Alocar?", as: :select %>
+          <%= f.input :canBuy, label: false, prompt: "Pode Comprar?", as: :select %>
+          <%= f.input :isAdmin, label: false, prompt: "Administrador?", as: :select %>
+          <%= f.input :isBlocked, label: false, prompt: "Bloqueado?", as: :select %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", operators_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     <div class="float-right"><%= paginate @operators %></div>
     <table class='table table-hover text-center'>
       <thead>
         <tr>
-          <th class="col-3" scope="col">Nome</th>
-          <th class="col-3" scope="col">E-mail</th>
+          <th class="col-4" scope="col">Nome</th>
+          <th class="col-4" scope="col">E-mail</th>
           <th class="col-1" scope="col">Alocador?</th>
           <th class="col-1" scope="col">Comprador?</th>
           <th class="col-1" scope="col">Administrador?</th>
           <th class="col-1" scope="col">Bloqueado?</th>
-          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary"  %></th>
-          <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_operator_path, class: "btn btn-primary"  %></th>
+          <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
+          <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_operator_path, class: "btn btn-primary"  %></th>
         </tr>
       </thead>
 
       <tbody>
         <% @operators.each do |operator| %>
           <tr scope="row">
-            <td class="col-3"><%= operator.name %></td>
-            <td class="col-3"><%= mail_to operator.email %></td>
+            <td class="col-4"><%= operator.name %></td>
+            <td class="col-4"><%= mail_to operator.email %></td>
             <td class="col-1"><%= operator.canAlocate ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td class="col-1"><%= operator.canBuy ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td class="col-1"><%= operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td class="col-1"><%= operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-            <td class="col-1"><%= link_to fa_icon("info-circle"), operator, class: "btn btn-info" %></td>
-            <td class="col-1"><%= link_to fa_icon(:pencil), edit_operator_path(operator), class: "btn btn-secondary" %></td>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), operator, class: "btn btn-info" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_operator_path(operator), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
+        <tr> <td colspan="8"> <small> <%= page_entries_info @operators %> </small> </td> </tr>
       </tbody>
     </table>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-6"></div>
-  <div class="col-6">
-
   </div>
 </div>

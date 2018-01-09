@@ -1,29 +1,48 @@
 
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :stock_item, method: :get do |f| %>
+        <div class="modal-body">
+          <%= f.input :short_description, label: false, placeholder: "Descrição curta", as: :string %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", stock_items_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="float-right"><%= paginate @stock_items %></div>
 <table class="table table-hover text-center">
   <thead>
     <tr>
-      <th class="col-7" scope="col">Descrição curta</th>
-      <th class="col-2" scope="col">Quantidade total</th>
-      <th class="col-1" scope="col"></th>
-      <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
-      <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_stock_item_path, class: "btn btn-primary" %></th>
+      <th class="col-9" scope="col">Descrição curta</th>
+      <th class="col-3" scope="col">Quantidade total</th>
+      <th class="col-auto" scope="col"></th>
+      <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
+      <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_stock_item_path, class: "btn btn-primary" %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @stock_items.each do |stock_item| %>
       <tr scope="row">
-        <td class="col-7"><%= stock_item.short_description %></td>
-        <td class="col-2"><%= stock_item.count %></td>
-        <td class="col-1"><%= link_to fa_icon("info-circle"), stock_item, class: "btn btn-secondary" %></td>
-        <td class="col-1"><%= link_to fa_icon(:pencil), edit_stock_item_path(stock_item), class: "btn btn-secondary" %></td>
-        <td class="col-1"><%= link_to fa_icon(:trash), stock_item, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+        <td class="col-9"><%= stock_item.short_description %></td>
+        <td class="col-3"><%= stock_item.count %></td>
+        <td class="col-auto"><%= link_to fa_icon("info-circle"), stock_item, class: "btn btn-secondary" %></td>
+        <td class="col-auto"><%= link_to fa_icon(:pencil), edit_stock_item_path(stock_item), class: "btn btn-secondary" %></td>
+        <td class="col-auto"><%= link_to fa_icon(:trash), stock_item, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
+    <tr> <td colspan="5"> <small> <%= page_entries_info @stock_items %> </small> </td> </tr>
   </tbody>
 </table>
-
-<br>
-
-

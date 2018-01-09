@@ -1,15 +1,75 @@
 
-<p>
-  <strong>Descrição curta:</strong>
-  <%= @stock_item.short_description %>
-</p>
+<div class="row">
+  <div class="col">
+    <table class="table">
+      <tr>
+        <td class="w-50"><label>Descrição curta:</label></td>
+        <td><%= @stock_item.short_description %></td>
+      </tr>
 
-<p>
-  <strong>Descrição Longa:</strong>
-  <%= simple_format @stock_item.long_description %>
-</p>
+      <tr>
+        <td class="w-50"><label>Descrição Longa:</label></td>
+        <td><%= @stock_item.long_description %></td>
+      </tr>
+    </table>
+  </div>
 
-<p>
-  <strong>Quantidade disponível no estoque:</strong>
-  <%= @stock_item.stock %>
-</p>
+  <div class="col">
+    <table class="table">
+      <tr> <td colspan="2">
+        <div class="d-flex justify-content-around">
+          <%= link_to 'Editar', edit_stock_item_path(@stock_item), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+        </div>
+      </td> </tr>
+
+      <tr>
+        <td class="w-50"><label>Quantidade em estoque:</label></td>
+        <td> <%= @stock_item.quantity_in_stock %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row text-center mt-3">
+  <div class="col">
+    <h5 class="d-inline">Locais com este item</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @placements, fa_icon("chevron-left"), param_name: :pl_page %>
+      <%= link_to_next_page @placements, fa_icon("chevron-right"), param_name: :pl_page %>
+    </div>
+    <table class="table table-hover table-sm">
+      <% @placements.each do |placement| %>
+        <tr scope="row">
+          <td> <%= link_to placement, placement, class: "text-info" %> </td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="2"> <small> <%= page_entries_info @placements %> </small> </td> </tr>
+    </table>
+  </div>
+
+  <div class="col">
+    <h5 class="d-inline">Últimas Aquisições</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
+      <%= link_to_next_page @acquisitions, fa_icon("chevron-right"), param_name: :ac_page %>
+    </div>
+    <table class="table table-hover table-sm">
+      <tr>
+        <th class="col-4" scope="col">Data</th>
+        <th class="col-4" scope="col">Resposável</th>
+        <th class="col-4" scope="col">Fornecedor</th>
+        <th class="col-auto" scope="col"></th>
+      </tr>
+      <% @acquisitions.each do |acquisition| %>
+        <tr scope="row">
+          <td class="col-6"> <%= localize acquisition.created_at.to_date %> </td>
+          <td class="col-6"> <%= acquisition.operator %> </td>
+          <td class="col-6"> <%= acquisition.supplier %> </td>
+          <td class="col-auto"> <%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %> </td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+    </table>
+  </div>
+</div>

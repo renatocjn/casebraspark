@@ -1,4 +1,28 @@
 
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :placement, method: :get do |f| %>
+        <div class="modal-body">
+          <%= f.input :state, label: false, prompt: "Estado", as: :select, collection: Placement::STATES_BR %>
+          <%= f.input :city, label: false, placeholder: "Cidade", as: :string %>
+          <%= f.input :other, label: false, placeholder: "Outras Informações", as: :string %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", operators_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <% admin = current_user.isAdmin %>
 <div class="row">
   <div class="col">
@@ -6,30 +30,27 @@
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th class="col-8" scope="col">Descrição</th>
-          <th class="col-2" scope="col">Contatos</th>
-          <th class="col-2" scope="col">Endereço</th>
-          <% if admin %>
-            <th class="col-2" scope="col">Items</th>
-            <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
-            <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_placement_path, class: "btn btn-primary" %></th>
-          <% end %>
+          <th class="col-4" scope="col">Descrição</th>
+          <th class="col-3" scope="col">Contatos</th>
+          <th class="col-3" scope="col">Endereço</th>
+          <th class="col-2" scope="col">Quantidade de items</th>
+          <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
+          <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_placement_path, class: "btn btn-primary" %></th>
         </tr>
       </thead>
 
       <tbody>
         <% @placements.each do |placement| %>
           <tr scope="row">
-            <td class="col-8"><%= placement %></td>
-            <td class="col-2"><%= simple_format placement.contact %></td>
-            <td class="col-2"><%= simple_format placement.address %></td>
-            <% if admin %>
-              <td class="col-2"><%= placement.item_count %></td>
-              <td class="col-1"><%= link_to fa_icon("info-circle"), placement, class: "btn btn-info" %></td>
-              <td class="col-1"><%= link_to fa_icon(:pencil), edit_placement_path(placement), class: "btn btn-secondary" %></td>
-            <% end %>
+            <td class="col-4"><%= placement %></td>
+            <td class="col-3"><%= simple_format placement.contact %></td>
+            <td class="col-3"><%= simple_format placement.address %></td>
+            <td class="col-2"><%= placement.item_count %></td>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), placement, class: "btn btn-info" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_placement_path(placement), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
+        <tr> <td colspan="8"> <small> <%= page_entries_info @placements %> </small> </td> </tr>
       </tbody>
     </table>
   </div>

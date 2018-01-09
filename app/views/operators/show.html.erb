@@ -1,47 +1,52 @@
 
 <div class="row">
-  <div class="col justify-content-end">
-    <p>
-      <label>Nome do operador:</label>
-      <%= @operator.name %>
-    </p>
-
-    <p>
-      <label>E-mail:</label>
-      <%= mail_to @operator.email %>
-    </p>
+  <div class="col">
+    <table class="table">
+      <tr>
+        <td class="w-25"><label>Nome:</label></td>
+        <td><%= @operator.name %></td>
+      </tr>
+      <tr>
+        <td class="w-25"><label>E-mail:</label></td>
+        <td><%= @operator.email %></td>
+      </tr>
+    </table>
   </div>
 
   <div class="col">
-    <table class="table table-sm table-hover">
-      <thead>
-        <th colspan="2" class="text-center">Permissões</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><label>Pode Alocar?</label></td>
-          <td><%= @operator.canAlocate ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-        </tr>
-        <tr>
-          <td><label>Pode Comprar?</label></td>
-          <td><%= @operator.canBuy ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-        </tr>
-        <tr>
-          <td><label>Administrador?</label></td>
-          <td><%= @operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-          </tr>
-        <tr>
-          <td><label>Bloqueado?</label></td>
-          <td><%= @operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-        </tr>
-      </tbody>
+    <table class="table">
+      <tr> <td>
+        <div class="d-flex justify-content-around">
+          <%= link_to 'Editar', edit_operator_path(@operator), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+        </div>
+      </td> </tr>
     </table>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-6"></div>
-  <div class="col-6">
-    <%= link_to 'Editar', edit_operator_path(@operator), class: "btn btn-primary btn-block text-white" %>
+  <div class="col">
+    <table class="table table-sm table-hover text-center">
+      <thead>
+        <th colspan="4" class="text-center">Permissões</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="w-25"><label>Pode Alocar?</label></td>
+          <td class="w-25"><%= @operator.canAlocate ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+
+          <td class="w-25"><label>Pode Comprar?</label></td>
+          <td class="w-25"><%= @operator.canBuy ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+        </tr>
+        <tr>
+          <td class="w-25"><label>Administrador?</label></td>
+          <td class="w-25"><%= @operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+
+          <td class="w-25"><label>Bloqueado?</label></td>
+          <td class="w-25"><%= @operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+          </tr>
+      </tbody>
+    </table>
   </div>
 </div>

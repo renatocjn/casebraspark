@@ -8,11 +8,15 @@
       </tr>
       <tr>
         <td class="w-50"><label>Fornecedor:</label></td>
-        <td class="w-50"><%= @acquisition.supplier %></td>
+        <td class="w-50"><%= link_to @acquisition.supplier, @acquisition.supplier, class: "text-info" %></td>
       </tr>
       <tr>
         <td class="w-50"><label>Valor Total:</label></td>
         <td class="w-50"><%= number_to_currency @acquisition.totalValue %></td>
+      </tr>
+      <tr>
+        <td class="w-50"><label>Empresa:</label></td>
+        <td class="w-50"><%= @acquisition.company %></td>
       </tr>
     </table>
   </div>

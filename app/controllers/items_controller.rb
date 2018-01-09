@@ -8,11 +8,20 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @items = Item.all.page params[:page]
+
+    if params.key? :item
+      @items = @items.where plate: params[:item][:plate] unless params[:item][:plate].blank?
+      @items = @items.where "brand like '%#{params[:item][:brand]}%'" unless params[:item][:brand].blank?
+      @items = @items.where "brand like '%#{params[:item][:model]}%'" unless params[:item][:model].blank?
+      @items = @items.where isDischarged: params[:item][:isDischarged] unless params[:item][:isDischarged].blank?
+      @items = @items.where parkable_item_type: params[:item][:parkable_item_type] unless params[:item][:parkable_item_type].blank?
+    end
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    @allocations = @item.allocations.order(created_at: :desc).page(params[:al_page]).per(5)
   end
 
   # GET /items/new
@@ -82,7 +91,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:id, :plate, :brand, :model, :serial, :value, :isDischarged, :dischargeDescription,
+      params.require(:item).permit(:id, :plate, :brand, :model, :serial, :value, :parkable_item_type, :isDischarged, :dischargeDescription,
         :parkable_item => [:id, :inches, :processor, :memory, :harddisk])
     end
 end

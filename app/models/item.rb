@@ -10,8 +10,9 @@ class Item < ActiveRecord::Base
     validates :dischargeDescription, presence: true, if: :isDischarged
 
     validates :plate, :model, :serial, :brand, :value, :parkable_item, presence: true
+    #validates :isDischarged, inclusion: {in: [true, false]}
     validates :plate, uniqueness: true
-    validates :value, numericality: { :greater_than => 0}
+    validates :value, numericality: {:greater_than => 0}
 
     def description
         "#{type_pt_BR} #{brand} #{model}"

@@ -25,25 +25,26 @@
 <table class="table table-hover text-center">
   <thead>
     <tr>
-      <th class="col-4" scope="col">Nome do fornecedor</th>
-      <th class="col-3" scope="col">Email de contato</th>
-      <th class="col-2" scope="col">Telefones</th>
-      <th class="col-1" scope="col"></th>
-      <th class="col-1" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
-      <th class="col-1" scope="col"><%= link_to fa_icon("plus-circle"), new_supplier_path, class: "btn btn-primary" %></th>
+      <th class="col-5" scope="col">Nome do fornecedor</th>
+      <th class="col-4" scope="col">Email de contato</th>
+      <th class="col-3" scope="col">Telefones</th>
+      <th class="col-auto" scope="col"></th>
+      <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
+      <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_supplier_path, class: "btn btn-primary" %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @suppliers.each do |supplier| %>
       <tr scope="row">
-        <td class="col-4"><%= supplier.name %></td>
-        <td class="col-3"><%= supplier.email %></td>
-        <td class="col-2"><%= simple_format supplier.phones %></td>
-        <td class="col-1"><%= link_to fa_icon("info-circle"), supplier, class: "btn btn-info" %></td>
-        <td class="col-1"><%= link_to fa_icon(:pencil), edit_supplier_path(supplier), class: "btn btn-secondary" %></td>
-        <td class="col-1"><%= link_to fa_icon(:trash), supplier, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+        <td class="col-5"><%= supplier.name %></td>
+        <td class="col-4"><%= supplier.email %></td>
+        <td class="col-3"><%= simple_format supplier.phones %></td>
+        <td class="col-auto"><%= link_to fa_icon("info-circle"), supplier, class: "btn btn-info" %></td>
+        <td class="col-auto"><%= link_to fa_icon(:pencil), edit_supplier_path(supplier), class: "btn btn-secondary" %></td>
+        <td class="col-auto"><%= link_to fa_icon(:trash), supplier, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
+    <tr> <td colspan="6"> <small> <%= page_entries_info @suppliers %> </small> </td> </tr>
   </tbody>
 </table>

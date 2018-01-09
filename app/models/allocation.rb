@@ -21,6 +21,7 @@ class Allocation < ActiveRecord::Base
     validates :origin, presence: true, unless: :is_acquisition
     validate :check_presence_of_items
     validate :check_origin_items, unless: :is_acquisition
+
     validates_associated :items
     validates_associated :stock_item_groups
 

@@ -1,4 +1,30 @@
 
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :item, method: :get do |f| %>
+        <div class="modal-body">
+            <%= f.input :plate, label: false, placeholder: "Plaqueta", as: :string %>
+            <%= f.input :parkable_item_type, label: false, prompt: "Tipo", as: :select, collection: Item::TYPES_TRANSLATIONS.invert %>
+            <%= f.input :brand, label: false, placeholder: "Marca", as: :string %>
+            <%= f.input :model, label: false, placeholder: "Fornecedor", as: :string %>
+            <%= f.input :isDischarged, label: false, prompt: "Descartado?", as: :select %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", items_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     <div class="float-right"><%= paginate @items %></div>
@@ -10,8 +36,8 @@
           <th class="col-2" scope="col">Localização atual</th>
           <th class="col-2" scope="col">Número Serial</th>
           <th class="col-2" scope="col">Valor</th>
-          <th class="col-1" scope="col"></th>
-          <th class="col-1" scope="col"><%= link_to fa_icon(:filter), "#", class: "btn btn-primary" %></th>
+          <th class="col-auto" scope="col"></th>
+          <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
         </tr>
       </thead>
 
@@ -19,16 +45,16 @@
         <% @items.each do |item| %>
           <tr scope="row">
             <td class="col-2"><%= item.plate %> </td>
-            <td class="col-2"><%= item.description %></td>
-            <td class="col-2"><%= item.placement %></td>
+            <td class="col-3"><%= item.description %></td>
+            <td class="col-3"><%= link_to item.placement, item.placement, class: "text-info" %></td>
             <td class="col-2"><%= item.serial %></td>
             <td class="col-2"><%= number_to_currency item.value %></td>
-            <td class="col-1"><%= link_to fa_icon("info-circle"), item_path(item), class: "btn btn-info" %></td>
-            <td class="col-1"><%= link_to fa_icon(:pencil), edit_item_path(item), class: "btn btn-secondary" %></td>
+            <td class="col-auto"><%= link_to fa_icon("info-circle"), item_path(item), class: "btn btn-info" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_item_path(item), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
+        <tr> <td colspan="7"> <small> <%= page_entries_info @items %> </small> </td> </tr>
       </tbody>
     </table>
-
   </div>
 </div>

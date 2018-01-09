@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221200513) do
+ActiveRecord::Schema.define(version: 20180108142029) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",     null: false
@@ -90,7 +90,6 @@ ActiveRecord::Schema.define(version: 20171221200513) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.boolean  "isAdmin"
-    t.integer  "allocation_id"
     t.boolean  "isBlocked"
   end
 

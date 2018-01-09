@@ -23,9 +23,9 @@ class Acquisition < ActiveRecord::Base
     delegate :count_items, :reason, to: :allocation
 
     after_rollback do
-        logger.debug self.inspect
-        logger.debug self.allocation.inspect
-        allocation.items.each { |i| logger.debug i.inspect }
-        allocation.stock_item_groups.each { |i| logger.debug i.inspect }
+        errors.full_messages.each {|m| logger.debug m}
+        errors.full_messages_for(:allocation).each {|m| logger.debug m}
+        errors.full_messages_for(:items).each {|m| logger.debug m}
+        errors.full_messages_for(:stock_item_groups).each {|m| logger.debug m}
     end
 end
