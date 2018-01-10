@@ -1,7 +1,7 @@
 class PlacementsController < ApplicationController
-  before_action :set_placement, only: [:show, :edit, :update, :destroy]
+  before_action :set_placement, only: [:show, :edit, :update, :destroy, :discharge_stock_items]
   before_filter :authorize
-  before_filter :apenasAdmin, except: [:index, :show]
+  before_filter :apenasAdmin, except: [:index, :show, :discharge_stock_items]
 
   # GET /placements
   # GET /placements.json
@@ -37,7 +37,6 @@ class PlacementsController < ApplicationController
   # POST /placements.json
   def create
     @placement = Placement.new(placement_params)
-
     respond_to do |format|
       if @placement.save
         format.html { redirect_to @placement, notice: 'Novo local registrado com sucesso.' }
@@ -73,6 +72,15 @@ class PlacementsController < ApplicationController
     end
   end
 
+  # POST /placements/1/drop_stock_items
+  def discharge_stock_items
+    logger.debug discharge_stock_items_params.inspect
+    @placement.discharge_stock_items discharge_stock_items_params
+    respond_to do |format|
+      format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso.' }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_placement
@@ -82,5 +90,9 @@ class PlacementsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def placement_params
       params.require(:placement).permit(:state, :city, :other, :address, :contact)
+    end
+
+    def discharge_stock_items_params
+      params.require(:stock_item_count).permit(:stock_item_id, :count)
     end
 end

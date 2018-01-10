@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   resources :acquisitions, except: :destroy
   resources :allocations, except: :destroy
   resources :items, except: [:destroy, :new, :create]
-  resources :placements, except: :destroy
+  resources :placements, except: :destroy do
+    member do
+      post :discharge_stock_items
+    end
+  end
   resources :operators, except: :destroy
 
   get '/index' => 'welcome#index'

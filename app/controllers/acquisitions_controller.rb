@@ -7,11 +7,8 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions
   # GET /acquisitions.json
   def index
-    if current_user.isAdmin
-      @acquisitions = Acquisition.all.page params[:page]
-    else
-      @acquisitions = current_user.acquisitions.page params[:page]
-    end
+    @acquisitions = current_user.isAdmin ? Acquisition.all : current_user.acquisitions
+    @acquisitions = @acquisitions.page params[:page]
 
     if params.key? :acquisition
       @acquisitions = @acquisitions.joins(:allocation).where "allocation.date >= ?", Date.parse(params[:acquisition][:initial_date]) unless params[:acquisition][:initial_date].blank?

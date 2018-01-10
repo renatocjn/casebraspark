@@ -27,7 +27,7 @@ class Placement < ActiveRecord::Base
   end
 
   def protect_stock
-    errors.add "O estoque não pode ser destruído" if self == Placement.stock
+    errors.add_to_base "O estoque não pode ser destruído" if self == Placement.stock
   end
 
   def description
@@ -44,5 +44,19 @@ class Placement < ActiveRecord::Base
 
   def item_count
     items.count + stock_item_counts.reduce(0) {|acc, item_count| acc += item_count.count}
+  end
+
+  def discharge_stock_items(params)
+    self.transaction do
+      logger.debug params.inspect
+      stock_item_count = self.stock_item_counts.where(stock_item_id: params[:stock_item_id]).first
+      if not stock_item_count.nil?
+        if stock_item_count.count > params[:count].to_i
+          stock_item_count.update count: stock_item_count.count - params[:count].to_i
+        else
+          stock_item_count.destroy
+        end
+      end
+    end
   end
 end
