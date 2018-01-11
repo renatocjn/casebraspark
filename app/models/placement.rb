@@ -3,31 +3,25 @@ class Placement < ActiveRecord::Base
   has_many :allocations, foreign_key: :destination_id
   has_many :acquisitions, through: :allocations
   has_many :items
-  has_many :stock_item_counts
+  has_many :stock_item_counts, dependent: :destroy
   has_many :stock_items, through: :stock_item_counts
 
   validates :contact, :address, presence: :true
   STATES_BR = %w(AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO)
   validates :state, inclusion: { in: Placement::STATES_BR, allow_nil: true, allow_blank: true, message: "Deve ser no formato de UF, ex: CE, DF, etc" }
   validate :check_description
-  validate :protect_stock, on: :destroy
 
-  validate on: :destroy do |record|
-    errors.add :base, "O local só pode ser apagado caso não existam mais itens nele" unless record.items_count == 0
+  before_destroy do
+    raise "O local só pode ser apagado caso não existam mais itens nele" unless self.item_count == 0
+    raise "O estoque não pode ser destruído" if self == Placement::stock
   end
 
   def check_description
-    if [state, city, other].all? {|w| w.blank?}
-      self.errors.add 'Você deve fornecer o estado, a cidade ou outra informação para descrever o local'
-    end
+    self.errors.add :base, 'Você deve fornecer o estado, a cidade ou outra informação para descrever o local' if [state, city, other].all? {|w| w.blank?}
   end
 
-  def stock
+  def Placement::stock
     Placement.where(other: "Estoque").first
-  end
-
-  def protect_stock
-    errors.add_to_base "O estoque não pode ser destruído" if self == Placement.stock
   end
 
   def description
@@ -38,10 +32,6 @@ class Placement < ActiveRecord::Base
     description
   end
 
-  def current_items
-    self.items.order(date: :desc)
-  end
-
   def item_count
     items.count + stock_item_counts.reduce(0) {|acc, item_count| acc += item_count.count}
   end
@@ -50,8 +40,12 @@ class Placement < ActiveRecord::Base
     self.transaction do
       logger.debug params.inspect
       stock_item_count = self.stock_item_counts.where(stock_item_id: params[:stock_item_id]).first
-      if not stock_item_count.nil?
-        if stock_item_count.count > params[:count].to_i
+      if stock_item_count.nil?
+        raise "Item de estoque não encontrado para descarte"
+      else
+        if params[:count].to_i <= 0
+          raise "Quantidade de descarte deve ser positiva"
+        elsif stock_item_count.count > params[:count].to_i
           stock_item_count.update count: stock_item_count.count - params[:count].to_i
         else
           stock_item_count.destroy

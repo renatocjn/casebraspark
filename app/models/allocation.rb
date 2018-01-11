@@ -5,11 +5,11 @@ class Allocation < ActiveRecord::Base
     belongs_to :destination, class_name: "Placement"
     belongs_to :acquisition
 
-    has_many :allocations_items
-    has_many :items, through: :allocations_items
+    has_many :allocations_items, dependent: :destroy
+    has_many :items, through: :allocations_items, dependent: :destroy
     accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
-    has_many :stock_item_groups
+    has_many :stock_item_groups, dependent: :destroy
     has_many :stock_items, through: :stock_item_groups
     accepts_nested_attributes_for :stock_item_groups, reject_if: :all_blank, allow_destroy: true
 

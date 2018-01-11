@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require font-awesome
+ *= require jquery-ui
  *= require_tree .
  *= require_tree ../../../vendor/assets/stylesheets
  *= require_self
@@ -19,15 +20,15 @@
 @import "bootstrap"
 */
 
-.small-input:not(.hidden),
-.small-input input:not([type='hidden']){
-    width: 25%;
-    min-width: 15em;
+.small-input:not(.hidden) input:not(.hidden) {
+    width: 100%;
 }
 
 .small-input:not(.hidden) {
+    width: 25%;
+    min-width: 15em;
     display: inline-block;
-    margin: auto 5pt;
+    margin: 0.5em 0.5em;
 }
 
 footer {
@@ -46,4 +47,24 @@ footer {
     /*background-color: white;*/
     padding: 1em 0;
     margin: 1em 0;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

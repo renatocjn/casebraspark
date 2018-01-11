@@ -3,6 +3,10 @@
   <div class="row">
     <div class="col">
       <%= f.error_notification %>
+      <% @operator.errors.inspect %>
+      <% @operator.errors.full_messages_for(:base).each do |m| %>
+        <p><%= m %></p>
+      <% end %>
     </div>
   </div>
 
@@ -10,16 +14,15 @@
 
     <div class="col">
       <%= f.input :name , label: "Nome completo:" %>
-      <%= f.input :email, label: "E-mail:" %>
       <%= f.input :password, label: "Senha:" %>
-      <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
+      <%= f.input :isAdmin, label: "Administrador?", as: :select, include_blank: false unless current_user.isAdmin %>
+
     </div>
 
     <div class="col">
-      <%= f.input :canAlocate, label: "Pode alocar?", as: :select %>
-      <%= f.input :canBuy, label: "Pode fazer aquisições?", as: :select %>
-      <%= f.input :isAdmin, label: "Administrador?", as: :select %>
-      <%= f.input :isBlocked, label: "Bloqueado?", as: :select unless @operator.new_record? %>
+      <%= f.input :email, label: "E-mail:" %>
+      <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
+      <%= f.input :isBlocked, label: "Bloqueado?", as: :select, include_blank: false unless @operator.new_record? %>
     </div>
 
   </div>

@@ -1,7 +1,7 @@
 class PlacementsController < ApplicationController
-  before_action :set_placement, only: [:show, :edit, :update, :destroy, :discharge_stock_items]
+  before_action :set_placement, only: [:show, :edit, :update, :destroy, :stock_items]
   before_filter :authorize
-  before_filter :apenasAdmin, except: [:index, :show, :discharge_stock_items]
+  before_filter :apenasAdmin, except: [:index, :show, :stock_items]
 
   # GET /placements
   # GET /placements.json
@@ -65,19 +65,28 @@ class PlacementsController < ApplicationController
   # DELETE /placements/1
   # DELETE /placements/1.json
   def destroy
-    @placement.destroy
     respond_to do |format|
-      format.html { redirect_to placements_url, notice: 'O registro foi excluido com sucesso.' }
-      format.json { head :no_content }
+      begin
+        @placement.destroy
+        format.html { redirect_to placements_url, notice: 'O registro foi excluido com sucesso.' }
+        format.json { head :no_content }
+      rescue RuntimeError => ex
+        format.html { redirect_to placements_url, alert: ex.message }
+        format.json { head :no_content }
+      end
     end
   end
 
-  # POST /placements/1/drop_stock_items
-  def discharge_stock_items
+  # DELETE /placements/1/stock_items
+  def stock_items
     logger.debug discharge_stock_items_params.inspect
-    @placement.discharge_stock_items discharge_stock_items_params
     respond_to do |format|
-      format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso.' }
+      begin
+        @placement.discharge_stock_items(discharge_stock_items_params)
+        format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso.' }
+      rescue RuntimeError => err
+        format.html { redirect_to @placement, alert: err.message }
+      end
     end
   end
 

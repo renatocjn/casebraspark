@@ -79,3 +79,9 @@ gem "kaminari"
 
 gem "refile", require: "refile/rails"
 gem "refile-mini_magick"
+
+# Added at 2018-01-10 18:32:27 +0000 by ubuntu:
+gem "jquery-inputmask-rails", "~> 2.5"
+
+# Added at 2018-01-10 19:17:15 +0000 by ubuntu:
+gem "jquery-ui-rails", "~> 6.0"

@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <%= f.input :date, label: "Data", as: :string, input_html: {value: localize(f.object.date)} %>
+    <%= f.input :date, label: "Data", as: :string, input_html: {value: localize(f.object.date), class: "date-input"} %>
     <%= f.association :origin, label: "Origem dos items" unless defined? acquisition %>
   </div>
 

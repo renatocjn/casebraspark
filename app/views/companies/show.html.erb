@@ -1,5 +1,4 @@
 
-
 <div class="row">
   <div class="col">
     <table class="table">
@@ -26,26 +25,54 @@
   </div>
 </div>
 
-<hr>
-
-<div class="text-center">
-  <h5 class="d-inline">Itens de plaqueta desta empresa</h5>
-  <div class="d-inline float-right">
-    <%= paginate @items %>
-  </div>
-  <table class="table table-sm table-hover">
-    <tr>
-      <th scope="col">Plaqueta</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Local atual</th>
-    </tr>
-    <% @items.each do |item| %>
-      <tr scope="row">
-        <td><%= link_to item.plate, item, class: "text-info" %></td>
-        <td><%= item %></td>
-        <td><%= link_to item.placement, item.placement, class: "text-info" %></td>
+<div class="row text-center">
+  <div class="col border rounded p-2 m-2">
+    <h5 class="d-inline">Aquisições desta empresa</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
+      <%= link_to_next_page @acquisitions, fa_icon("chevron-right"), param_name: :ac_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th class="col-3" scope="col">Data</th>
+        <th class="col-3" scope="col">Fornecedor</th>
+        <th class="col-3" scope="col">Responsável</th>
+        <th class="col-3" scope="col">Destino</th>
+        <th class="col-auto" scope="col"></th>
       </tr>
-    <% end %>
-    <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
-  </table>
+      <% @acquisitions.each do |acquisition| %>
+        <tr scope="row">
+          <td class="col-3"><%= localize acquisition.date %></td>
+          <td class="col-3"><%= acquisition.supplier %></td>
+          <td class="col-3"><%= acquisition.operator %></td>
+          <td class="col-3"><%= acquisition.destination %></td>
+          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="5"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+    </table>
+  </div>
+
+  <div class="col border rounded p-2 m-2">
+    <h5 class="d-inline">Itens de plaqueta desta empresa</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :stock_items_page %>
+      <%= link_to_next_page @items, fa_icon("chevron-right"), param_name: :stock_items_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th scope="col">Plaqueta</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Local atual</th>
+      </tr>
+      <% @items.each do |item| %>
+        <tr scope="row">
+          <td><%= link_to item.plate, item, class: "text-info" %></td>
+          <td><%= item %></td>
+          <td><%= link_to item.placement, item.placement, class: "text-info" %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+    </table>
+  </div>
 </div>

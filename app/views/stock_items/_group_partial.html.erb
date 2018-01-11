@@ -1,8 +1,17 @@
 <div class="card m-3 nested-fields">
     <div class="card-block p-3">
-    <%= link_to_remove_association "X", f, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %>
-        <%= f.input :stock_item_id, collection: StockItem.all, value_method: :id, label: "Item de estoque", wrapper_html: {class: "small-input"} %> <br>
-        <%= f.input :quantity, label: "Quantidade", wrapper_html: {class: "small-input"}, input_html: {style: "display: inline"} %> <br>
-        <%= f.input :unit_value, label: "Valor unitário", wrapper_html: {class: "small-input"}, input_html: {style: "display: inline"} if defined? acquisition %>
+        <div class="row">
+            <div class="col">
+                <%= link_to_remove_association fa_icon(:close), f, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %> <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <%= f.input :stock_item_id, collection: StockItem.all, label: "Item de estoque" %>
+                <%= f.input :quantity, label: "Quantidade" %>
+                <%= f.input :unit_value, label: "Valor unitário" if defined? acquisition %>
+            </div>
+        </div>
     </div>
 </div>

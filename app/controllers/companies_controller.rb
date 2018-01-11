@@ -15,7 +15,8 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
-    @items = @company.items.page(params[:page]).per(7)
+    @items = @company.items.page(params[:it_page]).per(7)
+    @acquisitions = @company.acquisitions.page(params[:ac_page]).per(7)
   end
 
   # GET /companies/new

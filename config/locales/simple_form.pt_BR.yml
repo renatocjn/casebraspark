@@ -9,7 +9,7 @@ pt_BR:
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Favor verificar os dados inseridos:"
+      default_message: "Por favor, verifique os dados inseridos:"
     # Examples
     # labels:
     #   defaults:

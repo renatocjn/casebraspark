@@ -1,5 +1,5 @@
 class StockItem < ActiveRecord::Base
-    has_many :stock_item_counts
+    has_many :stock_item_counts, dependent: :destroy
     has_many :placements, through: :stock_item_counts
 
     has_many :stock_item_groups

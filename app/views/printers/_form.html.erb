@@ -2,6 +2,6 @@
 
 <%= f.hidden_field :id %>
 
-<%= f.input :connection, as: :select, label: "Tipo de conexão", include_blank: false, collection: Printer::CONNECTIONS, wrapper_html: {class: "small-input"} %>
-<%= f.input :functions, as: :select, label: "Tipo de dispositivo", include_blank: false, collection: Printer::FUNCTIONS, wrapper_html: {class: "small-input"} %>
-<%= f.input :paint, as: :select, label: "Tipo de impressão", include_blank: false, collection: Printer::COLORS, wrapper_html: {class: "small-input"} %>
+<%= f.input :connection, as: :select, label: "Tipo de conexão", collection: Printer::CONNECTIONS, wrapper_html: {class: "small-input"} %>
+<%= f.input :functions, as: :select, label: "Tipo de dispositivo", collection: Printer::FUNCTIONS, wrapper_html: {class: "small-input"} %>
+<%= f.input :paint, as: :select, label: "Tipo de impressão", collection: Printer::COLORS, wrapper_html: {class: "small-input"} %>

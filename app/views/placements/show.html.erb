@@ -73,18 +73,20 @@
     <table class="table table-hover table-sm">
       <tr>
         <th class="col-6" scope="col">Descrição</th>
-        <th class="col-2" scope="col">Quantidade</th>
-        <th class="col-4" scope="col">Baixa</th>
+        <th class="col-3" scope="col">Quantidade</th>
+        <th class="col-3" scope="col">Baixa</th>
       </tr>
       <% @stock_item_counts.each do |item| %>
         <tr scope="row">
           <td class="col-6"> <%= item.stock_item.short_description %> </td>
-          <td class="col-2"> <%= item.count %> </td>
-          <td class="col-4">
-            <%= form_for :stock_item_count, wrapper: :inline_form, url: discharge_stock_items_placement_path(@placement), method: :post, html: { class: 'form-inline' } do |f| %>
-              <%= f.hidden_field_tag :stock_item_id, item.stock_item_id %>
-              <%= f.text_field :count, style: "width: 5em", min: 1, class: "mx-1 form-control"%>
-              <button type="submit" class="btn btn-danger btn-sm mx-1"> <%=fa_icon("minus-circle")%> </button>
+          <td class="col-3"> <%= item.count %> </td>
+          <td class="col-3">
+            <%= form_for :stock_item_count, wrapper: :inline_form, url: stock_items_placement_path(@placement), method: :delete, html: { class: 'form-inline d-flex justify-content-around' } do |f| %>
+              <div class="input-group">
+                <%= f.hidden_field :stock_item_id, value: item.stock_item_id %>
+                <%= f.text_field :count, style: "width: 4em", class: "form-control"%>
+                <button type="submit" class="btn btn-danger btn-sm" data-confirm="Tem certeza desta ação?"> <%=fa_icon("minus-circle")%> </button>
+              </div>
             <% end %>
           </td>
         </tr>

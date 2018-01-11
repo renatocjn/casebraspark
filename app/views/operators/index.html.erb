@@ -31,12 +31,11 @@
     <table class='table table-hover text-center'>
       <thead>
         <tr>
-          <th class="col-4" scope="col">Nome</th>
-          <th class="col-4" scope="col">E-mail</th>
-          <th class="col-1" scope="col">Alocador?</th>
-          <th class="col-1" scope="col">Comprador?</th>
+          <th class="col-5" scope="col">Nome</th>
+          <th class="col-5" scope="col">E-mail</th>
           <th class="col-1" scope="col">Administrador?</th>
           <th class="col-1" scope="col">Bloqueado?</th>
+          <th scope="col"></th>
           <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
           <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_operator_path, class: "btn btn-primary"  %></th>
         </tr>
@@ -45,14 +44,13 @@
       <tbody>
         <% @operators.each do |operator| %>
           <tr scope="row">
-            <td class="col-4"><%= operator.name %></td>
-            <td class="col-4"><%= mail_to operator.email %></td>
-            <td class="col-1"><%= operator.canAlocate ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-            <td class="col-1"><%= operator.canBuy ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+            <td class="col-5"><%= operator.name %></td>
+            <td class="col-5"><%= mail_to operator.email %></td>
             <td class="col-1"><%= operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td class="col-1"><%= operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td class="col-auto"><%= link_to fa_icon("info-circle"), operator, class: "btn btn-info" %></td>
             <td class="col-auto"><%= link_to fa_icon(:pencil), edit_operator_path(operator), class: "btn btn-secondary" %></td>
+            <td class="col-auto"><%= link_to fa_icon(:trash), operator, data: {confirm: "Você tem certeza?"}, method: :delete, class: "btn btn-danger" %></td>
           </tr>
         <% end %>
         <tr> <td colspan="8"> <small> <%= page_entries_info @operators %> </small> </td> </tr>

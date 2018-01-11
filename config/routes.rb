@@ -1,24 +1,20 @@
 Rails.application.routes.draw do
+
+  # You can have the root of your site routed with "root"
+  root 'welcome#index'
+
   resources :stock_items
   resources :companies
   resources :suppliers
-  #resources :printers
-  #resources :computers
-  #resources :screens
-  # You can have the root of your site routed with "root"
-
-  resources :acquisitions, except: :destroy
-  resources :allocations, except: :destroy
+  resources :acquisitions
+  resources :allocations
   resources :items, except: [:destroy, :new, :create]
-  resources :placements, except: :destroy do
+  resources :placements do
     member do
-      post :discharge_stock_items
+      delete :stock_items
     end
   end
-  resources :operators, except: :destroy
-
-  get '/index' => 'welcome#index'
-  root 'welcome#index'
+  resources :operators
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

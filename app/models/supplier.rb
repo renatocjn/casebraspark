@@ -5,7 +5,7 @@ class Supplier < ActiveRecord::Base
     has_many :stock_items, through: :stock_item_groups
 
     validates :name, :phones, presence: true
-    validates :email, format: {with: /\S+@\S+.\S/, message: "E-mail inválido"}, allow_nil: true
+    validates :email, format: {with: /\S+@\S+.\S/, message: "E-mail inválido", allow_nil: true, allow_blank: true}
 
     def to_s
         name

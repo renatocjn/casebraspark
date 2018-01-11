@@ -20,21 +20,29 @@
   <div class="row">
     <div class="col">
       <%= f.input :invoice_number, label: "Número da nota fiscal" %>
-      <%= f.association :supplier, as: :select, label: "Fornecedor desta aquisição" %>
     </div>
-
-    <div class="col">
-      <%= f.submit "Salvar", class: "btn btn-primary btn-block mt-4" %>
-      <%= f.association :company, as: :select, label: "Empresa responsável por esta compra", wrapper_html: {class:"mt-3"} %>
+    <div class="col d-flex">
+      <%= f.submit "Salvar", class: "btn btn-primary btn-block align-self-end mb-3" %>
     </div>
   </div>
-
   <div class="row">
-    <div class="col">
-      <div class="form-group string required acquisition_invoice">
-        <label class="control-label string required" for="acquisition_invoice"><abbr title="Campo Obrigatório">*</abbr>&nbspCópia da nota fiscal</label>
-        <%= f.attachment_field :invoice, class: "form-control required string", id: "acquisition_invoice" %>
+    <div class="col d-flex justify-content-around">
+      <%= f.association :supplier, as: :select, label: "Fornecedor desta aquisição", wrapper_html: {class: "w-50"} %>
+
+      <div class="form-group string required w-50 acquisition_invoice d-flex align-items-end justify-content-end <%=@acquisition.errors[:invoice].any? ? 'has-error' : nil%>">
+        <label class="btn <%= @acquisition.errors[:invoice].any? ? 'btn-danger' : 'btn-secondary' %> m-0 control-label file required" for="acquisition_invoice">
+          <% if @acquisition.invoice %>
+            <%=fa_icon(:upload)%>&nbsp<%= fa_icon(:check, text:"Reenviar cópia da nota fiscal") %>
+          <% else %>
+            <%= fa_icon(:upload, text:"Enviar cópia da nota fiscal") %>
+          <% end %>
+        </label>
+        <%= f.attachment_field :invoice, class: "d-none", id: "acquisition_invoice"%>
+        <span class="help-block"></span>
       </div>
+    </div>
+    <div class="col">
+      <%= f.association :company, as: :select, label: "Empresa responsável por esta compra" %>
     </div>
   </div>
 

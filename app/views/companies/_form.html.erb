@@ -3,7 +3,7 @@
 
 
   <%= f.input :name, label: "Nome" %>
-  <%= f.input :cnpj, label: "CNPJ" %>
+  <%= f.input :cnpj, label: "CNPJ", input_html: {class: "cnpj-input"} %>
 
   <div class="row">
     <div class="col"> <%= f.button :submit, "Salvar", class: "btn btn-primary btn-block" %> </div>

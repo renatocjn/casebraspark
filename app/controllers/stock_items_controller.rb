@@ -34,7 +34,7 @@ class StockItemsController < ApplicationController
 
     respond_to do |format|
       if @stock_item.save
-        format.html { redirect_to @stock_item, notice: 'Stock item was successfully created.' }
+        format.html { redirect_to @stock_item, notice: 'Item de estoque criado com sucesso.' }
         format.json { render :show, status: :created, location: @stock_item }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class StockItemsController < ApplicationController
   def update
     respond_to do |format|
       if @stock_item.update(stock_item_params)
-        format.html { redirect_to @stock_item, notice: 'Stock item was successfully updated.' }
+        format.html { redirect_to @stock_item, notice: 'Item de estoque atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @stock_item }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class StockItemsController < ApplicationController
   def destroy
     @stock_item.destroy
     respond_to do |format|
-      format.html { redirect_to stock_items_url, notice: 'Stock item was successfully destroyed.' }
+      format.html { redirect_to stock_items_url, notice: 'Item de estoque destruido com sucesso.' }
       format.json { head :no_content }
     end
   end
@@ -75,6 +75,6 @@ class StockItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_item_params
-      params.require(:stock_item).permit(:short_description, :long_description, :stock)
+      params.require(:stock_item).permit(:short_description, :long_description)
     end
 end

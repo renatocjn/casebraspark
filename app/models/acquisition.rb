@@ -5,7 +5,7 @@ class Acquisition < ActiveRecord::Base
     belongs_to :supplier
     belongs_to :company
 
-    has_one :allocation
+    has_one :allocation, dependent: :destroy
     has_one :destination, through: :allocation
     has_many :items, through: :allocation
     has_many :stock_item_groups, through: :allocation
@@ -15,7 +15,7 @@ class Acquisition < ActiveRecord::Base
         self.allocation.operator = self.operator
     end
 
-    validates :invoice_number, :supplier, :allocation, :operator, :invoice, presence: true
+    validates :invoice_number, :supplier, :allocation, :company, :operator, :invoice, presence: true
     validates :invoice_number, uniqueness: true
 
     def totalValue

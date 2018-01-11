@@ -33,13 +33,6 @@
       </thead>
       <tbody>
         <tr>
-          <td class="w-25"><label>Pode Alocar?</label></td>
-          <td class="w-25"><%= @operator.canAlocate ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-
-          <td class="w-25"><label>Pode Comprar?</label></td>
-          <td class="w-25"><%= @operator.canBuy ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-        </tr>
-        <tr>
           <td class="w-25"><label>Administrador?</label></td>
           <td class="w-25"><%= @operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
 

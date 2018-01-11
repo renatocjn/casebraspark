@@ -8,46 +8,29 @@
 
 ActiveRecord::Base.transaction do
 
-    allocador = Operator.new
-    allocador.name = "Alocador"
-    allocador.email = "alocador@casebras.com.br"
-    allocador.password = "case123"
-    allocador.password_confirmation = "case123"
-    allocador.canBuy = false
-    allocador.canAlocate = true
-    allocador.isAdmin = false
-    allocador.isBlocked = false
-    allocador.save!
-
-    comprador = Operator.new
-    comprador.name = "Comprador"
-    comprador.email = "comprador@casebras.com.br"
-    comprador.password = "case123"
-    comprador.password_confirmation = "case123"
-    comprador.canBuy = true
-    comprador.canAlocate = false
-    comprador.isAdmin = false
-    comprador.isBlocked = false
-    comprador.save!
+    visualizador = Operator.new
+    visualizador.name = "Alocador"
+    visualizador.email = "alocador@casebras.com.br"
+    visualizador.password = "Case1234"
+    visualizador.password_confirmation = "Case1234"
+    visualizador.isAdmin = false
+    visualizador.isBlocked = false
+    visualizador.save!
 
     bloqueado = Operator.new
     bloqueado.name = "Bloqueado"
     bloqueado.email = "bloqueado@casebras.com.br"
-    bloqueado.password = "case123"
-    bloqueado.password_confirmation = "case123"
-    bloqueado.canBuy = false
-    bloqueado.canAlocate = false
+    bloqueado.password = "Case1234"
+    bloqueado.password_confirmation = "Case1234"
     bloqueado.isAdmin = false
     bloqueado.isBlocked = true
     bloqueado.save!
 
     admin = Operator.new
-    admin.name = "Admin"
+    admin.name = "Administrador"
     admin.email = "admin@casebras.com.br"
-    admin.password = "case123"
-    admin.password_confirmation = "case123"
-    admin.canBuy = false
-    admin.canAlocate = false
+    admin.password = "Case1234"
+    admin.password_confirmation = "Case1234"
     admin.isAdmin = true
     admin.isBlocked = false
     admin.save!
@@ -68,9 +51,9 @@ ActiveRecord::Base.transaction do
     Company.create! name: "BUCATINNI", cnpj: "05.878.522/0001-04"
     Company.create! name: "ML CONSULTORIA", cnpj: "14.914.605/0001-00"
     Company.create! name: "LOURENÇO E LOURENÇO", cnpj: "14.918.434/0001-80"
-    Company.create! name: "GSPAR", cnpj: " 15.349.281/0001-60"
-    Company.create! name: "SMX", cnpj: " 17.033.057/0001-90"
-    Company.create! name: "ANCORA", cnpj: " 05.500.166/0001-90"
+    Company.create! name: "GSPAR", cnpj: "15.349.281/0001-60"
+    Company.create! name: "SMX", cnpj: "17.033.057/0001-90"
+    Company.create! name: "ANCORA", cnpj: "05.500.166/0001-90"
     Company.create! name: "AMERICAN LASER", cnpj: "09.651.914/0001-97"
     Company.create! name: "J D WHITE COMBUSTÍVEIS LTDA", cnpj: "02.885.367/0001-65"
     Company.create! name: "RLGC", cnpj: "05.629.891/0001-63"

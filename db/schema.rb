@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109203229) do
+ActiveRecord::Schema.define(version: 20180110193632) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -112,8 +112,6 @@ ActiveRecord::Schema.define(version: 20180109203229) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.boolean  "canAlocate"
-    t.boolean  "canBuy"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.boolean  "isAdmin"
