@@ -17,8 +17,11 @@ class Item < ActiveRecord::Base
     #def check_plate_uniqueness_by_company
     #    self.errors.add :plate, "Plaqueta desta empresa já cadastrada" if @self.acquisition.company.items.where(plate: self.plate).any?
     #end
-    validates :dischargeDescription, presence: true, if: :isDischarged
+
     validates :plate, :model, :serial, :brand, :value, :parkable_item, presence: true
+    validates :isDischarged, inclusion: {in: [true, false]}
+    validates :dischargeDescription, presence: true, if: :isDischarged
+    validates :dischargeDescription, inclusion: {in: [nil]}, unless: :isDischarged
     #validates :plate, uniqueness: {scope: :company}
     #validate :check_plate_uniqueness_by_company
     validates :value, numericality: {:greater_than => 0}

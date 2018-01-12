@@ -56,7 +56,7 @@ class Allocation < ActiveRecord::Base
         items.each {|i| i.update placement: destination } if destination_id_changed?
     end
 
-    after_save on: :create do
+    after_create do
         self.stock_item_groups.each do |group|
             #unless destination.stock_item_counts.where(stock_item: group.stock_item).any?
             #    destination.stock_item_counts.create stock_item: group.stock_item
@@ -75,6 +75,36 @@ class Allocation < ActiveRecord::Base
             stock_count = destination.stock_item_counts.where(stock_item: group.stock_item).first_or_initialize
             stock_count.count += group.quantity
             stock_count.save!
+        end
+    end
+
+    before_update do
+        self.stock_item_groups.each do |group|
+            unless is_acquisition
+                stock_count = StockItemCount.where(stock_item: group.stock_item_id_was, placement_id: origin_id_was).first_or_initialize
+                stock_count.count += group.quantity_was ? group.quantity_was : 0
+                stock_count.save
+
+                stock_count = origin.stock_item_counts.where(stock_item: group.stock_item).first
+                stock_count.count -= group.quantity
+                if stock_count.count > 0
+                    stock_count.save
+                else
+                    stock_count.destroy
+                end
+            end
+
+            stock_count = StockItemCount.where(stock_item: group.stock_item_id_was, placement_id: destination_id_was).first
+            stock_count.count -= group.quantity_was ? group.quantity_was : 0
+            if stock_count.count > 0
+                stock_count.save
+            else
+                stock_count.destroy
+            end
+
+            stock_count = destination.stock_item_counts.where(stock_item: group.stock_item).first_or_initialize
+            stock_count.count += group.quantity
+            stock_count.save
         end
     end
 

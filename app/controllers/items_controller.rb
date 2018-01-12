@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
       @items = @items.where plate: params[:item][:plate] unless params[:item][:plate].blank?
       @items = @items.where "brand like '%#{params[:item][:brand]}%'" unless params[:item][:brand].blank?
       @items = @items.where "brand like '%#{params[:item][:model]}%'" unless params[:item][:model].blank?
-      @items = @items.where isDischarged: params[:item][:isDischarged] unless params[:item][:isDischarged].blank?
+      @items = @items.where isDischarged: params[:item][:isDischarged] == "true" unless params[:item][:isDischarged].blank?
       @items = @items.where parkable_item_type: params[:item][:parkable_item_type] unless params[:item][:parkable_item_type].blank?
     end
   end

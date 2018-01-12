@@ -6,7 +6,8 @@
 <%= f.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
 <%= f.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"} %>
 
-<%= f.simple_fields_for :parkable_item, (f.object.new_record? ? type.constantize.new : f.object.parkable_item) do |f2| %>
+<%= f.simple_fields_for :parkable_item, (f.object.parkable_item.nil? ? type.constantize.new : f.object.parkable_item) do |f2| %>
+    <%= f2.hidden_field :id %>
     <% if defined? type %>
         <%= render "#{type.downcase.pluralize.strip}/form", :f => f2 %>
     <% else %>
@@ -16,9 +17,13 @@
 
 <% if defined? type %>
     <%= f.hidden_field :parkable_item_type, value: type %>
+<% else %>
+    <% f.hidden_field :parkable_item_type, f.object.parkable_item_type %>
 <% end %>
 
 <% if defined? render_dispose%>
     <%= f.input :isDischarged, as: :select, include_blank: false, label: "Item descartado", :input_html => { "id" => "dischargeCheckbox", "data-toggle" => "collapse", "target" => "#dischargeDescription"} %>
     <%= f.input :dischargeDescription, label: "Motivo do descarte", :wrapper_html => { "id" => "dischargeDescription" } %>
+<% else %>
+    <%= f.hidden_field :isDischarged, value: false %>
 <% end %>

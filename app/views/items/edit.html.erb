@@ -1,6 +1,6 @@
 
 <%= simple_form_for @item do |f| %>
-    <%= render 'form', f: f %>
+    <%= render 'form', f: f, render_dispose: true %>
 
     <div class="row">
         <div class="col"> <%= f.submit "Salvar", class: "btn btn-primary btn-block" %> </div>

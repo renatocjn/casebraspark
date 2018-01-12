@@ -9,7 +9,9 @@ class Acquisition < ActiveRecord::Base
     has_one :destination, through: :allocation
     has_many :items, through: :allocation
     has_many :stock_item_groups, through: :allocation
+
     accepts_nested_attributes_for :allocation, reject_if: :all_blank
+    validates_associated :allocation
 
     before_validation do
         self.allocation.operator = self.operator

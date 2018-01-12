@@ -11,6 +11,6 @@ class Company < ActiveRecord::Base
     end
 
     def park_value
-        acquisitions.reduce(0) {|acc, acquisition| acc += acquisition.totalValue}
+        self.items.where(isDischarged: false).reduce(0) {|acc, item| acc += item.value}
     end
 end
