@@ -32,7 +32,7 @@
 </div>
 
 <div class="row text-center mt-3">
-  <div class="col">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Locais com este item</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @placements, fa_icon("chevron-left"), param_name: :pl_page %>
@@ -48,7 +48,7 @@
     </table>
   </div>
 
-  <div class="col">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Últimas Aquisições</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
@@ -56,17 +56,17 @@
     </div>
     <table class="table table-hover table-sm">
       <tr>
-        <th class="col-4" scope="col">Data</th>
-        <th class="col-4" scope="col">Resposável</th>
-        <th class="col-4" scope="col">Fornecedor</th>
-        <th class="col-auto" scope="col"></th>
+        <th scope="col">Data</th>
+        <th scope="col">Resposável</th>
+        <th scope="col">Fornecedor</th>
+        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row">
-          <td class="col-6"> <%= localize acquisition.created_at.to_date %> </td>
-          <td class="col-6"> <%= acquisition.operator %> </td>
-          <td class="col-6"> <%= acquisition.supplier %> </td>
-          <td class="col-auto"> <%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %> </td>
+          <td> <%= localize acquisition.created_at.to_date %> </td>
+          <td> <%= acquisition.operator %> </td>
+          <td> <%= acquisition.supplier %> </td>
+          <td> <%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %> </td>
         </tr>
       <% end %>
       <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>

@@ -1,33 +1,30 @@
 
-<%= simple_form_for @acquisition do |f| %>
+<%= simple_form_for @acquisition do |acquisition_form| %>
+  <div class="row"> <div class="col">
+    <%= acquisition_form.error_notification %>
+    <% if @acquisition.errors[:base].any? or @acquisition.allocation.errors[:base].any? %>
+      <div class="alert alert-warning">
+        <% @acquisition.errors[:base].each do |error| %>
+          <%= error %>
+        <% end %>
+        <% @acquisition.allocation.errors[:base].each do |error| %>
+          <%= error %>
+        <% end %>
+      </div>
+    <% end %>
+  </div></div>
 
   <div class="row">
     <div class="col">
-      <%= f.error_notification %>
-      <% if @acquisition.errors[:base].any? or @acquisition.allocation.errors[:base].any? %>
-        <div class="alert alert-warning">
-          <% @acquisition.errors[:base].each do |error| %>
-            <%= error %>
-          <% end %>
-          <% @acquisition.allocation.errors[:base].each do |error| %>
-            <%= error %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <%= f.input :invoice_number, label: "Número da nota fiscal" %>
+      <%= acquisition_form.input :invoice_number, label: "Número da nota fiscal" %>
     </div>
     <div class="col d-flex">
-      <%= f.submit "Salvar", class: "btn btn-primary btn-block align-self-end mb-3" %>
+      <%= acquisition_form.submit "Salvar", class: "btn btn-primary btn-block align-self-end mb-3" %>
     </div>
   </div>
   <div class="row">
     <div class="col d-flex justify-content-around">
-      <%= f.association :supplier, as: :select, label: "Fornecedor desta aquisição", wrapper_html: {class: "w-50"} %>
+      <%= acquisition_form.association :supplier, as: :select, label: "Fornecedor desta aquisição", wrapper_html: {class: "w-50"} %>
 
       <div class="form-group string required w-50 acquisition_invoice d-flex align-items-end justify-content-end <%=@acquisition.errors[:invoice].any? ? 'has-error' : nil%>">
         <label class="btn <%= @acquisition.errors[:invoice].any? ? 'btn-danger' : 'btn-secondary' %> m-0 control-label file required" for="acquisition_invoice">
@@ -37,16 +34,16 @@
             <%= fa_icon(:upload, text:"Enviar cópia da nota fiscal") %>
           <% end %>
         </label>
-        <%= f.attachment_field :invoice, class: "d-none", id: "acquisition_invoice"%>
+        <%= acquisition_form.attachment_field :invoice, class: "d-none", id: "acquisition_invoice"%>
         <span class="help-block"></span>
       </div>
     </div>
     <div class="col">
-      <%= f.association :company, as: :select, label: "Empresa responsável por esta compra" %>
+      <%= acquisition_form.association :company, as: :select, label: "Empresa responsável por esta compra" %>
     </div>
   </div>
 
-  <%= f.simple_fields_for :allocation do |f2| %>
-    <%= render "allocations/form", f: f2, acquisition: true %>
+  <%= acquisition_form.simple_fields_for :allocation do |allocation_form| %>
+    <%= render partial: "allocations/form", locals: {:allocation_form => allocation_form, :acquisition => true} %>
   <% end %>
 <% end %>

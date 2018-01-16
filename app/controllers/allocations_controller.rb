@@ -27,6 +27,7 @@ class AllocationsController < ApplicationController
   # GET /allocations/1.json
   def show
     @items = @allocation.items.page(params[:items_page]).per(5)
+    @type_counts = Kaminari.paginate_array(@allocation.type_count.to_a).page(params[:sum_items_page]).per(5)
     @stock_item_groups = @allocation.stock_item_groups.page(params[:stock_items_page]).per(5)
   end
 
@@ -42,31 +43,36 @@ class AllocationsController < ApplicationController
   # POST /allocations
   # POST /allocations.json
   def create
-    unless allocation_params.include? :items_attributes or allocation_params.include? :stock_item_groups_attributes
-      redirect_to new_allocation_path, alert: "Voce deve cadastrar pelo menos um item"
-    else
-      if allocation_params.include? :items_attributes
-      items = allocation_params[:items_attributes].values.each_with_object([]) {|item, items_list| items_list.push item[:plate] unless item[:_destroy] == "true"}
-        logger.debug "Placas enviadas: " + allocation_params[:items_attributes].values.inspect
-        logger.debug "Placas selecionadas: " + items.inspect
-
-        items = Item.where(plate: items)
-        allocation_params.delete :items_attributes
-
-        @allocation = Allocation.new(allocation_params)
-        @allocation.items = items
+    # all_items_found = true
+    # if allocation_params.include? :items_attributes
+    #   allocations_items_attributes = Hash.new
+    #   allocation_params[:items_attributes].each do |item_key, item_attributes|
+    #     if item_attributes[:_destroy] == "true" then next end
+    #     item = Placement.find(allocation_params[:origin_id]).items.find_by_plate(item_attributes[:plate])
+    #     if item.nil?
+    #       all_items_found = false
+    #       break
+    #     else
+    #       allocations_items_attributes[item_key] = {:item_id => item.id}
+    #     end
+    #   end
+    #   params[:allocation].delete :items_attributes
+    #   params[:allocation][:allocations_items_attributes] = allocations_items_attributes
+    #   logger.debug params.inspect
+    #   logger.debug allocation_params
+    #   @allocation = Allocation.new allocation_params
+    # else
+    #   @allocation = Allocation.new allocation_params
+    # end
+    @allocation = Allocation.new allocation_params
+    @allocation.operator = current_user
+    respond_to do |format|
+      if @allocation.save and all_items_found
+        format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
+        format.json { render :show, status: :created, location: @allocation }
       else
-        @allocation = Allocation.new(allocation_params)
-      end
-      @allocation.operator = current_user
-      respond_to do |format|
-        if @allocation.save
-          format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
-          format.json { render :show, status: :created, location: @allocation }
-        else
-          format.html { render :new }
-          format.json { render json: @allocation.errors, status: :unprocessable_entity }
-        end
+        format.html { render :new }
+        format.json { render json: @allocation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -106,7 +112,8 @@ class AllocationsController < ApplicationController
     def allocation_params
       params.require(:allocation).permit(:reason, :origin_id, :destination_id, :date,
         :items_attributes => [:id, :plate, :_destroy],
-        :stock_item_groups_attributes => [:stock_item_id, :quantity, :_destroy])
+        :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :_destroy],
+        :allocations_items_attributes => [:id, :plate, :item_id])
     end
 
     def admin_or_mine

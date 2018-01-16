@@ -1,8 +1,10 @@
 
-<div class="card mx-1 my-3 nested-fields w-25" style="min-width: 20em">
-<div class="card-block p-3">
-    <%= link_to_remove_association "X", f, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %>
-    <%= f.hidden_field :id %>
-    <%= f.input :plate, label: "Plaqueta:" %>
-</div>
-</div>
+<%= allocation_form.simple_fields_for :allocations_items do |allocations_items_form| %>
+    <div class="card mx-1 my-3 nested-fields w-25" style="min-width: 20em">
+        <div class="card-block p-3">
+            <%= link_to_remove_association fa_icon(:close), allocations_items_form, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %>
+            <%= allocations_items_form.hidden_field :id %>
+            <%= allocations_items_form.input :plate, label: "Plaqueta" %>
+        </div>
+    </div>
+<% end %>

@@ -1,5 +1,5 @@
 
-<%= simple_form_for @allocation do |f| %>
+<%= simple_form_for @allocation do |allocation_form| %>
 
 <div class="row">
     <div class="col">
@@ -14,6 +14,6 @@
     </div>
 </div>
 
-<%= render 'form', :f => f %>
+<%= render 'form', locals: {:allocation_form => allocation_form} %>
 
 <% end %>

@@ -19,6 +19,7 @@ class PlacementsController < ApplicationController
   # GET /placements/1.json
   def show
     @stock_item_counts = @placement.stock_item_counts.page(params[:stock_items_page]).per(5)
+    @type_counts = Kaminari.paginate_array(@placement.type_count.to_a).page(params[:sum_items_page]).per(5)
     @items = @placement.items.page(params[:items_page]).per(5)
     @allocations = @placement.allocations.order(date: :desc).page(params[:al_page]).per(5)
     @acquisitions = @placement.acquisitions.joins(:allocation).order("allocations.date DESC").page(params[:ac_page]).per(5)

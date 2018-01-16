@@ -26,6 +26,7 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions/1.json
   def show
     @items = @acquisition.allocation.items.page(params[:items_page]).per(5)
+    @type_counts = Kaminari.paginate_array(@acquisition.type_count.to_a).page(params[:sum_items_page]).per(5)
     @stock_item_groups = @acquisition.allocation.stock_item_groups.page(params[:stock_items_page]).per(5)
   end
 
@@ -91,7 +92,7 @@ class AcquisitionsController < ApplicationController
       params.require(:acquisition).permit(:supplier_id, :company_id, :invoice_number, :invoice, :invoice_id, :invoice_content_size, :invoice_filename, :invoice_content_type,
         :allocation_attributes => [:id, :reason, :destination_id, :date,
           :items_attributes => [:id, :plate, :brand, :model, :serial, :value, :parkable_item_id, :parkable_item_type, :isDischarged, :_destroy,
-            :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive, :connection, :functions, :paint, :number_of_channels, :function]],
+            :parkable_item_attributes => [:id, :inches, :processor, :memory, :harddrive, :connection, :functions, :paint, :number_of_channels, :function, :kind]],
           :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :unit_value, :_destroy]])
     end
 

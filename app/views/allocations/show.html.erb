@@ -44,33 +44,29 @@
 </div>
 
 <div class="row text-center">
-  <div class="col border rounded p-2 m-2">
-    <h5 class="d-inline">Itens</h5>
+  <div class="col border border-secondary rounded p-2 m-2">
+    <h5 class="d-inline">Resumo de items com plaqueta</h5>
     <div class="d-inline float-right">
-      <%= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :items_page %>
-      <%= link_to_next_page @items, fa_icon("chevron-right"), param_name: :items_page %>
+      <%= link_to_prev_page @type_counts, fa_icon("chevron-left"), param_name: :sum_items_page %>
+      <%= link_to_next_page @type_counts, fa_icon("chevron-right"), param_name: :sum_items_page %>
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-4" scope="col">Plaqueta</th>
-        <th class="col-4" scope="col">Tipo</th>
-        <th class="col-4" scope="col">Número de serie</th>
-        <th class="col-auto"></th>
+        <th class="col-9" scope="col">Tipo</th>
+        <th class="col-3" scope="col">Quantidade</th>
       </tr>
-      <% @items.each do |item| %>
+      <% @type_counts.each do |type, amount| %>
         <tr scope="row">
-          <td class="col-4"><%= item.plate %></td>
-          <td class="col-4"><%= item %></td>
-          <td class="col-4"><%= item.serial %></td>
-          <td class="col-auto"><%= link_to fa_icon("info-circle"), item, class: "text-info" %></td>
+          <td class="col-9"><%= type %></td>
+          <td class="col-3"><%= amount %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="2"> <small> <%= page_entries_info @type_counts %> </small> </td> </tr>
     </table>
   </div>
 
-  <div class="col border rounded p-2 m-2">
-    <h5 class="d-inline">Items de estoque</h5>
+  <div class="col border border-secondary rounded p-2 m-2">
+    <h5 class="d-inline">Items sem plaqueta</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @stock_item_groups, fa_icon("chevron-left"), param_name: :stock_items_page %>
       <%= link_to_next_page @stock_item_groups, fa_icon("chevron-right"), param_name: :stock_items_page %>
@@ -87,6 +83,34 @@
         </tr>
       <% end %>
       <tr> <td colspan="2"> <small> <%= page_entries_info @stock_item_groups %> </small> </td> </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col border border-secondary rounded p-2 m-2">
+    <h5 class="d-inline">Lista de itens com plaqueta</h5>
+    <div class="d-inline float-right">
+      <%#= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :items_page %>
+      <%#= link_to_next_page @items, fa_icon("chevron-right"), param_name: :items_page %>
+      <%= paginate @items, param_name: :items_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th scope="col">Plaqueta</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Número de serie</th>
+        <th></th>
+      </tr>
+      <% @items.each do |item| %>
+        <tr scope="row">
+          <td><%= item.plate %></td>
+          <td><%= item %></td>
+          <td><%= item.serial %></td>
+          <td><%= link_to fa_icon("info-circle"), item, class: "text-info" %></td>
+        </tr>
+      <% end %>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
 </div>

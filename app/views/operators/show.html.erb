@@ -45,7 +45,7 @@
 </div>
 
 <div class="row text-center">
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Últimas Aquisições</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
@@ -53,24 +53,24 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-4" scope="col">Data</th>
-        <th class="col-4" scope="col">Responsável</th>
-        <th class="col-4" scope="col">Fornecedor</th>
-        <th class="col-auto" scope="col"></th>
+        <th scope="col">Data</th>
+        <th scope="col">Responsável</th>
+        <th scope="col">Fornecedor</th>
+        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row">
-          <td class="col-4"><%= acquisition.date %></td>
-          <td class="col-4"><%= acquisition.operator %></td>
-          <td class="col-4"><%= acquisition.supplier %></td>
-          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
+          <td><%= acquisition.date %></td>
+          <td><%= acquisition.operator %></td>
+          <td><%= acquisition.supplier %></td>
+          <td><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
       <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Últimas Alocações</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @allocations, fa_icon("chevron-left"), param_name: :al_page %>
@@ -78,17 +78,17 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-4" scope="col">Data</th>
-        <th class="col-4" scope="col">Resonsável</th>
-        <th class="col-4" scope="col">items</th>
-        <th  class="col-auto" scope="row"></th>
+        <th scope="col">Data</th>
+        <th scope="col">Resonsável</th>
+        <th scope="col">items</th>
+        <th scope="row"></th>
       </tr>
       <% @allocations.each do |allocation| %>
         <tr scope="row">
-          <td class="col-4"><%= allocation.date %></td>
-          <td class="col-4"><%= allocation.operator %></td>
-          <td class="col-4"><%= allocation.count_items %></td>
-          <td class="col-auto"><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
+          <td><%= allocation.date %></td>
+          <td><%= allocation.operator %></td>
+          <td><%= allocation.count_items %></td>
+          <td><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
         </tr>
       <% end %>
       <tr> <td colspan="4"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>

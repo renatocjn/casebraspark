@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110193632) do
+ActiveRecord::Schema.define(version: 20180115155110) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -73,6 +73,12 @@ ActiveRecord::Schema.define(version: 20180110193632) do
     t.integer  "number_of_channels"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "help_devices", force: :cascade do |t|
+    t.string   "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ip_cameras", force: :cascade do |t|

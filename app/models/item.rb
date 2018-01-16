@@ -1,9 +1,9 @@
 class Item < ActiveRecord::Base
 
-    has_many :allocations_items, dependent: :destroy
-    has_many :allocations, through: :allocations_items
-    has_many :placements, through: :allocations, source: :destination
-    belongs_to :placement
+    has_many :allocations_items, dependent: :destroy, inverse_of: :item
+    has_many :allocations, through: :allocations_items, inverse_of: :items
+    has_many :placements, through: :allocations, source: :destination, inverse_of: :items
+    belongs_to :placement, inverse_of: :items
 
     belongs_to :parkable_item, polymorphic: true, dependent: :destroy
     accepts_nested_attributes_for :parkable_item#, :reject_if => :all_blank
@@ -45,7 +45,8 @@ class Item < ActiveRecord::Base
         "IpCamera" => "Câmera",
         "IpPhone" => "Telefone IP",
         "DvrDevice" => "DVR",
-        "NetDevice" => "Dispositivo de Rede"
+        "NetworkDevice" => "Dispositivo de Rede",
+        "HelpDevice" => "Dispositivo Help"
     }
 
     def type_pt_BR

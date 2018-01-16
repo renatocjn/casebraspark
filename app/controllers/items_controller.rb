@@ -10,11 +10,32 @@ class ItemsController < ApplicationController
     @items = Item.all.page params[:page]
 
     if params.key? :item
+      unless params[:item][:parkable_item_type].blank?
+        if params[:item][:parkable_item_type] == "DvrDevice"
+          @items.joins("INNER JOIN dvr_devices on items.parkable_item_id = dvr_devices.id").select("dvr_devices.*")
+          @items = @items.where "dvr_devices.number_of_channels = #{params[:item][:parkable_item][:number_of_channels]}" unless params[:item][:parkable_item][:number_of_channels].blank?
+        elsif params[:item][:parkable_item_type] == "NetworkDevice"
+          @items.joins("INNER JOIN network_devices on items.parkable_item_id = network_devices.id").select("network_devices.*")
+          @items = @items.where "network_devices.number_of_channels = #{params[:item][:parkable_item][:number_of_channels]}" unless params[:item][:parkable_item][:number_of_channels].blank?
+        elsif params[:item][:parkable_item_type] == "Screen"
+          @items.joins("INNER JOIN screens on items.parkable_item_id = screens.id").select("screens.*")
+          @items = @items.where "screens.inches = #{params[:item][:parkable_item][:inches]}" unless params[:item][:parkable_item][:inches].blank?
+        elsif params[:item][:parkable_item_type] == "Printer"
+          @items.joins("INNER JOIN printers on items.parkable_item_id = printers.id").select("printers.*")
+          @items = @items.where "printers.functions = #{params[:item][:parkable_item][:functions]}" unless params[:item][:parkable_item][:functions].blank?
+          @items = @items.where "printers.connection = #{params[:item][:parkable_item][:connection]}" unless params[:item][:parkable_item][:connection].blank?
+          @items = @items.where "printers.paint = #{params[:item][:parkable_item][:paint]}" unless params[:item][:parkable_item][:paint].blank?
+        elsif params[:item][:parkable_item_type] == "Computer"
+          @items.joins("INNER JOIN computers on items.parkable_item_id = computers.id").select("computers.*")
+          @items = @items.where "computers.processor = #{params[:item][:parkable_item][:processor]}" unless params[:item][:parkable_item][:processor].blank?
+          @items = @items.where "computers.harddrive = #{params[:item][:parkable_item][:harddrive]}" unless params[:item][:parkable_item][:harddrive].blank?
+          @items = @items.where "computers.memory = #{params[:item][:parkable_item][:memory]}" unless params[:item][:parkable_item][:memory].blank?
+        end
+      end
       @items = @items.where plate: params[:item][:plate] unless params[:item][:plate].blank?
-      @items = @items.where "brand like '%#{params[:item][:brand]}%'" unless params[:item][:brand].blank?
-      @items = @items.where "brand like '%#{params[:item][:model]}%'" unless params[:item][:model].blank?
+      @items = @items.where "items.brand like '%#{params[:item][:brand]}%'" unless params[:item][:brand].blank?
+      @items = @items.where "items.model like '%#{params[:item][:model]}%'" unless params[:item][:model].blank?
       @items = @items.where isDischarged: params[:item][:isDischarged] == "true" unless params[:item][:isDischarged].blank?
-      @items = @items.where parkable_item_type: params[:item][:parkable_item_type] unless params[:item][:parkable_item_type].blank?
     end
   end
 

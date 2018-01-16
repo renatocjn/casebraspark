@@ -26,7 +26,7 @@
 </div>
 
 <div class="row text-center">
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Aquisições desta empresa</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
@@ -34,26 +34,26 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-3" scope="col">Data</th>
-        <th class="col-3" scope="col">Fornecedor</th>
-        <th class="col-3" scope="col">Responsável</th>
-        <th class="col-3" scope="col">Destino</th>
-        <th class="col-auto" scope="col"></th>
+        <th scope="col">Data</th>
+        <th scope="col">Fornecedor</th>
+        <th scope="col">Responsável</th>
+        <th scope="col">Destino</th>
+        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row">
-          <td class="col-3"><%= localize acquisition.date %></td>
-          <td class="col-3"><%= acquisition.supplier %></td>
-          <td class="col-3"><%= acquisition.operator %></td>
-          <td class="col-3"><%= acquisition.destination %></td>
-          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
+          <td><%= localize acquisition.date %></td>
+          <td><%= acquisition.supplier %></td>
+          <td><%= acquisition.operator %></td>
+          <td><%= acquisition.destination %></td>
+          <td><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
       <tr> <td colspan="5"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Itens de plaqueta desta empresa</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @items, fa_icon("chevron-left"), param_name: :stock_items_page %>

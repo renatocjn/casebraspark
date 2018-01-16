@@ -1,10 +1,10 @@
 
-<%= simple_form_for @allocation do |f| %>
+<%= simple_form_for @allocation do |allocation_form| %>
 
 <div class="row">
     <div class="col">
         <%= f.error_notification %>
-        <% if @allocation.errors.any? %>
+        <% if @allocation.errors[:base].any? %>
             <div class="alert alert-warning">
                 <% @allocation.errors.full_messages_for(:base).each do |error| %>
                     <%= error %>
@@ -14,6 +14,6 @@
     </div>
 </div>
 
-<%= render 'form', :f => f %>
+<%= render 'form', locals: {:allocation_form => allocation_form} %>
 
 <% end %>

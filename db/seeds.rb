@@ -70,9 +70,5 @@ ActiveRecord::Base.transaction do
 
     StockItem.create! short_description: "Mouse"
     StockItem.create! short_description: "Teclado"
-    StockItem.create! short_description: "Scanner Help"
-    StockItem.create! short_description: "Pad Help"
-    StockItem.create! short_description: "Pinpad Help"
-    StockItem.create! short_description: "WebCam Help"
-    StockItem.create! short_description: "Biometria Help"
+    StockItem.create! short_description: "Caixa de cabeamento de rede"
 end

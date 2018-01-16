@@ -43,7 +43,7 @@
 <% end %>
 
 <div class="row text-center">
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Itens já comprados neste fornecedor</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @buyable_items, fa_icon("chevron-left"), param_name: :bi_page %>
@@ -59,7 +59,7 @@
     </table>
   </div>
 
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Últimas Aquisições</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @acquisitions, fa_icon("chevron-left"), param_name: :ac_page %>
@@ -67,17 +67,17 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-4" scope="col">Data</th>
-        <th class="col-4" scope="col">Valor</th>
-        <th class="col-4" scope="col">Items</th>
-        <th class="col-auto" scope="col"></th>
+        <th scope="col">Data</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Items</th>
+        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row">
-          <td class="col-4"><%= localize acquisition.created_at.to_date %></td>
-          <td class="col-4"><%= number_to_currency acquisition.totalValue %></td>
-          <td class="col-4"><%= acquisition.count_items %></td>
-          <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
+          <td><%= localize acquisition.created_at.to_date %></td>
+          <td><%= number_to_currency acquisition.totalValue %></td>
+          <td><%= acquisition.count_items %></td>
+          <td><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
       <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>

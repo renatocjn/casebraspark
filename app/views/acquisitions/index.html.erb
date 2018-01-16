@@ -39,28 +39,28 @@
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th class="col-2" scope="col">Data</th>
-          <th class="col-2" scope="col">Responsável</th>
-          <th class="col-2" scope="col">Fornecedor</th>
-          <th class="col-2" scope="col">Destino</th>
-          <th class="col-2" scope="col">Número de itens</th>
-          <th class="col-2" scope="col">Valor total</th>
-          <th class="col-auto" scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
-          <th class="col-auto" scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
+          <th scope="col">Data</th>
+          <th scope="col">Responsável</th>
+          <th scope="col">Fornecedor</th>
+          <th scope="col">Destino</th>
+          <th scope="col">Número de itens</th>
+          <th scope="col">Valor total</th>
+          <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
+          <th scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
         </tr>
       </thead>
 
       <tbody>
         <% @acquisitions.each do |acquisition| %>
           <tr scope="row">
-            <td class="col-2"><%= localize acquisition.created_at.to_date %></td>
-            <td class="col-2"><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
-            <td class="col-2"><%= link_to acquisition.supplier, acquisition.supplier, class: "text-info" %></td>
-            <td class="col-2"><%= link_to acquisition.destination, placement_path(acquisition.allocation.destination), class: "text-info" %></td>
-            <td class="col-2"><%= acquisition.count_items %></td>
-            <td class="col-2"><%= number_to_currency acquisition.totalValue %></td>
-            <td class="col-auto"><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
-            <td class="col-auto"><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
+            <td><%= localize acquisition.created_at.to_date %></td>
+            <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
+            <td><%= link_to acquisition.supplier, acquisition.supplier, class: "text-info" %></td>
+            <td><%= link_to acquisition.destination, placement_path(acquisition.allocation.destination), class: "text-info" %></td>
+            <td><%= acquisition.count_items %></td>
+            <td><%= number_to_currency acquisition.totalValue %></td>
+            <td><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
+            <td><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
         <tr> <td colspan="8"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>

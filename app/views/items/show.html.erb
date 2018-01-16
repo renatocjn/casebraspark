@@ -62,7 +62,7 @@
 
 
 <div class="row text-center">
-  <div class="col border rounded p-2 m-2">
+  <div class="col border border-secondary rounded p-2 m-2">
     <h5 class="d-inline">Últimas alocações</h5>
     <div class="d-inline float-right">
       <%= link_to_prev_page @allocations, fa_icon("chevron-left"), param_name: :al_page %>
@@ -70,17 +70,17 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-4" scope="col">Data</th>
-        <th class="col-4" scope="col">Local</th>
-        <th class="col-4" scope="col">Responsável</th>
-        <th class="col-auto"></th>
+        <th scope="col">Data</th>
+        <th scope="col">Local</th>
+        <th scope="col">Responsável</th>
+        <th></th>
       </tr>
     <% @allocations.each do |allocation| %>
       <tr scope="row">
-        <td class="col-4"><%= localize allocation.created_at.to_date %></td>
-        <td class="col-4"><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
-        <td class="col-4"><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
-        <td class="col-auto"><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
+        <td><%= localize allocation.created_at.to_date %></td>
+        <td><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
+        <td><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
+        <td><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
       </tr>
     <% end %>
       <tr> <td colspan="4"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>

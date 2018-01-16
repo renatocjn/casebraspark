@@ -18,6 +18,6 @@ class StockItem < ActiveRecord::Base
     end
 
     def quantity_in_stock
-        stock_item_counts.joins(:placement).where("placements.other" => "Estoque").first.count
+        stock_item_counts.joins(:placement).where("placements.other = 'Estoque'").first_or_initialize.count
     end
 end

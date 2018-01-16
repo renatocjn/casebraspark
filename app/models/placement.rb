@@ -36,6 +36,12 @@ class Placement < ActiveRecord::Base
     items.count + stock_item_counts.reduce(0) {|acc, item_count| acc += item_count.count}
   end
 
+  def type_count
+      items.select(:id, :parkable_item_type).group(:parkable_item_type).count(:id).each_with_object(Hash.new) do |i, hash|
+          hash[Item::TYPES_TRANSLATIONS[i[0]]] = i[1]
+      end
+  end
+
   def discharge_stock_items(params)
     self.transaction do
       logger.debug params.inspect

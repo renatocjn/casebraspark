@@ -1,29 +1,29 @@
 
-<%= f.hidden_field :id unless f.object.new_record? %>
-<%= f.input :plate,  label: "Plaqueta:", wrapper_html: {class: "small-input"} %>
-<%= f.input :brand,  label: "Marca:", wrapper_html: {class: "small-input"} %>
-<%= f.input :model,  label: "Modelo:", wrapper_html: {class: "small-input"} %>
-<%= f.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
-<%= f.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"} %>
+<%= item_form.hidden_field :id %>
+<%= item_form.input :plate,  label: "Plaqueta:", wrapper_html: {class: "small-input"} %>
+<%= item_form.input :brand,  label: "Marca:", wrapper_html: {class: "small-input"} %>
+<%= item_form.input :model,  label: "Modelo:", wrapper_html: {class: "small-input"} %>
+<%= item_form.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
+<%= item_form.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"} %>
 
-<%= f.simple_fields_for :parkable_item, (f.object.parkable_item.nil? ? type.constantize.new : f.object.parkable_item) do |f2| %>
+<%= item_form.simple_fields_for :parkable_item, (item_form.object.parkable_item.nil? ? type.constantize.new : item_form.object.parkable_item) do |parkable_item_form| %>
     <%= f2.hidden_field :id %>
     <% if defined? type %>
-        <%= render "#{type.downcase.pluralize.strip}/form", :f => f2 %>
+        <%= render partial: "#{type.downcase.pluralize.strip}/form", locals: {:parkable_item_form => f2} %>
     <% else %>
-        <%= render "#{f.object.parkable_item_type.downcase.pluralize.strip}/form", :f => f2 %>
+        <%= render partial: "#{f.object.parkable_item_type.downcase.pluralize.strip}/form", locals: {:parkable_item_form => f2} %>
     <% end %>
 <% end %>
 
 <% if defined? type %>
-    <%= f.hidden_field :parkable_item_type, value: type %>
+    <%= item_form.hidden_field :parkable_item_type, value: type %>
 <% else %>
-    <% f.hidden_field :parkable_item_type, f.object.parkable_item_type %>
+    <%= item_form.hidden_field :parkable_item_type, f.object.parkable_item_type %>
 <% end %>
 
 <% if defined? render_dispose%>
-    <%= f.input :isDischarged, as: :select, include_blank: false, label: "Item descartado", :input_html => { "id" => "dischargeCheckbox", "data-toggle" => "collapse", "target" => "#dischargeDescription"} %>
-    <%= f.input :dischargeDescription, label: "Motivo do descarte", :wrapper_html => { "id" => "dischargeDescription" } %>
+    <%= item_form.input :isDischarged, as: :select, include_blank: false, label: "Item descartado", :input_html => { "id" => "dischargeCheckbox", "data-toggle" => "collapse", "target" => "#dischargeDescription"} %>
+    <%= item_form.input :dischargeDescription, label: "Motivo do descarte", :wrapper_html => { "id" => "dischargeDescription" } %>
 <% else %>
-    <%= f.hidden_field :isDischarged, value: false %>
+    <%= item_form.hidden_field :isDischarged, value: false %>
 <% end %>
