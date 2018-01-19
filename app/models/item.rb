@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
     #    self.errors.add :plate, "Plaqueta desta empresa já cadastrada" if @self.acquisition.company.items.where(plate: self.plate).any?
     #end
 
-    validates :plate, :model, :serial, :brand, :value, :parkable_item, presence: true
+    validates :plate, :model, :serial, :brand, :value, presence: true
     validates :isDischarged, inclusion: {in: [true, false]}
     validates :dischargeDescription, presence: true, if: :isDischarged
     validates :dischargeDescription, inclusion: {in: [nil]}, unless: :isDischarged

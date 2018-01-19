@@ -1,20 +1,18 @@
 
-<%= allocation_form.simple_fields_for :stock_item_groups do |stock_item_groups_form| %>
-    <div class="card m-3 nested-fields">
-        <div class="card-block p-3">
-            <div class="row">
-                <div class="col">
-                    <%= link_to_remove_association fa_icon(:close), stock_item_groups_form, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %> <br>
-                </div>
+<div class="card m-3 nested-fields">
+    <div class="card-block p-3">
+        <div class="row">
+            <div class="col">
+                <%= link_to_remove_association fa_icon(:close), f, class: "btn btn-sm btn-danger float-right ml-1 mb-1" %> <br>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col">
-                    <%= stock_item_groups_form.input :stock_item_id, collection: StockItem.all, label: "Item de estoque" %>
-                    <%= stock_item_groups_form.input :quantity, label: "Quantidade" %>
-                    <%= stock_item_groups_form.input :unit_value, label: "Valor unitário" if defined? acquisition %>
-                </div>
+        <div class="row">
+            <div class="col">
+                <%= f.input :stock_item_id, collection: StockItem.all, label: "Item de estoque" %>
+                <%= f.input :quantity, label: "Quantidade" %>
+                <%= f.input :unit_value, label: "Valor unitário" if defined? acquisition %>
             </div>
         </div>
     </div>
-<% end %>
+</div>

@@ -30,7 +30,7 @@
     <%= link_to_add_association fa_icon(:plus, text: "Telefone IP"), allocation_form, :items, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'IpPhone' }} %>
     <%= link_to_add_association fa_icon(:plus, text: "Câmera"), allocation_form, :items, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'IpCamera' }} %>
     <%= link_to_add_association fa_icon(:plus, text: "Dispositivo Help"), allocation_form, :items, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint", :render_options => {:locals => {:type => 'HelpDevice' }} %>
-    <%= link_to_add_association fa_icon(:plus, text: "Outros"), allocation_form, :stock_item_groups, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint", partial: "stock_items/group_partial", render_options:  {locals: { acquisition: true }} %>
+    <%= link_to_add_association fa_icon(:plus, text: "Outros"), allocation_form, :stock_item_groups, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint", partial: "stock_items/group_partial", render_options:  {locals: {acquisition: true }} %>
   <% else %>
     <%= link_to_add_association fa_icon(:plus, text: "Plaqueta"), allocation_form, :items, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint" %>
     <%= link_to_add_association fa_icon(:plus, text: "Outros"), allocation_form, :stock_item_groups, class: "btn btn-secondary btn-block m-1", "data-association-insertion-node" => "#insertionPoint", partial: "stock_items/group_partial" %>
@@ -39,11 +39,19 @@
 </div>
 
 <div class="d-flex justify-content-around flex-wrap">
+
   <div id="insertionPoint" hidden></div>
-  <%= render partial: "item_fields", locals: {:allocation_form => allocation_form} %>
-  <% if defined? acquisition %>
-    <%= render partial: "stock_items/group_partial", locals: {:allocation_form => allocation_form, :acquisition => true} %>
-  <% else %>
-    <%= render partial: "stock_items/group_partial", locals: {:allocation_form => allocation_form} %>
+
+  <%= allocation_form.simple_fields_for :items do |item_form| %>
+    <%= render "item_fields", f: item_form, type: item_form.object.parkable_item_type %>
   <% end %>
+
+  <%= allocation_form.simple_fields_for :stock_item_groups do |stock_item_groups_form| %>
+    <% if defined? acquisition %>
+      <%= render "stock_items/group_partial", f: stock_item_groups_form, acquisition: true %>
+    <% else %>
+      <%= render "stock_items/group_partial", f: stock_item_groups_form %>
+    <% end %>
+  <% end %>
+
 </div>

@@ -7,5 +7,6 @@ class StockItemCount < ActiveRecord::Base
   end
 
   validates :stock_item, :placement, :count, presence: true
+  validates :stock_item, uniqueness: {scope: :placement}
   validates :count, numericality: {greater_than_or_equal_to: 0, only_integer: true}
 end

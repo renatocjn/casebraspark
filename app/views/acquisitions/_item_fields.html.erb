@@ -1,36 +1,32 @@
 
-<%= allocation_form.simple_fields_for :items do |item_form| %>
-    <div class="card my-3 nested-fields w-100">
-        <div class="card-block p-3">
-            <div class="row">
-                <div class="col-2">
-                    <% if type == "Printer" %>
-                        <%= image_tag :printer_card_img, class: "card-img-top", alt: "Impressora", width: "100%" %>
-                    <% elsif type == "Screen" %>
-                        <%= image_tag :screen_card_img, class: "card-img-top", alt: "Monitor", width: "100%" %>
-                    <% elsif type == "Computer" %>
-                        <%= image_tag :computer_card_img, class: "card-img-top", alt: "Computador", width: "100%" %>
-                    <% elsif type == "DvrDevice" %>
-                        <%= image_tag :dvr_card_img, class: "card-img-top", alt: "DVR", width: "100%" %>
-                    <% elsif type == "NetworkDevice" %>
-                        <%= image_tag :network_device_card_img, class: "card-img-top", alt: "Dispositivo de Rede", width: "100%" %>
-                    <% elsif type == "IpPhone" %>
-                        <%= image_tag :ip_phone_card_img, class: "card-img-top", alt: "Telefone IP", width: "100%" %>
-                    <% elsif type == "HelpDevice" %>
-                        <%= image_tag :ip_phone_card_img, class: "card-img-top", alt: "Telefone IP", width: "100%" %>
-                    <% elsif type == "IpCamera" %>
-                        <%= image_tag :camera_card_img, class: "card-img-top", alt: "Câmera", width: "100%" %>
-                    <% elsif type == "IpCamera" %>
-                        <%= image_tag :help_card_img, class: "card-img-top", alt: "Câmera", width: "100%" %>
-                    <% end %>
-                </div>
-                <div class="col d-flex justify-content-around flex-wrap">
-                    <%= render partial: "items/form", locals: {:item_form => item_form, :type = f.object.parkable_item_type} %>
-                </div>
-                <div class="col-auto">
-                    <%= link_to_remove_association fa_icon(:times), item_form, class: "btn btn-danger" %>
-                </div>
+<div class="card my-3 nested-fields w-100">
+    <div class="card-block p-3">
+        <div class="row">
+            <div class="col-2">
+                <% if type == "Printer" %>
+                    <%= image_tag :printer_card_img, class: "card-img-top", alt: "Impressora", width: "100%" %>
+                <% elsif type == "Screen" %>
+                    <%= image_tag :screen_card_img, class: "card-img-top", alt: "Monitor", width: "100%" %>
+                <% elsif type == "Computer" %>
+                    <%= image_tag :computer_card_img, class: "card-img-top", alt: "Computador", width: "100%" %>
+                <% elsif type == "DvrDevice" %>
+                    <%= image_tag :dvr_card_img, class: "card-img-top", alt: "DVR", width: "100%" %>
+                <% elsif type == "NetworkDevice" %>
+                    <%= image_tag :network_device_card_img, class: "card-img-top", alt: "Dispositivo de Rede", width: "100%" %>
+                <% elsif type == "IpPhone" %>
+                    <%= image_tag :ip_phone_card_img, class: "card-img-top", alt: "Telefone IP", width: "100%" %>
+                <% elsif type == "IpCamera" %>
+                    <%= image_tag :camera_card_img, class: "card-img-top", alt: "Câmera", width: "100%" %>
+                <% elsif type == "HelpDevice" %>
+                    <%= image_tag :help_card_img, class: "card-img-top", alt: "Dispositivo Help", width: "100%" %>
+                <% end %>
+            </div>
+            <div class="col d-flex justify-content-around flex-wrap">
+                <%= render "items/form", item_form: f, type: type %>
+            </div>
+            <div class="col-auto">
+                <%= link_to_remove_association fa_icon(:times), f, class: "btn btn-danger" %>
             </div>
         </div>
     </div>
-<% end %>
+</div>

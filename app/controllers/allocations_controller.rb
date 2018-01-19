@@ -43,31 +43,10 @@ class AllocationsController < ApplicationController
   # POST /allocations
   # POST /allocations.json
   def create
-    # all_items_found = true
-    # if allocation_params.include? :items_attributes
-    #   allocations_items_attributes = Hash.new
-    #   allocation_params[:items_attributes].each do |item_key, item_attributes|
-    #     if item_attributes[:_destroy] == "true" then next end
-    #     item = Placement.find(allocation_params[:origin_id]).items.find_by_plate(item_attributes[:plate])
-    #     if item.nil?
-    #       all_items_found = false
-    #       break
-    #     else
-    #       allocations_items_attributes[item_key] = {:item_id => item.id}
-    #     end
-    #   end
-    #   params[:allocation].delete :items_attributes
-    #   params[:allocation][:allocations_items_attributes] = allocations_items_attributes
-    #   logger.debug params.inspect
-    #   logger.debug allocation_params
-    #   @allocation = Allocation.new allocation_params
-    # else
-    #   @allocation = Allocation.new allocation_params
-    # end
-    @allocation = Allocation.new allocation_params
+    @allocation = Allocation.create_from_plates allocation_params
     @allocation.operator = current_user
     respond_to do |format|
-      if @allocation.save and all_items_found
+      if @allocation.save
         format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
         format.json { render :show, status: :created, location: @allocation }
       else
@@ -81,7 +60,7 @@ class AllocationsController < ApplicationController
   # PATCH/PUT /allocations/1.json
   def update
     respond_to do |format|
-      if @allocation.update(allocation_params)
+      if @allocation.update_from_plates(allocation_params)
         @allocation.items.each {|i| i.update placement: @allocation.destination }
         format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
         format.json { render :show, status: :ok, location: @allocation }

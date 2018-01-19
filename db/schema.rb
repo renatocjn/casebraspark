@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115155110) do
+ActiveRecord::Schema.define(version: 20180119202255) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 20180115155110) do
   end
 
   add_index "stock_item_groups", ["allocation_id"], name: "index_stock_item_groups_on_allocation_id"
+  add_index "stock_item_groups", ["stock_item_id", "allocation_id"], name: "index_stock_item_groups_on_stock_item_id_and_allocation_id", unique: true
   add_index "stock_item_groups", ["stock_item_id"], name: "index_stock_item_groups_on_stock_item_id"
 
   create_table "stock_items", force: :cascade do |t|

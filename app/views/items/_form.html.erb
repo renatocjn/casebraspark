@@ -6,12 +6,13 @@
 <%= item_form.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
 <%= item_form.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"} %>
 
+<% logger.debug item_form.object.parkable_item.inspect %>
 <%= item_form.simple_fields_for :parkable_item, (item_form.object.parkable_item.nil? ? type.constantize.new : item_form.object.parkable_item) do |parkable_item_form| %>
-    <%= f2.hidden_field :id %>
+    <%= item_form.hidden_field :id %>
     <% if defined? type %>
-        <%= render partial: "#{type.downcase.pluralize.strip}/form", locals: {:parkable_item_form => f2} %>
+        <%= render partial: "#{type.downcase.pluralize.strip}/form", locals: {:parkable_item_form => parkable_item_form} %>
     <% else %>
-        <%= render partial: "#{f.object.parkable_item_type.downcase.pluralize.strip}/form", locals: {:parkable_item_form => f2} %>
+        <%= render partial: "#{f.object.parkable_item_type.downcase.pluralize.strip}/form", locals: {:parkable_item_form => parkable_item_form} %>
     <% end %>
 <% end %>
 

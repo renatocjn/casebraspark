@@ -21,7 +21,9 @@ class Acquisition < ActiveRecord::Base
     validates :invoice_number, uniqueness: true
 
     def totalValue
-        items.pluck(:value).sum() + stock_item_groups.reduce(0) {|acc, g| acc += g.quantity*g.unit_value}
+        logger.debug items.inspect
+        logger.debug stock_item_groups.inspect
+        items.reduce(0) {|acc, i| acc += i.value} + stock_item_groups.reduce(0) {|acc, g| acc += g.quantity*g.unit_value}
     end
 
     delegate :count_items, :date, :reason, :type_count, to: :allocation

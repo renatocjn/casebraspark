@@ -44,6 +44,6 @@
   </div>
 
   <%= acquisition_form.simple_fields_for :allocation do |allocation_form| %>
-    <%= render partial: "allocations/form", locals: {:allocation_form => allocation_form, :acquisition => true} %>
+    <%= render "allocations/form", allocation_form: allocation_form, acquisition: true %>
   <% end %>
 <% end %>
