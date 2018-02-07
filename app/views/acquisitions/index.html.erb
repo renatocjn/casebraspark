@@ -8,7 +8,7 @@
           <span aria-hidden="true"><%= fa_icon :times %></span>
         </button>
       </div>
-      <%= simple_form_for :acquisition, method: :get do |f| %>
+      <%= simple_form_for :filter, method: :get do |f| %>
         <div class="modal-body">
           <div class="row">
             <div class="col">
@@ -45,6 +45,7 @@
           <th scope="col">Destino</th>
           <th scope="col">Número de itens</th>
           <th scope="col">Valor total</th>
+          <th scope="col"></th>
           <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
           <th scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
         </tr>
@@ -52,7 +53,7 @@
 
       <tbody>
         <% @acquisitions.each do |acquisition| %>
-          <tr scope="row">
+          <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
             <td><%= localize acquisition.created_at.to_date %></td>
             <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
             <td><%= link_to acquisition.supplier, acquisition.supplier, class: "text-info" %></td>
@@ -61,6 +62,7 @@
             <td><%= number_to_currency acquisition.totalValue %></td>
             <td><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
             <td><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
+            <td><%= link_to fa_icon(:trash), acquisition, method: :delete, data: {confirm: "Tem certeza disso?"}, class: "btn btn-danger" %></td>
           </tr>
         <% end %>
         <tr> <td colspan="8"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>

@@ -11,20 +11,27 @@
   </div>
 
   <div class="row">
-
     <div class="col">
       <%= f.input :name , label: "Nome completo:" %>
-      <%= f.input :password, label: "Senha:" %>
-      <%= f.input :isAdmin, label: "Administrador?", as: :select, include_blank: false unless current_user.isAdmin %>
-
     </div>
-
     <div class="col">
       <%= f.input :email, label: "E-mail:" %>
-      <%= f.input :password_confirmation, label: "Confirme sua senha:" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <% unless @operator.new_record? then %><div class="col"><%= f.input :updating_password, label: "Atualizar senha?", as: :select, include_blank: false %></div> <% end %>
+    <div class="col"><%= f.input :password, label: "Senha:" %></div>
+    <div class="col"><%= f.input :password_confirmation, label: "Confirme sua senha:" %></div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= f.input :isAdmin, label: "Administrador?", as: :select, include_blank: false if current_user.isAdmin %>
+    </div>
+    <div class="col">
       <%= f.input :isBlocked, label: "Bloqueado?", as: :select, include_blank: false unless @operator.new_record? %>
     </div>
-
   </div>
 
   <div class="row">

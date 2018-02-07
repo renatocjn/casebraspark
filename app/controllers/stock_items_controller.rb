@@ -1,5 +1,6 @@
 class StockItemsController < ApplicationController
   before_action :set_stock_item, only: [:show, :edit, :update, :destroy]
+  before_filter :apenasAdmin, except: [:show, :index]
 
   # GET /stock_items
   # GET /stock_items.json

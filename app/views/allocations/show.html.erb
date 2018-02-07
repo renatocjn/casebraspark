@@ -20,7 +20,7 @@
     <table class="table">
       <tr> <td colspan="2">
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon(:pencil, text: "Editar"), (@allocation.is_acquisition ? edit_acquisition_path(@allocation.acquisition) : edit_allocation_path(@allocation)), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:pencil, text: "Editar"), edit_allocation_path(@allocation), class: "btn btn-primary btn-block m-0 mx-1" %>
           <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
@@ -52,13 +52,13 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-9" scope="col">Tipo</th>
-        <th class="col-3" scope="col">Quantidade</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Quantidade</th>
       </tr>
       <% @type_counts.each do |type, amount| %>
         <tr scope="row">
-          <td class="col-9"><%= type %></td>
-          <td class="col-3"><%= amount %></td>
+          <td><%= type %></td>
+          <td><%= amount %></td>
         </tr>
       <% end %>
       <tr> <td colspan="2"> <small> <%= page_entries_info @type_counts %> </small> </td> </tr>
@@ -73,13 +73,13 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th class="col-9" scope="col">Descrição</th>
-        <th class="col-3" scope="col">Quantidade</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Quantidade</th>
       </tr>
       <% @stock_item_groups.each do |item| %>
         <tr scope="row">
-          <td class="col-9"><%= item.stock_item.short_description %></td>
-          <td class="col-3"><%= item.quantity %></td>
+          <td><%= item.stock_item.short_description %></td>
+          <td><%= item.quantity %></td>
         </tr>
       <% end %>
       <tr> <td colspan="2"> <small> <%= page_entries_info @stock_item_groups %> </small> </td> </tr>
@@ -100,14 +100,12 @@
         <th scope="col">Plaqueta</th>
         <th scope="col">Descrição</th>
         <th scope="col">Número de serie</th>
-        <th></th>
       </tr>
       <% @items.each do |item| %>
-        <tr scope="row">
+        <tr scope="row" data-link="<%= item_path(item) %>">
           <td><%= item.plate %></td>
           <td><%= item %></td>
           <td><%= item.serial %></td>
-          <td><%= link_to fa_icon("info-circle"), item, class: "text-info" %></td>
         </tr>
       <% end %>
       <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>

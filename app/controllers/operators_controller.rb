@@ -1,8 +1,8 @@
 class OperatorsController < ApplicationController
   before_action :set_operator, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
-  before_filter :apenasAdmin, only: [:index, :new, :create]
-  before_filter :admin_or_me, except: [:index, :new, :create]
+  before_filter :admin_or_me, only: [:show, :update, :edit]
+  before_filter :apenasAdmin, only: [:new, :create, :index, :destroy]
 
   # GET /operators
   # GET /operators.json
@@ -90,7 +90,7 @@ class OperatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def operator_params
-      params.require(:operator).permit(:name, :login, :email, :password, :password_confirmation, :canAlocate, :canBuy, :isAdmin, :isBlocked)
+      params.require(:operator).permit(:name, :login, :email, :password, :password_confirmation, :updating_password, :canAlocate, :canBuy, :isAdmin, :isBlocked)
     end
 
     def admin_or_me

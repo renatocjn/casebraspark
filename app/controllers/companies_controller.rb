@@ -1,5 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize
+  before_filter :apenasAdmin, except: [:show, :index]
 
   # GET /companies
   # GET /companies.json

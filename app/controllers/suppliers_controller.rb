@@ -1,5 +1,7 @@
 class SuppliersController < ApplicationController
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize
+  before_filter :apenasAdmin, except: [:show, :index]
 
   # GET /suppliers
   # GET /suppliers.json

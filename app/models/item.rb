@@ -21,7 +21,7 @@ class Item < ActiveRecord::Base
     validates :plate, :model, :serial, :brand, :value, presence: true
     validates :isDischarged, inclusion: {in: [true, false]}
     validates :dischargeDescription, presence: true, if: :isDischarged
-    validates :dischargeDescription, inclusion: {in: [nil]}, unless: :isDischarged
+    validates :dischargeDescription, inclusion: {in: [nil, '']}, unless: :isDischarged
     #validates :plate, uniqueness: {scope: :company}
     #validate :check_plate_uniqueness_by_company
     validates :value, numericality: {:greater_than => 0}
@@ -59,5 +59,9 @@ class Item < ActiveRecord::Base
 
     before_update do
         self.placement = isDischarged ? nil : self.allocations.order(date: :desc, created_at: :desc).first.destination
+    end
+
+    before_destroy do
+        allocations.each {|a| if a.items.count == 1 and a.allocations_items.empty? then a.destroy end }
     end
 end

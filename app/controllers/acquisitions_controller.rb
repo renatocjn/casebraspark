@@ -1,24 +1,22 @@
 class AcquisitionsController < ApplicationController
   before_action :set_acquisition, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
-  before_filter :podeComprar
-  before_filter :admin_or_mine, except: [:index, :new, :create]
+  before_filter :apenasAdmin, except: [:show, :index]
 
   # GET /acquisitions
   # GET /acquisitions.json
   def index
-    @acquisitions = current_user.isAdmin ? Acquisition.all : current_user.acquisitions
-    @acquisitions = @acquisitions.page params[:page]
+    @acquisitions = Acquisition.all.page params[:page]
 
-    if params.key? :acquisition
-      @acquisitions = @acquisitions.joins(:allocation).where "allocation.date >= ?", Date.parse(params[:acquisition][:initial_date]) unless params[:acquisition][:initial_date].blank?
-      @acquisitions = @acquisitions.joins(:allocation).where "allocation.date <= ?", Date.parse(params[:acquisition][:final_date]) unless params[:acquisition][:final_date].blank?
-      @acquisitions = @acquisitions.where operator: params[:acquisition][:operator] unless params[:acquisition][:operator].blank?
-      @acquisitions = @acquisitions.joins(:allocation).where "allocations.destination" => params[:acquisition][:destination] unless params[:acquisition][:destination].blank?
-      @acquisitions = @acquisitions.where invoice_number: params[:acquisition][:invoice_number] unless params[:acquisition][:invoice_number].blank?
-      @acquisitions = @acquisitions.where supplier: params[:acquisition][:supplier] unless params[:acquisition][:supplier].blank?
-      @acquisitions = @acquisitions.where company: params[:acquisition][:company] unless params[:acquisition][:company].blank?
-      @acquisitions = @acquisitions.joins(:allocation).where "reason like '%#{params[:acquisition][:reason]}%'" unless params[:acquisition][:reason].blank?
+    if params.key? :filter
+      @acquisitions = @acquisitions.joins(:allocation).where "allocation.date >= ?", Date.parse(filter_params[:initial_date]) unless filter_params[:initial_date].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "allocation.date <= ?", Date.parse(filter_params[:final_date]) unless filter_params[:final_date].blank?
+      @acquisitions = @acquisitions.where operator: filter_params[:operator] unless filter_params[:operator].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "allocations.destination" => filter_params[:destination] unless filter_params[:destination].blank?
+      @acquisitions = @acquisitions.where invoice_number: filter_params[:invoice_number] unless filter_params[:invoice_number].blank?
+      @acquisitions = @acquisitions.where supplier: filter_params[:supplier] unless filter_params[:supplier].blank?
+      @acquisitions = @acquisitions.where company: filter_params[:company] unless filter_params[:company].blank?
+      @acquisitions = @acquisitions.joins(:allocation).where "reason like '%#{filter_params[:reason]}%'" unless filter_params[:reason].blank?
     end
   end
 
@@ -96,7 +94,11 @@ class AcquisitionsController < ApplicationController
           :stock_item_groups_attributes => [:id, :stock_item_id, :quantity, :unit_value, :_destroy]])
     end
 
-    def admin_or_mine
-      redirect_to :root unless current_user.isAdmin or @acquisition.operator == current_user
+    def filter_params
+      params.require(:filter).permit(:invoice_number, :initial_date, :company, :supplier, :reason, :final_date, :operator, :destination)
     end
+
+    #def admin_or_mine
+    #  redirect_to :root unless current_user.isAdmin or @acquisition.operator == current_user
+    #end
 end

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if session[:user_id] and Operator.find(session[:user_id])
       @current_user ||= Operator.find(session[:user_id])
     else
-      redirect_to logout_path
+      redirect_to logout_path, alert: "Seção inválida"
     end
   end
   helper_method :current_user
@@ -17,18 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def apenasAdmin
-    redirect_to :root, notice: "Apenas usuários administradores podem acessar a página!" unless current_user.isAdmin
+    redirect_to :back, alert: "Apenas usuários administradores podem realizar esta ação" unless current_user.isAdmin
   end
-
-  def podeAlocar
-    redirect_to :root, notice: "Você não tem autorização para cadastrar alocações!" unless current_user.isAdmin or current_user.canAlocate
-  end
-
-  def podeComprar
-    redirect_to :root, notice: "Voce não tem autorização para cadastrar aquisições!" unless current_user.isAdmin or current_user.canBuy
-  end
-
-  #def not_found
-  #  raise ActionController::RoutingError.new('Not Found')
-  #end
 end

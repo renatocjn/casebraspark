@@ -7,8 +7,8 @@ class Acquisition < ActiveRecord::Base
 
     has_one :allocation, dependent: :destroy, inverse_of: :acquisition
     has_one :destination, through: :allocation
-    has_many :items, through: :allocation
-    has_many :stock_item_groups, through: :allocation
+    has_many :items, through: :allocation, dependent: :destroy
+    has_many :stock_item_groups, through: :allocation, dependent: :destroy
 
     accepts_nested_attributes_for :allocation, reject_if: :all_blank
     validates_associated :allocation
@@ -34,6 +34,4 @@ class Acquisition < ActiveRecord::Base
         errors.full_messages_for(:items).each {|m| logger.debug m}
         errors.full_messages_for(:stock_item_groups).each {|m| logger.debug m}
     end
-
-
 end

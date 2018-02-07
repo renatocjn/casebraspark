@@ -1,7 +1,7 @@
 class PlacementsController < ApplicationController
   before_action :set_placement, only: [:show, :edit, :update, :destroy, :stock_items]
   before_filter :authorize
-  before_filter :apenasAdmin, except: [:index, :show, :stock_items]
+  before_filter :apenasAdmin, except: [:show, :index]
 
   # GET /placements
   # GET /placements.json
