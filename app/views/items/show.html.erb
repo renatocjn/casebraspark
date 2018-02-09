@@ -73,17 +73,15 @@
         <th scope="col">Data</th>
         <th scope="col">Local</th>
         <th scope="col">Responsável</th>
-        <th></th>
       </tr>
     <% @allocations.each do |allocation| %>
-      <tr scope="row">
+      <tr scope="row" data-link="<%=allocation_path(allocation)%>">
         <td><%= localize allocation.created_at.to_date %></td>
         <td><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
         <td><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
-        <td><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
       </tr>
     <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
     </table>
   </div>
 </div>

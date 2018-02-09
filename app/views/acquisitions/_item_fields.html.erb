@@ -24,9 +24,7 @@
             <div class="col d-flex justify-content-around flex-wrap">
                 <%= render "items/form", item_form: f, type: type %>
             </div>
-            <div class="col-auto">
-                <%= link_to_remove_association fa_icon(:times), f, class: "btn btn-danger" %>
-            </div>
         </div>
+        <%= link_to_remove_association fa_icon(:times), f, class: "btn btn-sm btn-danger" %>
     </div>
 </div>

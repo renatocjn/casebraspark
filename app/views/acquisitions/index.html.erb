@@ -65,7 +65,7 @@
             <td><%= link_to fa_icon(:trash), acquisition, method: :delete, data: {confirm: "Tem certeza disso?"}, class: "btn btn-danger" %></td>
           </tr>
         <% end %>
-        <tr> <td colspan="8"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+        <tr> <td colspan="9"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
       </tbody>
     </table>
     <div class="float-right"><%= paginate @acquisitions %></div>

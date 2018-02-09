@@ -6,7 +6,7 @@ class AcquisitionsController < ApplicationController
   # GET /acquisitions
   # GET /acquisitions.json
   def index
-    @acquisitions = Acquisition.all.page params[:page]
+    @acquisitions = Acquisition.joins(:allocation).order("allocations.date DESC", created_at: :desc).page params[:page]
 
     if params.key? :filter
       @acquisitions = @acquisitions.joins(:allocation).where "allocation.date >= ?", Date.parse(filter_params[:initial_date]) unless filter_params[:initial_date].blank?

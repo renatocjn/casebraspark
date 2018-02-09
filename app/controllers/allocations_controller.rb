@@ -6,7 +6,7 @@ class AllocationsController < ApplicationController
   # GET /allocations
   # GET /allocations.json
   def index
-    @allocations = Allocation.all.page params[:page]
+    @allocations = Allocation.all.order(date: :desc, created_at: :desc).page params[:page]
 
     if params.key? :allocation
       @allocations = @allocations.where "date >= ?", Date.parse(params[:allocation][:initial_date]) unless params[:allocation][:initial_date].blank?

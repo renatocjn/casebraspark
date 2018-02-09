@@ -49,17 +49,15 @@
         <th scope="col">Data</th>
         <th scope="col">Responsável</th>
         <th scope="col">Fornecedor</th>
-        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
-        <tr scope="row">
+        <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
           <td> <%= localize acquisition.date %> </td>
           <td> <%= acquisition.operator %> </td>
           <td> <%= acquisition.supplier %> </td>
-          <td> <%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %> </td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 
@@ -73,16 +71,14 @@
       <tr>
         <th scope="col">Data</th>
         <th scope="col">Resposável</th>
-        <th scope="col"></th>
       </tr>
       <% @allocations.each do |allocation| %>
-        <tr scope="row">
+        <tr scope="row" data-link="<%=allocation_path(allocation)%>">
           <td> <%= localize allocation.date %> </td>
           <td> <%= allocation.operator %> </td>
-          <td> <%= link_to fa_icon("info-circle"), allocation, class: "text-info" %> </td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+      <tr> <td colspan="2"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
     </table>
   </div>
 </div>
@@ -154,17 +150,15 @@
         <th scope="col">Plaqueta</th>
         <th scope="col">Descrição</th>
         <th scope="col">Número de série</th>
-        <th></th>
       </tr>
       <% @items.each do |item| %>
-        <tr scope="row">
+        <tr scope="row" data-link="<%=item_path(item)%>">
           <td> <%= item.plate %> </td>
           <td> <%= item %> </td>
           <td> <%= item.serial %> </td>
-          <td> <%= link_to fa_icon("info-circle"), item, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
 </div>

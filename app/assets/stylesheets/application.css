@@ -69,5 +69,12 @@ footer {
 }
 
 [data-link]:hover {
-    cursor: alias;
+    cursor: alias!important;
+}
+
+a.remove_fields {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    display: inline-block;
 }

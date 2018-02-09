@@ -1,3 +1,4 @@
+
 class Item < ActiveRecord::Base
 
     has_many :allocations_items, dependent: :destroy, inverse_of: :item
@@ -7,6 +8,7 @@ class Item < ActiveRecord::Base
 
     belongs_to :parkable_item, polymorphic: true, dependent: :destroy
     accepts_nested_attributes_for :parkable_item#, :reject_if => :all_blank
+
 
     delegate :processor, :memory, :harddrive, :inches, :paint, :connection, :number_of_channels, :functions, :function, to: :parkable_item
 
@@ -21,7 +23,7 @@ class Item < ActiveRecord::Base
     validates :plate, :model, :serial, :brand, :value, presence: true
     validates :isDischarged, inclusion: {in: [true, false]}
     validates :dischargeDescription, presence: true, if: :isDischarged
-    validates :dischargeDescription, inclusion: {in: [nil, '']}, unless: :isDischarged
+    validates :dischargeDescription, inclusion: {in: [nil, ""]}, unless: :isDischarged
     #validates :plate, uniqueness: {scope: :company}
     #validate :check_plate_uniqueness_by_company
     validates :value, numericality: {:greater_than => 0}
@@ -34,8 +36,8 @@ class Item < ActiveRecord::Base
         description
     end
 
-    def build_parkable_item(params) # https://stackoverflow.com/questions/3969025/accepts-nested-attributes-for-with-belongs-to-polymorphic
-        self.parkable_item = parkable_item_type.constantize.new(params)
+    def build_parkable_item(attributes) # https://stackoverflow.com/questions/3969025/accepts-nested-attributes-for-with-belongs-to-polymorphic
+        self.parkable_item = parkable_item_type.constantize.new(attributes)
     end
 
     TYPES_TRANSLATIONS = {
@@ -57,11 +59,15 @@ class Item < ActiveRecord::Base
         self.allocations.order(date: :asc).first.acquisition
     end
 
+    def last_allocation
+        self.allocations.order(date: :desc, created_at: :desc).first
+    end
+
     before_update do
-        self.placement = isDischarged ? nil : self.allocations.order(date: :desc, created_at: :desc).first.destination
+        self.placement = isDischarged ? nil : last_allocation.destination if isDischarged_changed?
     end
 
     before_destroy do
-        allocations.each {|a| if a.items.count == 1 and a.allocations_items.empty? then a.destroy end }
+        allocations.each {|a| if a.items.count == 1 and a.allocations_items.empty? then a.destroy end}
     end
 end

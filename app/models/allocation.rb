@@ -1,4 +1,6 @@
+
 class Allocation < ActiveRecord::Base
+    #FIXME figure it out why allocations are not being destroyed
 
     belongs_to :operator, inverse_of: :allocations
     belongs_to :origin, class_name: "Placement", inverse_of: :allocations
@@ -8,12 +10,21 @@ class Allocation < ActiveRecord::Base
     has_many :allocations_items, dependent: :destroy, inverse_of: :allocation
     accepts_nested_attributes_for :allocations_items, allow_destroy: true
 
-    has_many :items, through: :allocations_items, inverse_of: :allocations
+    has_many :items, through: :allocations_items, inverse_of: :allocations, validate: true
     accepts_nested_attributes_for :items, allow_destroy: true
 
-    has_many :stock_item_groups, dependent: :destroy, inverse_of: :allocation
+    has_many :stock_item_groups, dependent: :destroy, inverse_of: :allocation, validate: true
     has_many :stock_items, through: :stock_item_groups, inverse_of: :allocations
     accepts_nested_attributes_for :stock_item_groups, allow_destroy: true
+
+    validates :reason, :destination, :operator, :date, presence: true
+    validates :origin, presence: true, unless: :is_acquisition
+    validate :check_presence_of_items
+    validate :check_origin_items, unless: :is_acquisition
+    validate :check_uniqueness_of_stock_item_id_on_stock_item_groups, on: :create #needed because of nested forms
+    validate :check_if_destination_and_origin_are_different
+
+    #validates_associated :items, :stock_item_groups
 
     def is_acquisition
         not acquisition.nil?
@@ -24,13 +35,18 @@ class Allocation < ActiveRecord::Base
     end
 
     def Allocation::convert_item_attributes_plates_to_join_table_attributes(allocation_attributes)
-        new_allocation_attributes = allocation_attributes.dup
+        new_allocation_attributes = allocation_attributes.deep_dup
         if new_allocation_attributes.include? :items_attributes
             all_items_found = true
             items_attributes = new_allocation_attributes.delete :items_attributes
             ai_attributes = Hash.new
             items_attributes.each do |item_key, item_attributes|
-                item = Item.where(placement_id: allocation_attributes[:origin_id]).select(:id).find_by_plate(item_attributes[:plate])
+                if item_attributes[:id].blank?
+                    item = Item.where(placement_id: item_attributes[:origin_id]).select(:id).find_by_plate(item_attributes[:plate])
+                else
+                    item = Item.where(placement_id: item_attributes[:origin_id]).select(:id).find(item_attributes[:id])
+                end
+
                 if item.nil?
                     all_items_found = false
                     break
@@ -45,41 +61,40 @@ class Allocation < ActiveRecord::Base
                 new_allocation_attributes[:items_attributes] = items_attributes
             end
         end
-        new_allocation_attributes
+        #FIXME not returning the altered array
+        return new_allocation_attributes
     end
 
-    def Allocation::create_from_plates allocation_attributes
-        new_allocation_attributes = Allocation::convert_item_attributes_plates_to_join_table_attributes allocation_attributes
-
+    def Allocation::create_from_plates alloc_attributes
+        new_allocation_attributes = Allocation::convert_item_attributes_plates_to_join_table_attributes alloc_attributes
+        #FIXME fix problem with stock_item_group quantity validations
         new_allocation = Allocation.new new_allocation_attributes
+        logger.debug new_allocation_attributes
+        logger.debug new_allocation
+        logger.debug new_allocation.items
+        logger.debug new_allocation.stock_item_groups
         if new_allocation.valid?
-            new_allocation
+            logger.debug "Valid"
+            return new_allocation
         else
+            logger.debug "Invalid"
             new_allocation.errors.full_messages.each {|m| logger.debug m}
-            Allocation.new allocation_attributes
+            return Allocation.new alloc_attributes
         end
     end
 
-    def update_from_plates allocation_attributes
-        new_allocation_attributes = Allocation::convert_item_attributes_plates_to_join_table_attributes allocation_attributes
+    def update_from_plates alloc_attributes
+        #TODO make update show validation errors
+        new_allocation_attributes = Allocation::convert_item_attributes_plates_to_join_table_attributes alloc_attributes
+
         self.transaction do
-            self.items.destroy_all
+            self.allocations_items.destroy_all
             self.update new_allocation_attributes
         end
     end
 
-    validates_associated :items
-    validates_associated :stock_item_groups
-
-    validates :reason, :destination, :operator, :date, presence: true
-    validates :origin, presence: true, unless: :is_acquisition
-    validate :check_presence_of_items
-    validate :check_origin_items, unless: :is_acquisition
-    validate :check_uniqueness_of_stock_item_id_on_stock_item_groups, on: :create #needed because of nested forms
-    validate :check_if_destination_and_origin_are_different
-
     def check_uniqueness_of_stock_item_id_on_stock_item_groups
-        stock_item_ids = stock_item_groups.pluck :stock_item_id
+        stock_item_ids = stock_item_groups.collect {|g| g.stock_item_id}
         errors.add :base, "Existem items sem plaqueta duplicados" if stock_item_ids.uniq.length != stock_item_ids.length and stock_item_ids.length > 1
     end
 
@@ -88,11 +103,16 @@ class Allocation < ActiveRecord::Base
     end
 
     def check_origin_items
-        items.each { |i| i.errors.add :plate, "Esta plaqueta não foi encontrada no local de origem" unless items.where(placement: origin_id).find_by_plate i.plate }
+        #FIXME add_error_to_all_groups on nil origin mot working
+        add_error_to_all = origin.nil? ? true : false
+
+        items.each do |i|
+            i.errors.add :plate, "Esta plaqueta não foi encontrada no local de origem" if add_error_to_all or Item.where(placement: origin_id).find_by_plate(i.plate).nil?
+        end
 
         stock_item_groups.each do |group|
-            stock_count = origin.stock_item_counts.where(stock_item: group.stock_item).first
-            if stock_count.nil?
+            stock_count = StockItemCount.find_by(stock_item: group.stock_item, placement: origin)
+            if stock_count.nil? or add_error_to_all
                 group.errors.add :stock_item_id, "Este item não foi encontrado no local de origem"
             else
                 group.errors.add :quantity, "O local de origem não tem a quantidade de items necessária" unless stock_count.count >= group.quantity
@@ -135,9 +155,11 @@ class Allocation < ActiveRecord::Base
             stock_count.count += group.quantity
             stock_count.save
         end
+
+        self.items.each { |i| i.update placement_id: destination if destination_id_changed? and self==i.last_allocation}
     end
 
-    after_save { self.items.update_all placement_id: destination }
+
 
     after_create do
         self.stock_item_groups.each do |group|
@@ -155,6 +177,8 @@ class Allocation < ActiveRecord::Base
             stock_count.count += group.quantity
             stock_count.save!
         end
+
+        self.items.update_all placement_id: destination
     end
 
     def get_origin
@@ -171,6 +195,12 @@ class Allocation < ActiveRecord::Base
         end
     end
 
+    after_destroy do
+        self.items.each do |i|
+            i.update placement_id: i.last_allocation.placement
+        end
+    end
+
     #after_rollback do
     #    logger.debug "******AFTER ROLLBACK******"
     #    errors.full_messages.each {|e| logger.debug e }
@@ -180,12 +210,3 @@ class Allocation < ActiveRecord::Base
     #    logger.debug "**************************"
     #end
 end
-
-#class AllocationForm
-#    include ActiveModel::Model
-
-#    attr_acessor :reason, :origin_id, :destination_id, :date, :items_attributes, :stock_item_groups_attributes, :allocations_items_attributes
-
-#    validates :reason, :origin_id, :destination_id, :date, presence: true
-#    items.each { |i| i.errors.add :plate, "Esta plaqueta não foi encontrada no local de origem" unless self.origin.items.find_by_plate i.plate }
-#end

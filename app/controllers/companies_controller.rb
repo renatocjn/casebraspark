@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all.page params[:page]
+    @companies = Company.all.order(created_at: :desc).page params[:page]
 
     if params.key? :company
       @companies = @companies.where "name like '%#{params[:company][:name]}%'" unless params[:company][:name].blank?

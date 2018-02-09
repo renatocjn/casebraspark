@@ -28,18 +28,13 @@
 <div class="row">
   <div class="col">
     <table class="table table-sm table-hover text-center">
-      <thead>
-        <th colspan="4" class="text-center">Permissões</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="w-25"><label>Administrador?</label></td>
-          <td class="w-25"><%= @operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+      <tr>
+        <td class="w-25"><label>Administrador?</label></td>
+        <td class="w-25"><%= @operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
 
-          <td class="w-25"><label>Bloqueado?</label></td>
-          <td class="w-25"><%= @operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
-          </tr>
-      </tbody>
+        <td class="w-25"><label>Bloqueado?</label></td>
+        <td class="w-25"><%= @operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
+      </tr>
     </table>
   </div>
 </div>
@@ -56,17 +51,15 @@
         <th scope="col">Data</th>
         <th scope="col">Responsável</th>
         <th scope="col">Fornecedor</th>
-        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
-        <tr scope="row">
-          <td><%= acquisition.date %></td>
+        <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
+          <td><%= localize acquisition.date %></td>
           <td><%= acquisition.operator %></td>
           <td><%= acquisition.supplier %></td>
-          <td><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 
@@ -81,17 +74,15 @@
         <th scope="col">Data</th>
         <th scope="col">Resonsável</th>
         <th scope="col">items</th>
-        <th scope="row"></th>
       </tr>
       <% @allocations.each do |allocation| %>
-        <tr scope="row">
-          <td><%= allocation.date %></td>
+        <tr scope="row" data-link="<%=allocation_path(allocation)%>">
+          <td><%= localize allocation.date %></td>
           <td><%= allocation.operator %></td>
           <td><%= allocation.count_items %></td>
-          <td><%= link_to fa_icon("info-circle"), allocation, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
     </table>
   </div>
 </div>

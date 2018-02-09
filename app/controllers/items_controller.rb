@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all.page params[:page]
+    @items = Item.all.order(created_at: :desc).page params[:page]
 
     if params.key? :item
       unless params[:item][:parkable_item_type].blank?

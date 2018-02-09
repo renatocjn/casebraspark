@@ -70,17 +70,15 @@
         <th scope="col">Data</th>
         <th scope="col">Valor</th>
         <th scope="col">Items</th>
-        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
-        <tr scope="row">
-          <td><%= localize acquisition.created_at.to_date %></td>
+        <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
+          <td><%= localize acquisition.date %></td>
           <td><%= number_to_currency acquisition.totalValue %></td>
           <td><%= acquisition.count_items %></td>
-          <td><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+      <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 </div>

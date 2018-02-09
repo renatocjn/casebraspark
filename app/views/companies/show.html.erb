@@ -38,18 +38,16 @@
         <th scope="col">Fornecedor</th>
         <th scope="col">Responsável</th>
         <th scope="col">Destino</th>
-        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
-        <tr scope="row">
+        <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
           <td><%= localize acquisition.date %></td>
           <td><%= acquisition.supplier %></td>
           <td><%= acquisition.operator %></td>
           <td><%= acquisition.destination %></td>
-          <td><%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="5"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
+      <tr> <td colspan="4"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
     </table>
   </div>
 
@@ -66,8 +64,8 @@
         <th scope="col">Local atual</th>
       </tr>
       <% @items.each do |item| %>
-        <tr scope="row">
-          <td><%= link_to item.plate, item, class: "text-info" %></td>
+        <tr scope="row" data-link="<%=item_path(item)%>">
+          <td><%= item.plate %></td>
           <td><%= item %></td>
           <td><%= link_to item.placement, item.placement, class: "text-info" %></td>
         </tr>
