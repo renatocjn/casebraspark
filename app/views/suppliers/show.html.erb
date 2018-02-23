@@ -3,11 +3,11 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-25"><label>Nome:</label></td>
+        <td class="w-25"><label><%=fa_icon("shopping-basket", text: "Nome:")%></label></td>
         <td><%= @supplier.name %></td>
       </tr>
       <tr>
-        <td class="w-25"><label>E-mail:</label></td>
+        <td class="w-25"><label><%=fa_icon("at", text: "E-mail:")%></label></td>
         <td><%= @supplier.email %></td>
       </tr>
     </table>
@@ -17,12 +17,12 @@
     <table class="table">
       <tr> <td colspan="2">
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon(:pencil, text: "Editar"), edit_supplier_path(@supplier), class: "btn btn-primary btn-block m-0 mx-1" %>
-          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon("pencil-alt", text: "Editar"), edit_supplier_path(@supplier), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
       <tr>
-        <td class="w-25"><label>Telefones:</label></td>
+        <td class="w-25"><label><%=fa_icon("phone", text: "Telefones:")%></label></td>
         <td><%= simple_format @supplier.phones %></td>
       </tr>
     </table>
@@ -34,7 +34,7 @@
     <div class="col">
       <table class="table">
         <tr>
-          <td class="w-25"><label>Outras informações:</label></td>
+          <td class="w-25"><label><%=fa_icon("comment", text: "Outras informações:")%></label></td>
           <td><%= simple_format @supplier.other %></td>
         </tr>
       </table>
@@ -67,9 +67,9 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Items</th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+        <th scope="col"><%=fa_icon("money-bill-alt", text: "Valor")%></th>
+        <th scope="col"><%=fa_icon("cubes", text: "Items")%></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">

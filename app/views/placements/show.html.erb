@@ -3,12 +3,12 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-25"><label>Descrição:</label></td>
+        <td class="w-25"><label><%=fa_icon("info", text: "Descrição:")%></label></td>
         <td><%= @placement.description %></td>
       </tr>
 
       <tr>
-        <td class="w-25"><label>Contatos:</label></td>
+        <td class="w-25"><label><%=fa_icon("phone", text: "Contatos:")%></label></td>
         <td><%= @placement.contact %></td>
       </tr>
     </table>
@@ -19,7 +19,7 @@
       <tr> <td>
         <div class="d-flex justify-content-around">
           <%= link_to 'Editar', edit_placement_path(@placement), class: "btn btn-primary btn-block m-0 mx-1" %>
-          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
     </table>
@@ -30,7 +30,7 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-25"><label>Endereço:</label></td>
+        <td class="w-25"><label><%=fa_icon("map-marker", text: "Endereço:")%></label></td>
         <td><%= @placement.address %></td>
       </tr>
     </table>
@@ -46,9 +46,9 @@
     </div>
     <table class="table table-hover table-sm">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Responsável</th>
-        <th scope="col">Fornecedor</th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+        <th scope="col"><%=fa_icon("user", text: "Responsável")%></th>
+        <th scope="col"><%=fa_icon("shopping-basket", text: "Fornecedor")%></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
@@ -69,8 +69,8 @@
     </div>
     <table class="table table-hover table-sm">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Resposável</th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+        <th scope="col"><%=fa_icon("user", text: "Resposável")%></th>
       </tr>
       <% @allocations.each do |allocation| %>
         <tr scope="row" data-link="<%=allocation_path(allocation)%>">
@@ -92,8 +92,8 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Tipo</th>
-        <th scope="col">Quantidade</th>
+        <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
+        <th scope="col"><%=fa_icon("cubes", text: "Quantidade")%></th>
       </tr>
       <% @type_counts.each do |type, amount| %>
         <tr scope="row">
@@ -113,9 +113,9 @@
     </div>
     <table class="table table-hover table-sm">
       <tr>
-        <th scope="col">Descrição</th>
-        <th scope="col">Quantidade</th>
-        <th scope="col">Baixa</th>
+        <th scope="col"><%=fa_icon("info", text: "Descrição")%></th>
+        <th scope="col"><%=fa_icon("cubes", text: "Quantidade")%></th>
+        <th scope="col"><%=fa_icon("trash", text: "Baixa")%></th>
       </tr>
       <% @stock_item_counts.each do |item| %>
         <tr scope="row">
@@ -147,11 +147,11 @@
     </div>
     <table class="table table-hover table-sm">
       <tr>
-        <th scope="col">Plaqueta</th>
-        <th scope="col">Descrição</th>
-        <th scope="col">Número de série</th>
-        <th scope="col">Tempo desde compra</th>
-        <th scope="col">Valor de compra</th>
+        <th scope="col"><%=fa_icon("tag", text: "Plaqueta")%></th>
+        <th scope="col"><%=fa_icon("info", text: "Descrição")%></th>
+        <th scope="col"><%=fa_icon("hashtag", text: "Número de série")%></th>
+        <th scope="col"><%=fa_icon("clock", text: "Tempo desde a compra")%></th>
+        <th scope="col"><%=fa_icon("money-bill-alt", text: "Valor de compra")%></th>
       </tr>
       <% @items.each do |item| %>
         <tr scope="row" data-link="<%=item_path(item)%>">

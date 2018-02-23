@@ -3,22 +3,22 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-25"><label>Plaqueta:</label></td>
+        <td class="w-25"><label><%=fa_icon("tag", text: "Plaqueta:")%></label></td>
         <td><%= @item.plate %></td>
       </tr>
 
       <tr>
-        <td class="w-25"><label>Descrição:</label></td>
+        <td class="w-25"><label><%=fa_icon("info", text: "Descrição:")%></label></td>
         <td><%= @item.to_s %></td>
       </tr>
 
       <tr>
-        <td class="w-25"><label>Número serial:</label></td>
+        <td class="w-25"><label><%=fa_icon("hashtag", text: "Serial:")%></label></td>
         <td><%= @item.serial %></td>
       </tr>
 
       <tr>
-        <td class="w-25"><label>Valor:</label></td>
+        <td class="w-25"><label><%=fa_icon("money-bill-alt", text: "Valor:")%></label></td>
         <td><%= number_to_currency @item.value %></td>
       </tr>
     </table>
@@ -28,8 +28,8 @@
     <table class="table">
       <tr> <td colspan="2">
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon(:pencil, text: "Editar"), edit_item_path(@item), class: "btn btn-primary btn-block m-0 mx-1" %>
-          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon("pencil-alt", text: "Editar"), edit_item_path(@item), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
 
@@ -40,7 +40,7 @@
       </tr>
 
       <tr>
-        <td class="w-50"><label>Foi Descartado?</label></td>
+        <td class="w-50"><label><%=fa_icon("trash-alt", text: "Foi Descartado?")%></label></td>
         <td><%= @item.isDischarged ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
       </tr>
     </table>
@@ -52,7 +52,7 @@
     <div class="col">
       <table class="table">
         <tr>
-          <td class="w-25"><label>Descrição do descarte:</label></td>
+          <td class="w-25"><label><%=fa_icon("comment", text: "Descrição do descarte:")%></label></td>
           <td> <%= simple_format @item.dischargeDescription %> </td>
         </tr>
       </table>
@@ -70,9 +70,9 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Local</th>
-        <th scope="col">Responsável</th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+        <th scope="col"><%=fa_icon("map-marker-alt", text: "Local atual")%></th>
+        <th scope="col"><%=fa_icon("user", text: "Responsável")%></th>
       </tr>
     <% @allocations.each do |allocation| %>
       <tr scope="row" data-link="<%=allocation_path(allocation)%>">

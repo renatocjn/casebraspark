@@ -21,4 +21,5 @@
 //= require cocoon
 //= require popper
 //= require_tree .
-//= require_tree ../../../vendor/assets/javascripts
+//= require_tree ../../../vendor/assets/javascripts/bootstrap
+//= require jquery.maskMoney.min

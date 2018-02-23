@@ -3,12 +3,12 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-50"><label>Descrição curta:</label></td>
+        <td class="w-50"><label><%=fa_icon("info", text: "Descrição curta:")%></label></td>
         <td><%= @stock_item.short_description %></td>
       </tr>
 
       <tr>
-        <td class="w-50"><label>Descrição Longa:</label></td>
+        <td class="w-50"><label><%=fa_icon("comment", text: "Descrição Longa:")%></label></td>
         <td><%= @stock_item.long_description %></td>
       </tr>
     </table>
@@ -18,13 +18,13 @@
     <table class="table">
       <tr> <td colspan="2">
         <div class="d-flex justify-content-around">
-          <%= link_to 'Editar', edit_stock_item_path(@stock_item), class: "btn btn-primary btn-block m-0 mx-1" %>
-          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon("pencil-alt", text: 'Editar'), edit_stock_item_path(@stock_item), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
 
       <tr>
-        <td class="w-50"><label>Quantidade em estoque:</label></td>
+        <td class="w-50"><label><%=fa_icon("cubes", text: "Quantidade em estoque:")%></label></td>
         <td> <%= @stock_item.quantity_in_stock %></td>
       </tr>
     </table>
@@ -56,9 +56,9 @@
     </div>
     <table class="table table-hover table-sm">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Resposável</th>
-        <th scope="col">Fornecedor</th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+        <th scope="col"><%=fa_icon("user", text: "Resposável")%></th>
+        <th scope="col"><%=fa_icon("shopping-basket", text: "Fornecedor")%></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">

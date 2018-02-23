@@ -10,7 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require font-awesome
  *= require_tree .
  *= require_tree ../../../vendor/assets/stylesheets
  *= require_self
@@ -77,4 +76,8 @@ a.remove_fields {
     top: 1em;
     right: 1em;
     display: inline-block;
+}
+
+label {
+    font-weight: bold;
 }

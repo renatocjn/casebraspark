@@ -39,12 +39,12 @@
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th scope="col">Data</th>
-          <th scope="col">Responsável</th>
-          <th scope="col">Fornecedor</th>
-          <th scope="col">Destino</th>
-          <th scope="col">Número de itens</th>
-          <th scope="col">Valor total</th>
+          <th scope="col"><%= fa_icon("calendar-alt", text: "Data")%></th>
+          <th scope="col"><%= fa_icon("user", text: "Responsável")%></th>
+          <th scope="col"><%= fa_icon("shopping-basket", text: "Fornecedor")%></th>
+          <th scope="col"><%= fa_icon("map-marker-alt", text: "Destino")%></th>
+          <th scope="col"><%= fa_icon("cubes", text: "Número de itens")%></th>
+          <th scope="col"><%= fa_icon("money-bill-alt ", text: "Valor total")%></th>
           <th scope="col"></th>
           <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th></th>
           <th scope="col"><%= link_to fa_icon("plus-circle"), new_acquisition_path, class: "btn btn-primary" %></th>
@@ -61,7 +61,7 @@
             <td><%= acquisition.count_items %></td>
             <td><%= number_to_currency acquisition.totalValue %></td>
             <td><%= link_to fa_icon("info-circle"), acquisition, class: "btn btn-info" %></td>
-            <td><%= link_to fa_icon(:pencil), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
+            <td><%= link_to fa_icon("pencil-alt"), edit_acquisition_path(acquisition), class: "btn btn-secondary" %></td>
             <td><%= link_to fa_icon(:trash), acquisition, method: :delete, data: {confirm: "Tem certeza disso?"}, class: "btn btn-danger" %></td>
           </tr>
         <% end %>

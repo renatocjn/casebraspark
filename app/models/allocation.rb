@@ -1,6 +1,5 @@
 
 class Allocation < ActiveRecord::Base
-    attr_accessor :item_plates
 
     belongs_to :operator, inverse_of: :allocations
     belongs_to :origin, class_name: "Placement", inverse_of: :allocations

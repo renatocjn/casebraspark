@@ -31,10 +31,10 @@
     <table class='table table-hover text-center'>
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">E-mail</th>
-          <th scope="col">Administrador?</th>
-          <th scope="col">Bloqueado?</th>
+          <th scope="col"><%=fa_icon("user", text: "Nome")%></th>
+          <th scope="col"><%=fa_icon("at", text: "E-mail")%></th>
+          <th scope="col"><%=fa_icon("user-secret", text: "Administrador?")%></th>
+          <th scope="col"><%=fa_icon("lock", text: "Bloqueado?")%></th>
           <th scope="col"></th>
           <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
           <th scope="col"><%= link_to fa_icon("plus-circle"), new_operator_path, class: "btn btn-primary"  %></th>
@@ -49,7 +49,7 @@
             <td><%= operator.isAdmin ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td><%= operator.isBlocked ? fa_icon(:check, text:"Sim") : fa_icon(:times, text:"Não") %></td>
             <td><%= link_to fa_icon("info-circle"), operator, class: "btn btn-info" %></td>
-            <td><%= link_to fa_icon(:pencil), edit_operator_path(operator), class: "btn btn-secondary" %></td>
+            <td><%= link_to fa_icon("pencil-alt"), edit_operator_path(operator), class: "btn btn-secondary" %></td>
             <td><%= link_to fa_icon(:trash), operator, data: {confirm: "Você tem certeza?"}, method: :delete, class: "btn btn-danger" %></td>
           </tr>
         <% end %>

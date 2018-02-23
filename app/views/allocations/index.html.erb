@@ -37,11 +37,11 @@
     <table class="table table-hover text-center">
       <thead>
         <tr>
-          <th scope="col">Data</th>
-          <th scope="col">Responsável</th>
-          <th scope="col">Origem</th>
-          <th scope="col">Destino</th>
-          <th scope="col">Número de itens</th>
+          <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+          <th scope="col"><%=fa_icon("user", text: "Responsável")%></th>
+          <th scope="col"><%=fa_icon("sign-out-alt", text: "Origem")%></th>
+          <th scope="col"><%=fa_icon("sign-in-alt", text: "Destino")%></th>
+          <th scope="col"><%=fa_icon("cubes", text: "Número de itens")%></th>
           <th></th>
           <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></th>
           <th scope="col"><%= link_to fa_icon("plus-circle"), new_allocation_path, class: "btn btn-primary"%></th>
@@ -57,7 +57,7 @@
             <td><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
             <td><%= allocation.count_items %></td>
             <td><%= link_to fa_icon("info-circle"), allocation, class: "btn btn-info" %></td>
-            <td><%= link_to fa_icon(:pencil), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
+            <td><%= link_to fa_icon("pencil-alt"), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
             <td><%= link_to fa_icon(:trash), allocation, method: :delete, data: {confirm: "Você tem certeza?"}, class: "btn btn-danger" %></td>
           </tr>
         <% end %>

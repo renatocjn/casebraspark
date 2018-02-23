@@ -3,15 +3,15 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-50"><label>Data:</label></td>
+        <td class="w-50"><label><%=fa_icon("calendar-alt", text: "Data:")%></label></td>
         <td><%= localize @allocation.date %></td>
       </tr>
       <tr>
-        <td class="w-50"><label>Origem da alocação:</label></td>
+        <td class="w-50"><label><%=fa_icon("sign-out-alt", text: "Origem da alocação:")%></label></td>
         <td><%= link_to @allocation.get_origin, placement_path(@allocation.get_origin), class: "text-info" %></td>
       </tr>
       <tr>
-        <td class="w-50"><label>Destino da alocação:</label></td>
+        <td class="w-50"><label><%=fa_icon("sign-in-alt", text: "Destino da alocação:")%></label></td>
         <td><%= link_to @allocation.destination, placement_path(@allocation.destination), class: "text-info" %></td>
       </tr>
     </table>
@@ -20,12 +20,12 @@
     <table class="table">
       <tr> <td colspan="2">
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon(:pencil, text: "Editar"), edit_allocation_path(@allocation), class: "btn btn-primary btn-block m-0 mx-1" %>
-          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon("pencil-alt", text: "Editar"), edit_allocation_path(@allocation), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
       <tr>
-        <td class="w-50"><label>Operador responsável:</label></td>
+        <td class="w-50"><label><%=fa_icon("user", text: "Operador responsável:")%></label></td>
         <td><%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %></td>
       </tr>
     </table>
@@ -36,7 +36,7 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-25"><label>Motivo:</label></td>
+        <td class="w-25"><label><%=fa_icon("comment", text: "Motivo:")%></label></td>
         <td class="w-75"><%= simple_format @allocation.reason %></td>
       </tr>
     </table>
@@ -52,8 +52,8 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Tipo</th>
-        <th scope="col">Quantidade</th>
+        <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
+        <th scope="col"><%=fa_icon("cubes", text: "Quantidade")%></th>
       </tr>
       <% @type_counts.each do |type, amount| %>
         <tr scope="row">
@@ -73,8 +73,8 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Descrição</th>
-        <th scope="col">Quantidade</th>
+        <th scope="col"><%=fa_icon("info", text: "Descrição")%></th>
+        <th scope="col"><%=fa_icon("cubes", text: "Quantidade")%></th>
       </tr>
       <% @stock_item_groups.each do |item| %>
         <tr scope="row">
@@ -97,11 +97,11 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Plaqueta</th>
-        <th scope="col">Descrição</th>
-        <th scope="col">Número de série</th>
-        <th scope="col">Local atual</th>
-        <th scope="col">Descartado?</th>
+        <th scope="col"><%=fa_icon("tag", text: "Plaqueta")%></th>
+        <th scope="col"><%=fa_icon("info", text: "Descrição")%></th>
+        <th scope="col"><%=fa_icon("hashtag", text: "Número de série")%></th>
+        <th scope="col"><%=fa_icon("map-marker-alt", text: "Local atual")%></th>
+        <th scope="col"><%=fa_icon("trash", text: "Descartado?")%></th>
       </tr>
       <% @items.each do |item| %>
         <tr scope="row" data-link="<%= item_path(item) %>">

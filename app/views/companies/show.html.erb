@@ -3,11 +3,11 @@
   <div class="col">
     <table class="table">
       <tr>
-        <td class="w-25"><label>Nome:</label></td>
+        <td class="w-25"><label><%=fa_icon("building", text: "Nome:")%></label></td>
         <td><%= @company.name %></td>
       </tr>
       <tr>
-        <td class="w-25"><label>CNPJ:</label></td>
+        <td class="w-25"><label><%=fa_icon("info", text: "CNPJ:")%></label></td>
         <td><%= @company.cnpj %></td>
       </tr>
     </table>
@@ -17,8 +17,8 @@
     <table class="table">
       <tr> <td>
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon(:pencil, text: "Editar"), edit_company_path(@company), class: "btn btn-primary btn-block m-0 mx-1" %>
-          <%= link_to fa_icon(:list, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon("pencil-alt", text: "Editar"), edit_company_path(@company), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
     </table>
@@ -34,10 +34,10 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Data</th>
-        <th scope="col">Fornecedor</th>
-        <th scope="col">Responsável</th>
-        <th scope="col">Destino</th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
+        <th scope="col"><%=fa_icon("shopping-basket", text: "Fornecedor")%></th>
+        <th scope="col"><%=fa_icon("user", text: "Responsável")%></th>
+        <th scope="col"><%=fa_icon("map-marker-alt", text: "Destino")%></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
         <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
@@ -59,9 +59,9 @@
     </div>
     <table class="table table-sm table-hover">
       <tr>
-        <th scope="col">Plaqueta</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Local atual</th>
+        <th scope="col"><%=fa_icon("tag", text: "Plaqueta")%></th>
+        <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
+        <th scope="col"><%=fa_icon("map-marker-alt", text: "Local atual")%></th>
       </tr>
       <% @items.each do |item| %>
         <tr scope="row" data-link="<%=item_path(item)%>">
