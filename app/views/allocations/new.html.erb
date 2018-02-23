@@ -4,7 +4,6 @@
 <div class="row">
     <div class="col">
         <%= allocation_form.error_notification %>
-        <% @allocation.errors.keys.each {|k| logger.debug k}%>
         <% if @allocation.errors[:base].any? %>
             <div class="alert alert-warning">
                 <% @allocation.errors.full_messages_for(:base).each do |error| %>

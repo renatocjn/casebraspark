@@ -94,6 +94,6 @@ class OperatorsController < ApplicationController
     end
 
     def admin_or_me
-      redirect_to :root, notice: "Você não tem permissão para acessar esta página!" unless @operator == current_user or current_user.isAdmin
+      redirect_to :root, notice: "Você não tem permissão para acessar esta página!" unless @operator == @current_user or @current_user.isAdmin
     end
 end

@@ -40,7 +40,7 @@ class PlacementsController < ApplicationController
     @placement = Placement.new(placement_params)
     respond_to do |format|
       if @placement.save
-        format.html { redirect_to @placement, notice: 'Novo local registrado com sucesso.' }
+        format.html { redirect_to @placement, notice: 'Novo local registrado com sucesso' }
         format.json { render :show, status: :created, location: @placement }
       else
         format.html { render :new }
@@ -54,7 +54,7 @@ class PlacementsController < ApplicationController
   def update
     respond_to do |format|
       if @placement.update(placement_params)
-        format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso.' }
+        format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso' }
         format.json { render :show, status: :ok, location: @placement }
       else
         format.html { render :edit }
@@ -69,7 +69,7 @@ class PlacementsController < ApplicationController
     respond_to do |format|
       begin
         @placement.destroy
-        format.html { redirect_to placements_url, notice: 'O registro foi excluido com sucesso.' }
+        format.html { redirect_to placements_url, notice: 'O registro foi excluido com sucesso' }
         format.json { head :no_content }
       rescue RuntimeError => ex
         format.html { redirect_to placements_url, alert: ex.message }
@@ -80,11 +80,10 @@ class PlacementsController < ApplicationController
 
   # DELETE /placements/1/stock_items
   def stock_items
-    logger.debug discharge_stock_items_params.inspect
     respond_to do |format|
       begin
         @placement.discharge_stock_items(discharge_stock_items_params)
-        format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso.' }
+        format.html { redirect_to @placement, notice: 'Informações atualizadas com sucesso' }
       rescue RuntimeError => err
         format.html { redirect_to @placement, alert: err.message }
       end

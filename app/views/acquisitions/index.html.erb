@@ -53,7 +53,7 @@
 
       <tbody>
         <% @acquisitions.each do |acquisition| %>
-          <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
+          <tr scope="row">
             <td><%= localize acquisition.created_at.to_date %></td>
             <td><%= link_to acquisition.operator.name, operator_path(acquisition.operator), class: "text-info" %></td>
             <td><%= link_to acquisition.supplier, acquisition.supplier, class: "text-info" %></td>

@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119202255) do
+ActiveRecord::Schema.define(version: 20180220205634) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.integer  "operator_id"
     t.integer  "supplier_id"
     t.integer  "company_id"
     t.string   "invoice_number"
@@ -24,10 +23,11 @@ ActiveRecord::Schema.define(version: 20180119202255) do
     t.string   "invoice_filename"
     t.integer  "invoice_content_size"
     t.string   "invoice_content_type"
+    t.integer  "allocation_id"
   end
 
+  add_index "acquisitions", ["allocation_id"], name: "index_acquisitions_on_allocation_id"
   add_index "acquisitions", ["company_id"], name: "index_acquisitions_on_company_id"
-  add_index "acquisitions", ["operator_id"], name: "index_acquisitions_on_operator_id"
   add_index "acquisitions", ["supplier_id"], name: "index_acquisitions_on_supplier_id"
 
   create_table "allocations", force: :cascade do |t|
@@ -46,13 +46,10 @@ ActiveRecord::Schema.define(version: 20180119202255) do
   add_index "allocations", ["operator_id"], name: "index_allocations_on_operator_id"
   add_index "allocations", ["origin_id"], name: "index_allocations_on_origin_id"
 
-  create_table "allocations_items", id: false, force: :cascade do |t|
-    t.integer "allocation_id", null: false
-    t.integer "item_id",       null: false
+  create_table "allocations_items", force: :cascade do |t|
+    t.integer "allocation_id"
+    t.integer "item_id"
   end
-
-  add_index "allocations_items", ["allocation_id", "item_id"], name: "index_allocations_items_on_allocation_id_and_item_id"
-  add_index "allocations_items", ["item_id", "allocation_id"], name: "index_allocations_items_on_item_id_and_allocation_id"
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -62,23 +59,17 @@ ActiveRecord::Schema.define(version: 20180119202255) do
   end
 
   create_table "computers", force: :cascade do |t|
-    t.string   "processor"
-    t.string   "memory"
-    t.string   "harddrive"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "processor"
+    t.string "memory"
+    t.string "harddrive"
   end
 
   create_table "dvr_devices", force: :cascade do |t|
-    t.integer  "number_of_channels"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer "number_of_channels"
   end
 
   create_table "help_devices", force: :cascade do |t|
-    t.string   "kind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "kind"
   end
 
   create_table "ip_cameras", force: :cascade do |t|
@@ -109,9 +100,7 @@ ActiveRecord::Schema.define(version: 20180119202255) do
   add_index "items", ["placement_id"], name: "index_items_on_placement_id"
 
   create_table "network_devices", force: :cascade do |t|
-    t.string   "function"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "function"
   end
 
   create_table "operators", force: :cascade do |t|
@@ -143,9 +132,7 @@ ActiveRecord::Schema.define(version: 20180119202255) do
   end
 
   create_table "screens", force: :cascade do |t|
-    t.integer  "inches"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "inches"
   end
 
   create_table "stock_item_counts", force: :cascade do |t|

@@ -35,9 +35,7 @@ gem 'sdoc', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-end
 
-group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
 
@@ -59,7 +57,7 @@ gem "twitter-bootstrap-rails"
 gem "cocoon"
 
 # Added at 2017-10-16 19:39:00 +0000 by ubuntu:
-gem "bootstrap"
+#gem "bootstrap"
 
 # Added at 2017-10-24 19:21:38 +0000 by ubuntu:
 #gem "bootstrap-sass", "~> 3.3"
@@ -85,3 +83,4 @@ gem "jquery-inputmask-rails", "~> 2.5"
 
 # Added at 2018-01-10 19:17:15 +0000 by ubuntu:
 gem "jquery-ui-rails", "~> 6.0"
+

@@ -5,7 +5,7 @@ class CreateComputers < ActiveRecord::Migration
       t.string :memory
       t.string :harddrive
 
-      t.timestamps null: false
+      #t.timestamps null: false
     end
   end
 end

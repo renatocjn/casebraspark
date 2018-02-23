@@ -8,13 +8,13 @@ class AllocationsController < ApplicationController
   def index
     @allocations = Allocation.all.order(date: :desc, created_at: :desc).page params[:page]
 
-    if params.key? :allocation
-      @allocations = @allocations.where "date >= ?", Date.parse(params[:allocation][:initial_date]) unless params[:allocation][:initial_date].blank?
-      @allocations = @allocations.where "date <= ?", Date.parse(params[:allocation][:final_date])   unless params[:allocation][:final_date].blank?
-      @allocations = @allocations.where operator: params[:allocation][:operator]                    unless params[:allocation][:operator].blank?
-      @allocations = @allocations.where destination: params[:allocation][:destination]              unless params[:allocation][:destination].blank?
-      @allocations = @allocations.where origin: params[:allocation][:origin]                        unless params[:allocation][:origin].blank?
-      @allocations = @allocations.where "reason like '%#{params[:allocation][:reason]}%'"           unless params[:allocation][:reason].blank?
+    if params.key? :filter
+      @allocations = @allocations.where "date >= ?", Date.parse(filter_params[:initial_date]) unless filter_params[:initial_date].blank?
+      @allocations = @allocations.where "date <= ?", Date.parse(filter_params[:final_date])   unless filter_params[:final_date].blank?
+      @allocations = @allocations.where operator: filter_params[:operator]                    unless filter_params[:operator].blank?
+      @allocations = @allocations.where destination: filter_params[:destination]              unless filter_params[:destination].blank?
+      @allocations = @allocations.where origin: filter_params[:origin]                        unless filter_params[:origin].blank?
+      @allocations = @allocations.where "reason like '%#{filter_params[:reason]}%'"           unless filter_params[:reason].blank?
     end
   end
 
@@ -45,9 +45,8 @@ class AllocationsController < ApplicationController
   # POST /allocations
   # POST /allocations.json
   def create
-    #FIXME fix problems with create_from_plates where the user only gets the stock_items wrong
-    params[:allocation][:operator_id] = current_user.id
     @allocation = Allocation.create_from_plates allocation_params
+    @allocation.operator = @current_user
     respond_to do |format|
       if @allocation.save
         format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
@@ -62,7 +61,6 @@ class AllocationsController < ApplicationController
   # PATCH/PUT /allocations/1
   # PATCH/PUT /allocations/1.json
   def update
-    #FIXME fix problems with update_from_plates where the user only gets the stock_items wrong
     respond_to do |format|
       if @allocation.update_from_plates(allocation_params)
         format.html { redirect_to @allocation, notice: 'Alocação cadastrada com sucesso.' }
@@ -77,14 +75,14 @@ class AllocationsController < ApplicationController
   # DELETE /allocations/1
   # DELETE /allocations/1.json
   def destroy
-    if @allocation.is_acquisition
-      @allocation.acquisition.destroy
-    else
-      @allocation.destroy
-    end
     respond_to do |format|
-      format.html { redirect_to allocations_url, notice: 'Alocação excluída.' }
-      format.json { head :no_content }
+      if @allocation.destroy_with_acquisition_if_present
+        format.html { redirect_to allocations_url, notice: 'Alocação excluída.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to allocations_url, alert: @allocation.errors[:base].join("\n") }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -103,11 +101,6 @@ class AllocationsController < ApplicationController
     end
 
     def filter_params
-      #TODO strong params for filter form on allocation index
-      params.require(:filter).permit()
+      params.require(:filter).permit(:initial_date, :final_date, :origin, :destination, :operator, :reason)
     end
-
-    #def admin_or_mine
-    #  redirect_to :root, alert: "Você não tem permissão para acessar esta página!" unless current_user.isAdmin or @allocation.operator == current_user
-    #end
 end

@@ -150,15 +150,19 @@
         <th scope="col">Plaqueta</th>
         <th scope="col">Descrição</th>
         <th scope="col">Número de série</th>
+        <th scope="col">Tempo desde compra</th>
+        <th scope="col">Valor de compra</th>
       </tr>
       <% @items.each do |item| %>
         <tr scope="row" data-link="<%=item_path(item)%>">
           <td> <%= item.plate %> </td>
           <td> <%= item %> </td>
           <td> <%= item.serial %> </td>
+          <td> <%= distance_of_time_in_words_to_now item.acquisition.date %> </td>
+          <td> <%= number_to_currency item.value %> </td>
         </tr>
       <% end %>
-      <tr> <td colspan="3"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="5"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
 </div>

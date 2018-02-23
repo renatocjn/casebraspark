@@ -16,6 +16,10 @@ class Item < ActiveRecord::Base
         self.isDischarged ||= false if self.attributes.key? :isDischarged
     end
 
+    before_validation do
+        self.value = self.value.to_f if self.value.is_a? String
+    end
+
     #def check_plate_uniqueness_by_company
     #    self.errors.add :plate, "Plaqueta desta empresa já cadastrada" if @self.acquisition.company.items.where(plate: self.plate).any?
     #end
@@ -63,11 +67,16 @@ class Item < ActiveRecord::Base
         self.allocations.order(date: :desc, created_at: :desc).first
     end
 
+    def second_to_last_allocation
+        alloc = self.allocations.order(date: :desc, created_at: :desc).second
+        alloc.nil? ? last_allocation : alloc
+    end
+
     before_update do
         self.placement = isDischarged ? nil : last_allocation.destination if isDischarged_changed?
     end
 
-    before_destroy do
-        allocations.each {|a| if a.items.count == 1 and a.allocations_items.empty? then a.destroy end}
+    after_commit on: :destroy do
+        allocations.each {|a| if a.empty? and not a.frozen? then a.destroy end}
     end
 end

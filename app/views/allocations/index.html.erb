@@ -8,7 +8,7 @@
           <span aria-hidden="true"><%= fa_icon :times %></span>
         </button>
       </div>
-      <%= simple_form_for :allocation, method: :get do |f| %>
+      <%= simple_form_for :filter, method: :get do |f| %>
         <div class="modal-body">
           <div class="row">
             <div class="col">
@@ -50,7 +50,7 @@
 
       <tbody>
         <% @allocations.each do |allocation| %>
-          <tr scope="row" data-link="<%= allocation_path(allocation) %>">
+          <tr scope="row">
             <td><%= localize allocation.created_at.to_date %></td>
             <td><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
             <td><%= link_to allocation.get_origin, allocation.get_origin, class: "text-info"%></td>

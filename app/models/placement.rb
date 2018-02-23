@@ -44,7 +44,6 @@ class Placement < ActiveRecord::Base
 
   def discharge_stock_items(params)
     self.transaction do
-      logger.debug params.inspect
       stock_item_count = self.stock_item_counts.where(stock_item_id: params[:stock_item_id]).first
       if stock_item_count.nil?
         raise "Item de estoque não encontrado para descarte"

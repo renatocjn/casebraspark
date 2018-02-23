@@ -43,7 +43,7 @@ class AcquisitionsController < ApplicationController
   # POST /acquisitions.json
   def create
     @acquisition = Acquisition.new acquisition_params
-    @acquisition.operator = current_user
+    @acquisition.allocation.operator = current_user
     respond_to do |format|
       if @acquisition.save
         format.html { redirect_to @acquisition, notice: 'Aquisição registrada com sucesso.' }
@@ -72,10 +72,14 @@ class AcquisitionsController < ApplicationController
   # DELETE /acquisitions/1
   # DELETE /acquisitions/1.json
   def destroy
-    @acquisition.destroy
     respond_to do |format|
-      format.html { redirect_to acquisitions_url, notice: 'O registro da aquisição foi excluído.' }
-      format.json { head :no_content }
+      if @acquisition.destroy
+        format.html { redirect_to acquisitions_url, notice: 'O registro da aquisição foi excluído.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to acquisitions_url, alert: @acquisition.errors.messages_for(:base).join("\n")}
+        format.json { head :no_content }
+      end
     end
   end
 

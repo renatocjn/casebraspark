@@ -4,9 +4,8 @@
 <%= item_form.input :brand,  label: "Marca:", wrapper_html: {class: "small-input"} %>
 <%= item_form.input :model,  label: "Modelo:", wrapper_html: {class: "small-input"} %>
 <%= item_form.input :serial, label: "Número de série:", wrapper_html: {class: "small-input"} %>
-<%= item_form.input :value,  label: "Valor do item:", wrapper_html: {class: "small-input"} %>
+<%= item_form.input :value, label: "Valor do item:", input_html: {class: "money-input"}, wrapper_html: {class: "small-input"} %>
 
-<% logger.debug item_form.object.parkable_item.inspect %>
 <%= item_form.simple_fields_for :parkable_item, (item_form.object.parkable_item.nil? ? type.constantize.new : item_form.object.parkable_item) do |parkable_item_form| %>
     <%= item_form.hidden_field :id %>
     <% if defined? type %>

@@ -2,7 +2,7 @@ class Operator < ActiveRecord::Base
     attr_accessor :updating_password
 
     has_many :allocations
-    has_many :acquisitions
+    has_many :acquisitions, through: :allocations
     has_secure_password
 
     after_initialize do

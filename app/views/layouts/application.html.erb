@@ -11,7 +11,8 @@
 <body>
 
 <div class="container">
-
+<%#TODO add more font-awesome icons to the pages%>
+<%#TODO remove crud if user is not admin%>
 <nav class="navbar navbar-expand-xl navbar-light bg-light rounded mt-3">
   <%= link_to :root, class: "navbar-brand" do %>
     <%= image_tag :logo_casebras, width: "30px", heigth: "30px" %>
@@ -27,7 +28,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="parkMovesdropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Items</a>
+        <a class="nav-link dropdown-toggle" id="parkMovesdropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Itens</a>
         <div class="dropdown-menu" aria-labelledby="parkMovesdropdown2">
           <%= link_to "Com plaqueta", items_path, class: "dropdown-item" %>
           <%= link_to "Sem Plaqueta", stock_items_path, class: "dropdown-item" %>

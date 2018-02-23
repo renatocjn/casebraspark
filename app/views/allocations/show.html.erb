@@ -99,16 +99,20 @@
       <tr>
         <th scope="col">Plaqueta</th>
         <th scope="col">Descrição</th>
-        <th scope="col">Número de serie</th>
+        <th scope="col">Número de série</th>
+        <th scope="col">Local atual</th>
+        <th scope="col">Descartado?</th>
       </tr>
       <% @items.each do |item| %>
         <tr scope="row" data-link="<%= item_path(item) %>">
           <td><%= item.plate %></td>
           <td><%= item %></td>
           <td><%= item.serial %></td>
+          <td><%= item.placement %></td>
+          <td><%= item.isDischarged ? fa_icon(:check, text: "Sim") : fa_icon(:times, text: "Não") %></td>
         </tr>
       <% end %>
-      <tr> <td colspan="4"> <small> <%= page_entries_info @items %> </small> </td> </tr>
+      <tr> <td colspan="5"> <small> <%= page_entries_info @items %> </small> </td> </tr>
     </table>
   </div>
 </div>

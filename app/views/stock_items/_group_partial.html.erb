@@ -2,8 +2,8 @@
 <div class="card m-3 nested-fields">
     <div class="card-block p-3">
         <%= f.input :stock_item_id, collection: StockItem.all, label: "Item de estoque" %>
-        <%= f.input :quantity, label: "Quantidade", min: 0 %>
-        <%= f.input :unit_value, label: "Valor unitário", min: 0 if defined? acquisition %>
+        <%= f.input :quantity, label: "Quantidade", input_html: {min: 0} %>
+        <%= f.input :unit_value, label: "Valor unitário", input_html: {class: "money-input"}  if defined? acquisition %>
         <%= link_to_remove_association fa_icon(:close), f, class: "btn btn-sm btn-danger" %>
     </div>
 </div>

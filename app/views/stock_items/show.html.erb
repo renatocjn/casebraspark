@@ -59,14 +59,12 @@
         <th scope="col">Data</th>
         <th scope="col">Resposável</th>
         <th scope="col">Fornecedor</th>
-        <th scope="col"></th>
       </tr>
       <% @acquisitions.each do |acquisition| %>
-        <tr scope="row">
-          <td> <%= localize acquisition.created_at.to_date %> </td>
+        <tr scope="row" data-link="<%=acquisition_path(acquisition)%>">
+          <td> <%= localize acquisition.date %> </td>
           <td> <%= acquisition.operator %> </td>
           <td> <%= acquisition.supplier %> </td>
-          <td> <%= link_to fa_icon("info-circle"), acquisition, class: "text-info" %> </td>
         </tr>
       <% end %>
       <tr> <td colspan="3"> <small> <%= page_entries_info @acquisitions %> </small> </td> </tr>
