@@ -1,6 +1,8 @@
 
 <%= simple_form_for @item do |f| %>
-    <%= render 'form', item_form: f, render_dispose: true %>
+    <div class="col d-flex justify-content-around flex-wrap">
+        <%= render 'form', item_form: f, render_dispose: true %>
+    </div>
 
     <div class="row">
         <div class="col"> <%= f.submit "Salvar", class: "btn btn-primary btn-block" %> </div>

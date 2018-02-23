@@ -81,3 +81,7 @@ a.remove_fields {
 label {
     font-weight: bold;
 }
+
+.form-control {
+    display: inline-block;
+}

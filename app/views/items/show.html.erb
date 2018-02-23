@@ -36,7 +36,7 @@
       <%= render @item.parkable_item_type.downcase.pluralize+"/show", item: @item.parkable_item %>
 
       <tr>
-        <td colspan="2"> <%= link_to fa_icon("info-circle", text: "Ver aquisição deste produto"), @item.acquisition, class:"text-info" %> </td>
+        <td colspan="2"> <%= link_to fa_icon("external-link-alt", text: "Ir para aquisição deste produto", right: true), @item.acquisition, class:"btn btn-block btn-sm btn-info" %> </td>
       </tr>
 
       <tr>
