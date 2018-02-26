@@ -1,8 +1,8 @@
 class OperatorsController < ApplicationController
   before_action :set_operator, only: [:show, :edit, :update, :destroy]
   before_filter :authorize
-  before_filter :admin_or_me, only: [:show, :update, :edit]
-  before_filter :apenasAdmin, only: [:new, :create, :index, :destroy]
+  before_filter :admin_or_me, only: [:update, :edit]
+  before_filter :apenasAdmin, only: [:new, :create, :destroy]
 
   # GET /operators
   # GET /operators.json
@@ -94,6 +94,6 @@ class OperatorsController < ApplicationController
     end
 
     def admin_or_me
-      redirect_to :root, notice: "Você não tem permissão para acessar esta página!" unless @operator == @current_user or @current_user.isAdmin
+      redirect_to :back, notice: "Você não tem permissão para acessar esta página!" unless @operator == @current_user or @current_user.isAdmin
     end
 end

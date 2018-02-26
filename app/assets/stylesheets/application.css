@@ -85,3 +85,7 @@ label {
 .form-control {
     display: inline-block;
 }
+
+.card.nested-fields {
+    min-width: 20em;
+}

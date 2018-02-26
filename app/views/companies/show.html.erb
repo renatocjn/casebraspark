@@ -17,7 +17,7 @@
     <table class="table">
       <tr> <td>
         <div class="d-flex justify-content-around">
-          <%= link_to fa_icon("pencil-alt", text: "Editar"), edit_company_path(@company), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to fa_icon("pencil-alt", text: "Editar"), edit_company_path(@company), class: "btn btn-primary btn-block m-0 mx-1" if @current_user.isAdmin %>
           <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>

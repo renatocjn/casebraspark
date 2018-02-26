@@ -11,8 +11,6 @@
 <body>
 
 <div class="container">
-<%#TODO add more font-awesome icons to the pages%>
-<%#TODO remove crud if user is not admin%>
 <nav class="navbar navbar-expand-xl navbar-light bg-light rounded mt-3">
   <%= link_to :root, class: "navbar-brand" do %>
     <%= image_tag :logo_casebras, width: "30px", heigth: "30px" %>
@@ -40,8 +38,8 @@
       <li class="nav-item"> <%= link_to fa_icon("shopping-basket", text:"Fornecedores"), suppliers_path, class: "nav-link" %> </li>
     </ul>
     <ul class="navbar-nav">
-      <li class="nav-item"> <%= link_to current_user.name, current_user, class: "nav-link" %> </li>
-      <li class="nav-item"> <%= link_to fa_icon("sign-out-alt", text:"Sair"), logout_path, class: "btn btn-sm btn-danger" %> </li>
+      <li class="nav-item"> <%= link_to fa_icon(:user, text: current_user.name.split.first), current_user, class: "nav-link" %> </li>
+      <li class="nav-item"> <%= link_to fa_icon("sign-out-alt", text:"Sair"), logout_path, class: "btn btn-danger" %> </li>
     </ul>
   </div>
 </nav>

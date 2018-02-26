@@ -26,9 +26,9 @@
     <tr>
       <th scope="col"><%=fa_icon("info", text: "Descrição curta")%></th>
       <th scope="col"><%=fa_icon("cubes", text: "Quantidade total")%></th>
-      <th scope="col"></th>
+      <% if @current_user.isAdmin %> <th scope="col"></th> <% end %>
       <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
-      <th scope="col"><%= link_to fa_icon("plus-circle"), new_stock_item_path, class: "btn btn-primary" %></th>
+      <% if @current_user.isAdmin %><th scope="col"> <%= link_to fa_icon("plus-circle"), new_stock_item_path, class: "btn btn-primary" %></th> <% end %>
     </tr>
   </thead>
 
@@ -37,9 +37,11 @@
       <tr scope="row">
         <td><%= stock_item.short_description %></td>
         <td><%= stock_item.count %></td>
-        <td><%= link_to fa_icon("info-circle"), stock_item, class: "btn btn-secondary" %></td>
-        <td><%= link_to fa_icon("pencil-alt"), edit_stock_item_path(stock_item), class: "btn btn-secondary" %></td>
-        <td><%= link_to fa_icon(:trash), stock_item, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+        <td><%= link_to fa_icon("info-circle"), stock_item, class: "btn btn-info" %></td>
+        <% if @current_user.isAdmin %>
+          <td><%= link_to fa_icon("pencil-alt"), edit_stock_item_path(stock_item), class: "btn btn-secondary" %></td>
+          <td><%= link_to fa_icon(:trash), stock_item, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+        <% end %>
       </tr>
     <% end %>
     <tr> <td colspan="5"> <small> <%= page_entries_info @stock_items %> </small> </td> </tr>

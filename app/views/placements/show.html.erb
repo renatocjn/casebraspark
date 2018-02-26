@@ -18,7 +18,7 @@
     <table class="table">
       <tr> <td>
         <div class="d-flex justify-content-around">
-          <%= link_to 'Editar', edit_placement_path(@placement), class: "btn btn-primary btn-block m-0 mx-1" %>
+          <%= link_to 'Editar', edit_placement_path(@placement), class: "btn btn-primary btn-block m-0 mx-1" if @current_user.isAdmin %>
           <%= link_to fa_icon(:undo, text: "Voltar"), :back, class: "btn btn-secondary btn-block m-0 mx-1" %>
         </div>
       </td> </tr>
@@ -115,21 +115,23 @@
       <tr>
         <th scope="col"><%=fa_icon("info", text: "Descrição")%></th>
         <th scope="col"><%=fa_icon("cubes", text: "Quantidade")%></th>
-        <th scope="col"><%=fa_icon("trash", text: "Baixa")%></th>
+        <% if @current_user.isAdmin %> <th scope="col"><%=fa_icon("trash", text: "Baixa")%></th> <% end %>
       </tr>
       <% @stock_item_counts.each do |item| %>
         <tr scope="row">
           <td> <%= item.stock_item.short_description %> </td>
           <td> <%= item.count %> </td>
-          <td>
-            <%= form_for :stock_item_count, wrapper: :inline_form, url: stock_items_placement_path(@placement), method: :delete, html: { class: 'form-inline d-flex justify-content-around' } do |f| %>
-              <div class="input-group">
-                <%= f.hidden_field :stock_item_id, value: item.stock_item_id %>
-                <%= f.text_field :count, style: "width: 4em", class: "form-control"%>
-                <button type="submit" class="btn btn-danger btn-sm" data-confirm="Tem certeza desta ação?"> <%=fa_icon("minus-circle")%> </button>
-              </div>
-            <% end %>
-          </td>
+          <% if @current_user.isAdmin %>
+            <td>
+              <%= form_for :stock_item_count, wrapper: :inline_form, url: stock_items_placement_path(@placement), method: :delete, html: { class: 'form-inline d-flex justify-content-around' } do |f| %>
+                <div class="input-group">
+                  <%= f.hidden_field :stock_item_id, value: item.stock_item_id %>
+                  <%= f.text_field :count, style: "width: 4em", class: "form-control"%>
+                  <button type="submit" class="btn btn-danger btn-sm" data-confirm="Tem certeza desta ação?"> <%=fa_icon("minus-circle")%> </button>
+                </div>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
       <tr> <td colspan="3"> <small> <%= page_entries_info @stock_item_counts %> </small> </td> </tr>

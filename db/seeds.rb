@@ -8,37 +8,46 @@
 
 ActiveRecord::Base.transaction do
 
-    visualizador = Operator.new
-    visualizador.name = "Alocador"
-    visualizador.email = "alocador@casebras.com.br"
-    visualizador.password = "Case1234"
-    visualizador.password_confirmation = "Case1234"
-    visualizador.isAdmin = false
-    visualizador.isBlocked = false
-    visualizador.save!
+    unless Rails.env.production?
+        visualizador = Operator.new
+        visualizador.name = "Visualizador"
+        visualizador.email = "visualizador@casebras.com.br"
+        visualizador.password = "Case1234"
+        visualizador.password_confirmation = "Case1234"
+        visualizador.isAdmin = false
+        visualizador.isBlocked = false
+        visualizador.save!
 
-    bloqueado = Operator.new
-    bloqueado.name = "Bloqueado"
-    bloqueado.email = "bloqueado@casebras.com.br"
-    bloqueado.password = "Case1234"
-    bloqueado.password_confirmation = "Case1234"
-    bloqueado.isAdmin = false
-    bloqueado.isBlocked = true
-    bloqueado.save!
+        bloqueado = Operator.new
+        bloqueado.name = "Bloqueado"
+        bloqueado.email = "bloqueado@casebras.com.br"
+        bloqueado.password = "Case1234"
+        bloqueado.password_confirmation = "Case1234"
+        bloqueado.isAdmin = false
+        bloqueado.isBlocked = true
+        bloqueado.save!
 
-    admin = Operator.new
-    admin.name = "Administrador"
-    admin.email = "admin@casebras.com.br"
-    admin.password = "Case1234"
-    admin.password_confirmation = "Case1234"
-    admin.isAdmin = true
-    admin.isBlocked = false
-    admin.save!
+        Placement.create! other: "Matriz", address: "Santos Dummont", contact: "88888888"
+        Placement.create! other: "Corporate", address: "Santos Dummont", contact: "88888888"
+        Placement.create! state: "CE", city: "Taubaté", other: "Padrão de vida", address: "Taubaté - CE", contact: "88888888"
+
+        Supplier.create! name: "iByte", email: "contato@ibyte.com", phones: "9999-9999\n9999-9999"
+        Supplier.create! name: "Nagem", email: "contato@nagem.com", phones: "9999-9999"
+        Supplier.create! name: "CStore", email: "contato@cstore.com", phones: "9999-9999"
+
+        admin = Operator.new
+        admin.name = "Administrador"
+        admin.email = "admin@casebras.com.br"
+        admin.password = "Case1234"
+        admin.password_confirmation = "Case1234"
+        admin.isAdmin = true
+        admin.isBlocked = false
+        admin.save!
+
+        StockItem.create! short_description: "Caixa de cabeamento de rede"
+    end
 
     Placement.create! other: "Estoque", address: "Matriz", contact: "helpdesk@casebras.com.br"
-    Placement.create! other: "Matriz", address: "Santos Dummont", contact: "88888888"
-    Placement.create! other: "Corporate", address: "Santos Dummont", contact: "88888888"
-    Placement.create! state: "CE", city: "Taubaté", other: "Padrão de vida", address: "Taubaté - CE", contact: "88888888"
 
     Company.create! name: "PADRÃO DE VIDA", cnpj: "41.324.369/0001-37"
     Company.create! name: "REALPADRÃO", cnpj: "06.134.625/0001-22"
@@ -64,11 +73,6 @@ ActiveRecord::Base.transaction do
     Company.create! name: "RT SOLAR IMPORTAÇÃO, INDUSTRIA E COMERCIO LTDA", cnpj: "25.382.551/0001-98"
     Company.create! name: "FACILITY INFORMAÇÕES CADASTRAIS LTDA ME", cnpj: "23.766.895/0001-75"
 
-    Supplier.create! name: "iByte", email: "contato@ibyte.com", phones: "9999-9999\n9999-9999"
-    Supplier.create! name: "Nagem", email: "contato@nagem.com", phones: "9999-9999"
-    Supplier.create! name: "CStore", email: "contato@cstore.com", phones: "9999-9999"
-
-    StockItem.create! short_description: "Mouse"
-    StockItem.create! short_description: "Teclado"
-    StockItem.create! short_description: "Caixa de cabeamento de rede"
+    StockItem.create! short_description: "Mouse", long_description: "Mouses de várias marcas e modelos"
+    StockItem.create! short_description: "Teclado", long_description: "Teclados de várias marcas e modelos"
 end

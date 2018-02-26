@@ -42,9 +42,9 @@
           <th scope="col"><%=fa_icon("sign-out-alt", text: "Origem")%></th>
           <th scope="col"><%=fa_icon("sign-in-alt", text: "Destino")%></th>
           <th scope="col"><%=fa_icon("cubes", text: "Número de itens")%></th>
-          <th></th>
+          <% if @current_user.isAdmin %> <th></th> <% end %>
           <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></th>
-          <th scope="col"><%= link_to fa_icon("plus-circle"), new_allocation_path, class: "btn btn-primary"%></th>
+          <% if @current_user.isAdmin %> <th scope="col"><%= link_to fa_icon("plus-circle"), new_allocation_path, class: "btn btn-primary"%></th> <% end %>
         </tr>
       </thead>
 
@@ -57,8 +57,10 @@
             <td><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
             <td><%= allocation.count_items %></td>
             <td><%= link_to fa_icon("info-circle"), allocation, class: "btn btn-info" %></td>
-            <td><%= link_to fa_icon("pencil-alt"), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
-            <td><%= link_to fa_icon(:trash), allocation, method: :delete, data: {confirm: "Você tem certeza?"}, class: "btn btn-danger" %></td>
+            <% if @current_user.isAdmin %>
+              <td><%= link_to fa_icon("pencil-alt"), edit_allocation_path(allocation), class: "btn btn-secondary" %></td>
+              <td><%= link_to fa_icon(:trash), allocation, method: :delete, data: {confirm: "Você tem certeza?"}, class: "btn btn-danger" %></td>
+            <% end %>
           </tr>
         <% end %>
         <tr> <td colspan="8"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>

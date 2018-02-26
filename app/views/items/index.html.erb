@@ -67,7 +67,9 @@
           <th scope="col"><%=fa_icon("map-marker-alt", text: "Localização atual")%></th>
           <th scope="col"><%=fa_icon("hashtag", text: "Número Serial")%></th>
           <th scope="col"><%=fa_icon("money-bill-alt", text: "Valor")%></th>
-          <th scope="col"></th>
+          <% if @current_user.isAdmin %>
+            <th scope="col"></th>
+          <% end %>
           <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
         </tr>
       </thead>
@@ -81,7 +83,9 @@
             <td><%= item.serial %></td>
             <td><%= number_to_currency item.value %></td>
             <td><%= link_to fa_icon("info-circle"), item_path(item), class: "btn btn-info" %></td>
-            <td><%= link_to fa_icon("pencil-alt"), edit_item_path(item), class: "btn btn-secondary" %></td>
+            <% if @current_user.isAdmin %>
+              <td><%= link_to fa_icon("pencil-alt"), edit_item_path(item), class: "btn btn-secondary" %></td>
+            <% end %>
           </tr>
         <% end %>
         <tr> <td colspan="7"> <small> <%= page_entries_info @items %> </small> </td> </tr>

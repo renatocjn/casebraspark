@@ -27,9 +27,9 @@
       <th scope="col"><%=fa_icon("shopping-basket", text: "Nome do fornecedor")%></th>
       <th scope="col"><%=fa_icon("at", text: "Email de contato")%></th>
       <th scope="col"><%=fa_icon("phone", text: "Telefones")%></th>
-      <th scope="col"></th>
+      <% if @current_user.isAdmin %> <th scope="col"></th> <% end %>
       <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
-      <th scope="col"><%= link_to fa_icon("plus-circle"), new_supplier_path, class: "btn btn-primary" %></th>
+      <% if @current_user.isAdmin %> <th scope="col"><%= link_to fa_icon("plus-circle"), new_supplier_path, class: "btn btn-primary" %></th> <% end %>
     </tr>
   </thead>
 
@@ -40,8 +40,10 @@
         <td><%= supplier.email %></td>
         <td><%= simple_format supplier.phones %></td>
         <td><%= link_to fa_icon("info-circle"), supplier, class: "btn btn-info" %></td>
-        <td><%= link_to fa_icon("pencil-alt"), edit_supplier_path(supplier), class: "btn btn-secondary" %></td>
-        <td><%= link_to fa_icon(:trash), supplier, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+        <% if @current_user.isAdmin %>
+          <td><%= link_to fa_icon("pencil-alt"), edit_supplier_path(supplier), class: "btn btn-secondary" %></td>
+          <td><%= link_to fa_icon(:trash), supplier, method: :delete, data: { confirm: 'Você tem certeza?' }, class: "btn btn-danger" %></td>
+        <% end %>
       </tr>
     <% end %>
     <tr> <td colspan="6"> <small> <%= page_entries_info @suppliers %> </small> </td> </tr>
