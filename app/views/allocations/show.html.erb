@@ -10,10 +10,6 @@
         <td class="w-50"><label><%=fa_icon("sign-out-alt", text: "Origem da alocação:")%></label></td>
         <td><%= link_to @allocation.get_origin, placement_path(@allocation.get_origin), class: "text-info" %></td>
       </tr>
-      <tr>
-        <td class="w-50"><label><%=fa_icon("sign-in-alt", text: "Destino da alocação:")%></label></td>
-        <td><%= link_to @allocation.destination, placement_path(@allocation.destination), class: "text-info" %></td>
-      </tr>
     </table>
   </div>
   <div class="col">
@@ -25,8 +21,8 @@
         </div>
       </td> </tr>
       <tr>
-        <td class="w-50"><label><%=fa_icon("user", text: "Operador responsável:")%></label></td>
-        <td><%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %></td>
+        <td class="w-50"><label><%=fa_icon("sign-in-alt", text: "Destino da alocação:")%></label></td>
+        <td><%= link_to @allocation.destination, placement_path(@allocation.destination), class: "text-info" %></td>
       </tr>
     </table>
   </div>
@@ -35,6 +31,11 @@
 <div class="row">
   <div class="col">
     <table class="table">
+      <tr>
+        <td class="w-25"><label><%=fa_icon("user", text: "Operador responsável:")%></label></td>
+        <td><%= link_to @allocation.operator, operator_path(@allocation.operator), class: "text-info" %></td>
+      </tr>
+
       <tr>
         <td class="w-25"><label><%=fa_icon("comment", text: "Motivo:")%></label></td>
         <td class="w-75"><%= simple_format @allocation.reason %></td>

@@ -16,7 +16,8 @@ class SuppliersController < ApplicationController
   # GET /suppliers/1
   # GET /suppliers/1.json
   def show
-    @buyable_items = Kaminari.paginate_array(@supplier.get_buyable_items).page(params[:bi_page]).per(5)
+    #@buyable_items = Kaminari.paginate_array(@supplier.get_buyable_items).page(params[:bi_page]).per(5)
+    @services = @supplier.services.order(send_date: :desc, created_at: :desc).page(params[:serv_page]).per(5)
     @acquisitions = @supplier.acquisitions.joins(:allocation).order("allocations.date DESC, created_at DESC").page(params[:ac_page]).per(5)
   end
 

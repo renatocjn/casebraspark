@@ -27,7 +27,7 @@
       <tr>
         <td colspan="2">
           <% if @service.invoice.present? %>
-            <%= link_to fa_icon("external-link-alt", text: "Link para anexo", right: true), attachment_url(@service, :invoice), class: "btn btn-block btn-info" %>
+            <%= link_to fa_icon("external-link-alt", text: "Link para anexo", right: true), attachment_url(@service, :invoice), class: "btn btn-block btn-info btn-sm" %>
           <% else %>
             <div class="alert alert-warning m-0"> <%=fa_icon(:times, text: "Nada foi anexado a esse registro")%> </div>
           <% end %>
@@ -45,10 +45,13 @@
   <div class="col">
     <table class="table m-0">
       <tr> <td>
-        <div>
-          <label><%=fa_icon("comment", text: "Descrição:")%></label>
-          <%= simple_format @service.description %>
-        </div>
+        <label><%=fa_icon("shopping-basket", text: "Fornecedor:")%></label>
+        <%= link_to @service.supplier, @service.supplier, class: "text-info" %>
+      </td> </tr>
+
+      <tr> <td>
+        <label><%=fa_icon("comment", text: "Descrição:")%></label>
+        <%= simple_format @service.description %>
       </td> </tr>
     </table>
   </div>

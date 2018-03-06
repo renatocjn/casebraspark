@@ -39,6 +39,7 @@
     <tr>
       <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
       <th scope="col"><%=fa_icon("money-bill-alt", text: "Valor")%></th>
+      <th scope="col"><%=fa_icon("shopping-basket", text: "Fornecedor")%></th>
       <th scope="col"><%=fa_icon("calendar-alt", text: "Início")%></th>
       <th scope="col"><%=fa_icon("calendar-alt", text: "Conclusão")%></th>
       <% if @current_user.isAdmin %> <th></th> <% end %>
@@ -52,6 +53,7 @@
       <tr scope="row">
         <td><%= service.service_type %></td>
         <td><%= number_to_currency service.value %></td>
+        <td><%= link_to service.supplier, service.supplier, class: "text-info" %></td>
         <td><%= localize service.send_date %></td>
         <td><%= if service.recv_date.present? then localize service.recv_date else "Ainda não concluído" end %></td>
         <td><%= link_to fa_icon("info-circle"), service, class: "btn btn-info" %></td>

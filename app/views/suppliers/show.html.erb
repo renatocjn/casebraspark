@@ -43,19 +43,44 @@
 <% end %>
 
 <div class="row text-center">
+  <!--<div class="col border border-secondary rounded p-2 m-2">-->
+  <!--  <h5 class="d-inline">Itens já comprados neste fornecedor</h5>-->
+  <!--  <div class="d-inline float-right">-->
+  <!--    <%#= link_to_prev_page @buyable_items, fa_icon("chevron-left"), param_name: :bi_page %>-->
+  <!--    <%#= link_to_next_page @buyable_items, fa_icon("chevron-right"), param_name: :bi_page %>-->
+  <!--  </div>-->
+  <!--  <table class="table table-sm table-hover">-->
+  <!--    <%# @buyable_items.each do |bi_description| %>-->
+  <!--      <tr scope="row">-->
+  <!--        <td><%#= bi_description %></td>-->
+  <!--      </tr>-->
+  <!--    <%# end %>-->
+  <!--    <tr> <td> <small> <%#= page_entries_info @buyable_items %> </small> </td> </tr>-->
+  <!--  </table>-->
+  <!--</div>-->
+
   <div class="col border border-secondary rounded p-2 m-2">
-    <h5 class="d-inline">Itens já comprados neste fornecedor</h5>
+    <h5 class="d-inline">Últimos serviços</h5>
     <div class="d-inline float-right">
-      <%= link_to_prev_page @buyable_items, fa_icon("chevron-left"), param_name: :bi_page %>
-      <%= link_to_next_page @buyable_items, fa_icon("chevron-right"), param_name: :bi_page %>
+      <%= link_to_prev_page @services, fa_icon("chevron-left"), param_name: :serv_page %>
+      <%= link_to_next_page @services, fa_icon("chevron-right"), param_name: :serv_page %>
     </div>
     <table class="table table-sm table-hover">
-      <% @buyable_items.each do |bi_description| %>
-        <tr scope="row">
-          <td><%= bi_description %></td>
-        </tr>
-      <% end %>
-      <tr> <td> <small> <%= page_entries_info @buyable_items %> </small> </td> </tr>
+      <tr>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Início")%></th>
+        <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
+        <th scope="col"><%=fa_icon("shopping-basket", text: "Fornecedor")%></th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Conclusão")%></th>
+      </tr>
+    <% @services.each do |service| %>
+      <tr scope="row" data-link="<%=service_path(service)%>">
+        <td><%= localize service.send_date %></td>
+        <td><%= service.service_type %></td>
+        <td><%= link_to service.supplier, service.supplier, class: "text-info" %></td>
+        <td><%= if service.recv_date.present? then localize service.recv_date else "Ainda não concluído" end %></td>
+      </tr>
+    <% end %>
+      <tr> <td colspan="5"> <small> <%= page_entries_info @services %> </small> </td> </tr>
     </table>
   </div>
 
