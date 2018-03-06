@@ -42,6 +42,7 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @allocations = @item.allocations.order(date: :desc, created_at: :desc).page(params[:al_page]).per(5)
+    @services = @item.services.order(send_date: :desc, created_at: :desc).page(params[:serv_page]).per(5)
   end
 
   # GET /items/new

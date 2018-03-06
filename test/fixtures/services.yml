@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_type: MyString
+  description: MyText
+  value: 1.5
+  file: 
+  send_date: 2018-03-05
+  recv_date: 2018-03-05
+
+two:
+  service_type: MyString
+  description: MyText
+  value: 1.5
+  file: 
+  send_date: 2018-03-05
+  recv_date: 2018-03-05

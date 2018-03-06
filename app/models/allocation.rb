@@ -49,6 +49,7 @@ class Allocation < ActiveRecord::Base
     end
 
     def update_from_plates alloc_attributes
+        #FIXME Make sure that its editing and updating
         attributes = alloc_attributes.to_h
         items_attributes = attributes.delete "items_attributes"
 
@@ -56,20 +57,23 @@ class Allocation < ActiveRecord::Base
             self.update alloc_attributes
         else
             transaction do
+                was_valid = self.update attributes
                 unless items_attributes.nil?
                     items_attributes.each do |k, item_attributes|
                         item = Item.where(alloc_attributes[:origin_id]).find_by_plate(item_attributes["plate"])
                         if item.nil?
                             self.errors.add :base, "A plaqueta #{item_attributes["plate"]} não foi encontrada no local de origem"
                             raise ActiveRecord::Rollback
-                        elsif item_attributes["_destroy"] == "1" or item_attributes["_destroy"] == "true"
-                            self.items.destroy item
-                        elsif not self.items.include? item
-                            self.items << item
+                        elsif was_valid
+                            if item_attributes["_destroy"] == "1" or item_attributes["_destroy"] == "true"
+                                self.items.destroy item
+                            elsif not self.items.include? item
+                                self.items << item
+                            end
                         end
                     end
                 end
-                self.update attributes
+                was_valid
             end
         end
     end

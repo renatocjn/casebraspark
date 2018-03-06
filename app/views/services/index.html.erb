@@ -1,0 +1,67 @@
+<div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="filter_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><%= fa_icon :times %></span>
+        </button>
+      </div>
+      <%= simple_form_for :filter, method: :get do |f| %>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <%= f.input :send_date_initial, label: false, placeholder: "Data de envio inicial", as: :string, input_html: {class: "date-input"} %>
+              <%= f.input :recv_date_initial, label: false, placeholder: "Data de conclusão inicial", as: :string, input_html: {class: "date-input"} %>
+              <%= f.input :value_min, label: false, placeholder: "Valor mínimo", as: :float %>
+              <%= f.input :completed, label: false, include_blank: "Concluído?", as: :select, collection: ["Sim", "Não"] %>
+            </div>
+            <div class="col">
+              <%= f.input :send_date_final, label: false, placeholder: "Data de envio final", as: :string, input_html: {class: "date-input"} %>
+              <%= f.input :recv_date_final, label: false, placeholder: "Data de conclusão final", as: :string, input_html: {class: "date-input"} %>
+              <%= f.input :value_max, label: false, placeholder: "Valor máximo", as: :float %>
+              <%= f.input :supplier, collection: @suppliers, label: false, include_blank: "Fornecedor", as: :select %>
+            </div>
+          </div>
+          <%= f.input :type_or_description, label: false, placeholder: "Tipo ou descrição", as: :text %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Aplicar", class: "btn btn-primary btn-block m-0 mr-1" %>
+          <%= link_to "Remover Filtros", services_path, class: "btn btn-danger btn-block m-0 ml-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
+      <th scope="col"><%=fa_icon("money-bill-alt", text: "Valor")%></th>
+      <th scope="col"><%=fa_icon("calendar-alt", text: "Início")%></th>
+      <th scope="col"><%=fa_icon("calendar-alt", text: "Conclusão")%></th>
+      <% if @current_user.isAdmin %> <th></th> <% end %>
+      <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#filter_modal"><%=fa_icon :filter%></button></th>
+      <% if @current_user.isAdmin %> <th scope="col"><%= link_to fa_icon("plus-circle"), new_service_path, class: "btn btn-primary" %></th> <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr scope="row">
+        <td><%= service.service_type %></td>
+        <td><%= number_to_currency service.value %></td>
+        <td><%= localize service.send_date %></td>
+        <td><%= if service.recv_date.present? then localize service.recv_date else "Ainda não concluído" end %></td>
+        <td><%= link_to fa_icon("info-circle"), service, class: "btn btn-info" %></td>
+        <% if @current_user.isAdmin %>
+          <td><%= link_to fa_icon("pencil-alt"), edit_service_path(service), class: "btn btn-secondary" %></td>
+          <td><%= link_to fa_icon(:trash), service, method: :delete, data: { confirm: "Você tem certeza?" }, class: "btn btn-danger" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    <tr> <td colspan="7"> <small> <%= page_entries_info @services %> </small> </td> </tr>
+  </tbody>
+</table>
+<div class="float-right"><%= paginate @services %></div>

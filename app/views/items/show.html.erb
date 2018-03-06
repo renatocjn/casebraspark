@@ -71,17 +71,42 @@
     <table class="table table-sm table-hover">
       <tr>
         <th scope="col"><%=fa_icon("calendar-alt", text: "Data")%></th>
-        <th scope="col"><%=fa_icon("map-marker-alt", text: "Local atual")%></th>
+        <th scope="col"><%=fa_icon("map-marker-alt", text: "Destino")%></th>
         <th scope="col"><%=fa_icon("user", text: "Responsável")%></th>
       </tr>
     <% @allocations.each do |allocation| %>
       <tr scope="row" data-link="<%=allocation_path(allocation)%>">
-        <td><%= localize allocation.created_at.to_date %></td>
+        <td><%= localize allocation.date %></td>
         <td><%= link_to allocation.destination, allocation.destination, class: "text-info"%></td>
         <td><%= link_to allocation.operator, allocation.operator, class: "text-info" %></td>
       </tr>
     <% end %>
       <tr> <td colspan="3"> <small> <%= page_entries_info @allocations %> </small> </td> </tr>
+    </table>
+  </div>
+
+  <div class="col border border-secondary rounded p-2 m-2">
+    <h5 class="d-inline">Últimos serviços</h5>
+    <div class="d-inline float-right">
+      <%= link_to_prev_page @services, fa_icon("chevron-left"), param_name: :serv_page %>
+      <%= link_to_next_page @services, fa_icon("chevron-right"), param_name: :serv_page %>
+    </div>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Início")%></th>
+        <th scope="col"><%=fa_icon("info", text: "Tipo")%></th>
+        <th scope="col"><%=fa_icon("shopping-basket", text: "Fornecedor")%></th>
+        <th scope="col"><%=fa_icon("calendar-alt", text: "Conclusão")%></th>
+      </tr>
+    <% @services.each do |service| %>
+      <tr scope="row" data-link="<%=service_path(service)%>">
+        <td><%= localize service.send_date %></td>
+        <td><%= localize service.service_type %></td>
+        <td><%= link_to service.supplier, service.supplier, class: "text-info" %></td>
+        <td><%= localize service.recv_date %></td>
+      </tr>
+    <% end %>
+      <tr> <td colspan="5"> <small> <%= page_entries_info @services %> </small> </td> </tr>
     </table>
   </div>
 </div>

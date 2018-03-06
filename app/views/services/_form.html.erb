@@ -1,0 +1,57 @@
+<%= simple_form_for(@service) do |f| %>
+  <%= f.error_notification %>
+
+  <% if f.object.errors[:base].any? %>
+    <div class="alert alert-warning">
+      <% f.object.errors[:base].each do |e| %>
+        <%= e %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col"><%= f.input :service_type, label: "Tipo de serviço" %></div>
+      <div class="col"><%= f.input :value, label: "Valor do serviço" %></div>
+      <div class="col form-actions d-flex align-items-end"><%= f.button :submit, "Salvar", class: "btn btn-primary btn-block mb-3" %></div>
+    </div>
+
+    <div class="row">
+      <div class="col"><%= f.input :send_date, as: :string, label: "Data de início", input_html: {value: localize(f.object.send_date), class: "date-input"} %></div>
+      <div class="col"><%= f.input :recv_date, as: :string, label: "Data de conclusão", input_html: {value: (f.object.recv_date.blank? ? "" : localize(f.object.recv_date)), class: "date-input"} %></div>
+      <div class="col"> <%= f.association :supplier, label: "Fornecedor" %> </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <%= f.input :description, label: "Descrição do serviço" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group string required acquisition_invoice d-flex align-items-end justify-content-end <%=@service.errors[:invoice].any? ? 'has-error' : nil%>">
+          <label class="btn btn-block <%= @service.errors[:invoice].any? ? 'btn-danger' : 'btn-secondary' %> m-0 control-label file required" for="acquisition_invoice">
+            <% if @service.invoice %>
+              <%= fa_icon(:upload, text:"Reenviar anexo") %>
+            <% else %>
+              <%= fa_icon(:upload, text:"Anexar nota fiscal ou recibo") %>
+            <% end %>
+          </label>
+          <%= f.attachment_field :invoice, class: "d-none", id: "acquisition_invoice"%>
+          <span class="help-block"></span>
+        </div>
+      </div>
+
+      <div class="col"><%= link_to_add_association fa_icon(:plus, text: "Plaqueta"), f, :items, class: "btn btn-secondary btn-block", "data-association-insertion-node" => "#insertionPoint", partial: "allocations/item_fields" %></div>
+    </div>
+
+    <div id="items-container" class="d-flex justify-content-around flex-wrap">
+      <div id="insertionPoint" hidden></div>
+      <%= f.simple_fields_for :items do |f2| %>
+        <%= render "allocations/item_fields", :f => f2 %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

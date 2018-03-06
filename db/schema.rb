@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220205634) do
+ActiveRecord::Schema.define(version: 20180305201638) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -134,6 +134,33 @@ ActiveRecord::Schema.define(version: 20180220205634) do
   create_table "screens", force: :cascade do |t|
     t.integer "inches"
   end
+
+  create_table "serviced_items", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "serviced_items", ["item_id"], name: "index_serviced_items_on_item_id"
+  add_index "serviced_items", ["service_id"], name: "index_serviced_items_on_service_id"
+
+  create_table "services", force: :cascade do |t|
+    t.string   "service_type"
+    t.text     "description"
+    t.float    "value"
+    t.string   "invoice_id"
+    t.string   "invoice_filename"
+    t.string   "invoice_content_size"
+    t.string   "invoice_content_type"
+    t.date     "send_date"
+    t.date     "recv_date"
+    t.integer  "supplier_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "services", ["supplier_id"], name: "index_services_on_supplier_id"
 
   create_table "stock_item_counts", force: :cascade do |t|
     t.integer  "stock_item_id"
