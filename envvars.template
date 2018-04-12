@@ -1,0 +1,5 @@
+
+export MYSQL_PASS=""
+export MYSQL_USER=""
+export RAILS_ENV=""
+export SECRET_KEY_BASE=""
