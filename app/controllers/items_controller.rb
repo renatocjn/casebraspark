@@ -11,21 +11,24 @@ class ItemsController < ApplicationController
     if params.key? :item
       unless params[:item][:parkable_item_type].blank?
         if params[:item][:parkable_item_type] == "DvrDevice"
-          @items.joins("INNER JOIN dvr_devices on items.parkable_item_id = dvr_devices.id").select("dvr_devices.*")
+          @items = @items.joins("INNER JOIN dvr_devices on items.parkable_item_id = dvr_devices.id").where(parkable_item_type: "Stabilizer")
           @items = @items.where "dvr_devices.number_of_channels = #{params[:item][:parkable_item][:number_of_channels]}" unless params[:item][:parkable_item][:number_of_channels].blank?
         elsif params[:item][:parkable_item_type] == "NetworkDevice"
-          @items.joins("INNER JOIN network_devices on items.parkable_item_id = network_devices.id").select("network_devices.*")
+          @items = @items.joins("INNER JOIN network_devices on items.parkable_item_id = network_devices.id").where(parkable_item_type: "Stabilizer")
           @items = @items.where "network_devices.number_of_channels = #{params[:item][:parkable_item][:number_of_channels]}" unless params[:item][:parkable_item][:number_of_channels].blank?
         elsif params[:item][:parkable_item_type] == "Screen"
-          @items.joins("INNER JOIN screens on items.parkable_item_id = screens.id").select("screens.*")
+          @items = @items.joins("INNER JOIN screens on items.parkable_item_id = screens.id").where(parkable_item_type: "Stabilizer")
           @items = @items.where "screens.inches = #{params[:item][:parkable_item][:inches]}" unless params[:item][:parkable_item][:inches].blank?
+        elsif params[:item][:parkable_item_type] == "Stabilizer"
+          @items = @items.joins("INNER JOIN stabilizers on items.parkable_item_id = stabilizers.id").where(parkable_item_type: "Stabilizer")
+          @items = @items.where "stabilizers.power = #{params[:item][:parkable_item][:power]}" unless params[:item][:parkable_item][:power].blank?
         elsif params[:item][:parkable_item_type] == "Printer"
-          @items.joins("INNER JOIN printers on items.parkable_item_id = printers.id").select("printers.*")
+          @items = @items.joins("INNER JOIN printers on items.parkable_item_id = printers.id").where(parkable_item_type: "Stabilizer")
           @items = @items.where "printers.functions = #{params[:item][:parkable_item][:functions]}" unless params[:item][:parkable_item][:functions].blank?
           @items = @items.where "printers.connection = #{params[:item][:parkable_item][:connection]}" unless params[:item][:parkable_item][:connection].blank?
           @items = @items.where "printers.paint = #{params[:item][:parkable_item][:paint]}" unless params[:item][:parkable_item][:paint].blank?
         elsif params[:item][:parkable_item_type] == "Computer"
-          @items.joins("INNER JOIN computers on items.parkable_item_id = computers.id").select("computers.*")
+          @items = @items.joins("INNER JOIN computers on items.parkable_item_id = computers.id").where(parkable_item_type: "Stabilizer")
           @items = @items.where "computers.processor = #{params[:item][:parkable_item][:processor]}" unless params[:item][:parkable_item][:processor].blank?
           @items = @items.where "computers.harddrive = #{params[:item][:parkable_item][:harddrive]}" unless params[:item][:parkable_item][:harddrive].blank?
           @items = @items.where "computers.memory = #{params[:item][:parkable_item][:memory]}" unless params[:item][:parkable_item][:memory].blank?
@@ -113,6 +116,6 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:id, :plate, :brand, :model, :serial, :value, :parkable_item_type, :isDischarged, :dischargeDescription,
-        :parkable_item => [:id, :inches, :processor, :memory, :harddrive, :connection, :functions, :paint, :number_of_channels, :function, :kind])
+        :parkable_item => [:id, :inches, :processor, :memory, :harddrive, :connection, :functions, :paint, :number_of_channels, :function, :kind, :power])
     end
 end

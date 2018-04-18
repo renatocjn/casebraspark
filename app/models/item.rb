@@ -55,7 +55,8 @@ class Item < ActiveRecord::Base
         "IpPhone" => "Telefone IP",
         "DvrDevice" => "DVR",
         "NetworkDevice" => "Dispositivo de Rede",
-        "HelpDevice" => "Dispositivo Help"
+        "HelpDevice" => "Dispositivo Help",
+        "Stabilizer" => "Estabilizador"
     }
 
     def type_pt_BR
