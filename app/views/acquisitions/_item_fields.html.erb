@@ -4,23 +4,23 @@
         <div class="row">
             <div class="col-2">
                 <% if type == "Printer" %>
-                    <%= image_tag :printer_card_img, class: "card-img-top", alt: "Impressora", width: "100%", "data-toggle" => "tooltip", "title" => "Impressora" %>
+                    <%= image_tag "printer_card_img.png", class: "card-img-top", alt: "Impressora", width: "100%", "data-toggle" => "tooltip", "title" => "Impressora" %>
                 <% elsif type == "Screen" %>
-                    <%= image_tag :screen_card_img, class: "card-img-top", alt: "Monitor", width: "100%", "data-toggle" => "tooltip", "title" => "Monitor" %>
+                    <%= image_tag "screen_card_img.png", class: "card-img-top", alt: "Monitor", width: "100%", "data-toggle" => "tooltip", "title" => "Monitor" %>
                 <% elsif type == "Computer" %>
-                    <%= image_tag :computer_card_img, class: "card-img-top", alt: "Computador", width: "100%", "data-toggle" => "tooltip", "title" => "Computador" %>
+                    <%= image_tag "computer_card_img.png", class: "card-img-top", alt: "Computador", width: "100%", "data-toggle" => "tooltip", "title" => "Computador" %>
                 <% elsif type == "DvrDevice" %>
-                    <%= image_tag :dvr_card_img, class: "card-img-top", alt: "DVR", width: "100%", "data-toggle" => "tooltip", "title" => "DVR" %>
+                    <%= image_tag "dvr_card_img.png", class: "card-img-top", alt: "DVR", width: "100%", "data-toggle" => "tooltip", "title" => "DVR" %>
                 <% elsif type == "NetworkDevice" %>
-                    <%= image_tag :network_device_card_img, class: "card-img-top", alt: "Dispositivo de Rede", width: "100%", "data-toggle" => "tooltip", "title" => "Dispositivo de Rede" %>
+                    <%= image_tag "network_device_card_img.png", class: "card-img-top", alt: "Dispositivo de Rede", width: "100%", "data-toggle" => "tooltip", "title" => "Dispositivo de Rede" %>
                 <% elsif type == "IpPhone" %>
-                    <%= image_tag :ip_phone_card_img, class: "card-img-top", alt: "Telefone IP", width: "100%", "data-toggle" => "tooltip", "title" => "Telefone IP" %>
+                    <%= image_tag "ip_phone_card_img.png", class: "card-img-top", alt: "Telefone IP", width: "100%", "data-toggle" => "tooltip", "title" => "Telefone IP" %>
                 <% elsif type == "IpCamera" %>
-                    <%= image_tag :camera_card_img, class: "card-img-top", alt: "Câmera", width: "100%", "data-toggle" => "tooltip", "title" => "Câmera" %>
+                    <%= image_tag "camera_card_img.png", class: "card-img-top", alt: "Câmera", width: "100%", "data-toggle" => "tooltip", "title" => "Câmera" %>
                 <% elsif type == "HelpDevice" %>
-                    <%= image_tag :help_card_img, class: "card-img-top", alt: "Dispositivo Help", width: "100%", "data-toggle" => "tooltip", "title" => "Dispositivo Help" %>
+                    <%= image_tag "help_card_img.png", class: "card-img-top", alt: "Dispositivo Help", width: "100%", "data-toggle" => "tooltip", "title" => "Dispositivo Help" %>
                 <% elsif type == "Stabilizer" %>
-                    <%= image_tag :stabilizer_card_img, class: "card-img-top", alt: "Dispositivo Help", width: "100%", "data-toggle" => "tooltip", "title" => "Dispositivo Help" %>
+                    <%= image_tag "stabilizer_card_img.png", class: "card-img-top", alt: "Estabilizador", width: "100%", "data-toggle" => "tooltip", "title" => "Estabilizador" %>
                 <% end %>
             </div>
             <div class="col d-flex justify-content-around flex-wrap">

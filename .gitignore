@@ -78,3 +78,8 @@ pickle-email-*.html
 *.old
 *.jar
 xerial*.*
+
+
+vendor/bundle
+public/assets
+envvars
