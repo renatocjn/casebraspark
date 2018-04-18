@@ -35,17 +35,17 @@ ActiveRecord::Base.transaction do
         Supplier.create! name: "Nagem", email: "contato@nagem.com", phones: "9999-9999"
         Supplier.create! name: "CStore", email: "contato@cstore.com", phones: "9999-9999"
 
-        admin = Operator.new
-        admin.name = "Administrador"
-        admin.email = "admin@casebras.com.br"
-        admin.password = "Case1234"
-        admin.password_confirmation = "Case1234"
-        admin.isAdmin = true
-        admin.isBlocked = false
-        admin.save!
-
         StockItem.create! short_description: "Caixa de cabeamento de rede"
     end
+
+    admin = Operator.new
+    admin.name = "Administrador"
+    admin.email = "admin@casebras.com.br"
+    admin.password = "Case1234"
+    admin.password_confirmation = "Case1234"
+    admin.isAdmin = true
+    admin.isBlocked = false
+    admin.save!
 
     Placement.create! other: "Estoque", address: "Matriz", contact: "helpdesk@casebras.com.br"
 

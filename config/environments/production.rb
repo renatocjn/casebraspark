@@ -77,7 +77,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.web_console.whiny_requests = false
+  #config.web_console.whiny_requests = false
 
-  ActiveRecord::Base.logger.level = Logger::INFO
+  #ActiveRecord::Base.logger.level = Logger::INFO
 end

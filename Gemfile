@@ -12,7 +12,7 @@ gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -84,3 +84,4 @@ gem "jquery-inputmask-rails", "~> 2.5"
 # Added at 2018-01-10 19:17:15 +0000 by ubuntu:
 gem "jquery-ui-rails", "~> 6.0"
 
+gem 'mysql2', '~> 0.3.6'
