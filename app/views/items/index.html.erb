@@ -30,6 +30,10 @@
                 <%= f2.input :inches, as: :integer, placeholder: "Tamanho da tela", label: false %>
               </div>
 
+              <div class="collapse" id="collapse_stabilizer">
+                <%= f2.input :power, as: :integer, placeholder: "Potência", label: false %>
+              </div>
+
               <div class="collapse" id="collapse_help_device">
                 <%= f2.input :kind, as: :select, prompt: "Tipo de dispositivo", label: false, collection: HelpDevice::DEVICE_TYPES %>
               </div>

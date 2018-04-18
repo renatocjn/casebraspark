@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305201638) do
+ActiveRecord::Schema.define(version: 20180417184020) do
 
   create_table "acquisitions", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -161,6 +161,12 @@ ActiveRecord::Schema.define(version: 20180305201638) do
   end
 
   add_index "services", ["supplier_id"], name: "index_services_on_supplier_id"
+
+  create_table "stabilizers", force: :cascade do |t|
+    t.integer  "power"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stock_item_counts", force: :cascade do |t|
     t.integer  "stock_item_id"
